@@ -1,0 +1,14 @@
+
+db: &db
+  host: localhost
+  adapter: postgresql
+  username: pvpc
+  password: pvpc123
+
+development:
+  <<: *db
+  database: pvpc_dev
+
+test:
+  <<: *db
+  database: pvpc_test
