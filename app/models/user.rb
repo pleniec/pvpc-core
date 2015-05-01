@@ -1,0 +1,20 @@
+class User < ActiveRecord::Base
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  validates :access_token, uniqueness: true,
+            if: -> (u) { u.access_token.present? }
+
+  def self.authenticate(email, password)
+    return nil if email.nil? || password.nil?
+    user = self.find_by_email(email)
+    return nil if user.nil? || !user.valid_password?(password)
+    user.generate_access_token!
+    user.save!
+    user
+  end
+
+  def generate_access_token!
+    self.access_token = Devise.friendly_token
+  end
+end

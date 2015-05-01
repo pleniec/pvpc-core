@@ -6,6 +6,10 @@ ruby '2.1.5'
 gem 'rails', '4.2.1'
 gem 'jbuilder', '~> 2.0'
 gem 'pg'
+gem 'devise'
+gem 'activeadmin', '~> 1.0.0.pre1'
+gem 'carrierwave'
+gem 'cloudinary'
 
 group :development do
   gem 'spring'
