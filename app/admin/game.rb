@@ -1,15 +1,19 @@
 ActiveAdmin.register Game do
-  permit_params :icon, :image,
-                game_translations_attributes: [:id, :locale, :title,
+  permit_params :name, :icon, :image,
+                game_translations_attributes: [:id, :locale,
                                                :description, :_destroy]
+
+  filter :name
+  filter :created_at
+  filter :updated_at
 
   form do |f|
     inputs do
+      f.input :name
       f.input :icon, as: :file, input_html: {accept: 'image/*'}
       f.input :image, as: :file, input_html: {accept: 'image/*'}
       f.has_many :game_translations, allow_destroy: true do |gtf|
         gtf.input :locale, as: :select, collection: I18n.available_locales
-        gtf.input :title
         gtf.input :description
       end
     end
@@ -19,6 +23,7 @@ ActiveAdmin.register Game do
   index do
     selectable_column
     id_column
+    column :name
     column :icon do |game|
       image_tag game.icon
     end
@@ -30,6 +35,7 @@ ActiveAdmin.register Game do
   show do
     attributes_table do
       row :id
+      row :name
       row :icon do
         image_tag game.icon
       end
@@ -43,7 +49,6 @@ ActiveAdmin.register Game do
           table_for game.game_translations do
             column :id
             column :locale
-            column :title
             column :description
           end
         end

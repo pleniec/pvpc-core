@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501171940) do
+ActiveRecord::Schema.define(version: 20150502175629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,8 +52,7 @@ ActiveRecord::Schema.define(version: 20150501171940) do
   create_table "game_translations", force: :cascade do |t|
     t.integer  "game_id",     null: false
     t.string   "locale",      null: false
-    t.string   "title",       null: false
-    t.string   "description", null: false
+    t.text     "description", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -63,6 +62,7 @@ ActiveRecord::Schema.define(version: 20150501171940) do
     t.datetime "updated_at", null: false
     t.string   "icon",       null: false
     t.string   "image",      null: false
+    t.string   "name",       null: false
   end
 
   create_table "users", force: :cascade do |t|
