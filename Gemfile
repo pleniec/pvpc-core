@@ -7,6 +7,16 @@ gem 'rails', '4.2.1'
 gem 'jbuilder', '~> 2.0'
 gem 'pg'
 gem 'devise'
+#gem 'activeadmin', '~> 1.0.0.pre1'
+#gem 'carrierwave'
+#gem 'cloudinary'
+#gem 'uglifier'
+
+=begin
+gem 'rails', '4.2.1'
+gem 'jbuilder', '~> 2.0'
+gem 'pg'
+gem 'devise'
 gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'carrierwave'
 gem 'cloudinary'
@@ -23,3 +33,4 @@ end
 group :test do
   gem 'rspec-rails'
 end
+=end
