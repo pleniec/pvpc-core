@@ -11,3 +11,7 @@ development:
 test:
   <<: *db
   database: pvpc_test
+
+production:
+  <<: *db
+  database: pvpc_dev
