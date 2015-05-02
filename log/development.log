@@ -5124,3 +5124,383 @@ Processing by ActiveAdmin::Devise::SessionsController#new as HTML
   Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/devise/shared/_links.erb (1.4ms)
   Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (20.8ms)
 Completed 200 OK in 214ms (Views: 211.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-05-02 14:25:02 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (38.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/railties-4.2.1/lib/rails/templates/rails/welcome/index.html.erb (12.8ms)
+Completed 200 OK in 59ms (Views: 58.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/games" for 127.0.0.1 at 2015-05-02 14:31:07 +0200
+Processing by Admin::GamesController#index as HTML
+Completed 401 Unauthorized in 32ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2015-05-02 14:31:07 +0200
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/devise/shared/_links.erb (1.7ms)
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (82.9ms)
+Completed 200 OK in 780ms (Views: 617.8ms | ActiveRecord: 136.9ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2015-05-02 14:31:08 +0200
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2015-05-02 14:31:08 +0200
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/devise/shared/_links.erb (0.3ms)
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (13.0ms)
+Completed 200 OK in 234ms (Views: 232.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2015-05-02 14:31:13 +0200
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"VhIMAlG3YQ8U2T9qP0EetF/RVCKMBVUg5ApN4Vj+lg3Kdarf+TuXun4bjLM/9qocjWyfPOPgunUWrGA3H5TKzw==", "admin"=>{"email"=>"admin@example.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[35mAdmin Load (60.6ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."email" = $1  ORDER BY "admins"."id" ASC LIMIT 1  [["email", "admin@example.com"]]
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  UPDATE "admins" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "sign_in_count" = $3, "updated_at" = $4 WHERE "admins"."id" = $5  [["last_sign_in_at", "2015-05-01 15:49:57.170574"], ["current_sign_in_at", "2015-05-02 12:31:13.566506"], ["sign_in_count", 4], ["updated_at", "2015-05-02 12:31:13.568013"], ["id", 1]]
+  [1m[36m (21.1ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/admin
+Completed 302 Found in 323ms (ActiveRecord: 83.5ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2015-05-02 14:31:13 +0200
+Processing by Admin::DashboardController#index as HTML
+  [1m[35mAdmin Load (0.7ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1  [["id", 1]]
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/page/index.html.arb (190.9ms)
+Completed 200 OK in 211ms (Views: 195.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/admin/admins" for 127.0.0.1 at 2015-05-02 14:31:16 +0200
+Processing by Admin::AdminsController#index as HTML
+  [1m[36mAdmin Load (0.8ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35m (1.1ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "admins" LIMIT 30 OFFSET 0) subquery_for_count
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "admins" LIMIT 30 OFFSET 0) subquery_for_count[0m
+  [1m[35m (0.7ms)[0m  SELECT COUNT(*) FROM "admins"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "admins" LIMIT 30 OFFSET 0) subquery_for_count[0m
+  [1m[35mAdmin Load (1.1ms)[0m  SELECT  "admins".* FROM "admins"  ORDER BY "admins"."id" desc LIMIT 30 OFFSET 0
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/index.html.arb (268.5ms)
+Completed 200 OK in 302ms (Views: 270.8ms | ActiveRecord: 3.7ms)
+
+
+Started GET "/assets/active_admin/orderable-29374dbb55b0012d78a37c614d573bb3474f0779849b478a147d0f1845ca6617.png" for 127.0.0.1 at 2015-05-02 14:31:16 +0200
+
+
+Started GET "/admin/users" for 127.0.0.1 at 2015-05-02 14:31:28 +0200
+Processing by Admin::UsersController#index as HTML
+  [1m[36mAdmin Load (0.7ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35m (134.1ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "users" LIMIT 30 OFFSET 0) subquery_for_count
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "users" LIMIT 30 OFFSET 0) subquery_for_count[0m
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "users" LIMIT 30 OFFSET 0) subquery_for_count[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" desc LIMIT 30 OFFSET 0
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/index.html.arb (407.9ms)
+Completed 200 OK in 425ms (Views: 276.3ms | ActiveRecord: 138.5ms)
+
+
+Started GET "/admin/games" for 127.0.0.1 at 2015-05-02 14:31:30 +0200
+Processing by Admin::GamesController#index as HTML
+  [1m[36mAdmin Load (0.5ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (107.3ms)[0m  SELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0
+  [1m[36m (1.2ms)[0m  [1mSELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)[0m
+  [1m[35m (1.1ms)[0m  SELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)
+  [1m[36mSQL (1.2ms)[0m  [1mSELECT  DISTINCT "games"."id", "games"."id" AS alias_0 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id"  ORDER BY "games"."id" desc LIMIT 30 OFFSET 0[0m
+  [1m[35mSQL (1.3ms)[0m  SELECT "games"."id" AS t0_r0, "games"."created_at" AS t0_r1, "games"."updated_at" AS t0_r2, "games"."icon" AS t0_r3, "games"."image" AS t0_r4, "game_translations"."id" AS t1_r0, "game_translations"."game_id" AS t1_r1, "game_translations"."locale" AS t1_r2, "game_translations"."title" AS t1_r3, "game_translations"."description" AS t1_r4, "game_translations"."created_at" AS t1_r5, "game_translations"."updated_at" AS t1_r6 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)  ORDER BY "games"."id" desc
+  [1m[36mGameTranslation Load (0.9ms)[0m  [1mSELECT "game_translations".* FROM "game_translations"[0m
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/index.html.arb (546.6ms)
+Completed 200 OK in 579ms (Views: 434.2ms | ActiveRecord: 138.0ms)
+
+
+Started GET "/admin/games/6" for 127.0.0.1 at 2015-05-02 14:31:33 +0200
+Processing by Admin::GamesController#show as HTML
+  Parameters: {"id"=>"6"}
+  [1m[35mAdmin Load (0.4ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.3ms)[0m  [1mSELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" = $1 LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.4ms)[0m  SELECT "games"."id" AS t0_r0, "games"."created_at" AS t0_r1, "games"."updated_at" AS t0_r2, "games"."icon" AS t0_r3, "games"."image" AS t0_r4, "game_translations"."id" AS t1_r0, "game_translations"."game_id" AS t1_r1, "game_translations"."locale" AS t1_r2, "game_translations"."title" AS t1_r3, "game_translations"."description" AS t1_r4, "game_translations"."created_at" AS t1_r5, "game_translations"."updated_at" AS t1_r6 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" = $1 AND "games"."id" IN (6)  [["id", 6]]
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/show.html.arb (210.0ms)
+Completed 200 OK in 239ms (Views: 232.4ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/admin/games/6/edit" for 127.0.0.1 at 2015-05-02 14:31:36 +0200
+Processing by Admin::GamesController#edit as HTML
+  Parameters: {"id"=>"6"}
+  [1m[36mAdmin Load (0.5ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.7ms)[0m  SELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" = $1 LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.6ms)[0m  [1mSELECT "games"."id" AS t0_r0, "games"."created_at" AS t0_r1, "games"."updated_at" AS t0_r2, "games"."icon" AS t0_r3, "games"."image" AS t0_r4, "game_translations"."id" AS t1_r0, "game_translations"."game_id" AS t1_r1, "game_translations"."locale" AS t1_r2, "game_translations"."title" AS t1_r3, "game_translations"."description" AS t1_r4, "game_translations"."created_at" AS t1_r5, "game_translations"."updated_at" AS t1_r6 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" = $1 AND "games"."id" IN (6)[0m  [["id", 6]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" = $1 LIMIT 1  [["id", "6"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "games"."id" AS t0_r0, "games"."created_at" AS t0_r1, "games"."updated_at" AS t0_r2, "games"."icon" AS t0_r3, "games"."image" AS t0_r4, "game_translations"."id" AS t1_r0, "game_translations"."game_id" AS t1_r1, "game_translations"."locale" AS t1_r2, "game_translations"."title" AS t1_r3, "game_translations"."description" AS t1_r4, "game_translations"."created_at" AS t1_r5, "game_translations"."updated_at" AS t1_r6 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" = $1 AND "games"."id" IN (6)[0m  [["id", "6"]]
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/edit.html.arb (246.0ms)
+Completed 200 OK in 266ms (Views: 259.3ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/admin/games" for 127.0.0.1 at 2015-05-02 14:31:41 +0200
+Processing by Admin::GamesController#index as HTML
+  [1m[35mAdmin Load (0.5ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mSQL (1.4ms)[0m  [1mSELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0[0m
+  [1m[35m (1.5ms)[0m  SELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)
+  [1m[36m (1.2ms)[0m  [1mSELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)[0m
+  [1m[35mSQL (1.3ms)[0m  SELECT  DISTINCT "games"."id", "games"."id" AS alias_0 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id"  ORDER BY "games"."id" desc LIMIT 30 OFFSET 0
+  [1m[36mSQL (0.8ms)[0m  [1mSELECT "games"."id" AS t0_r0, "games"."created_at" AS t0_r1, "games"."updated_at" AS t0_r2, "games"."icon" AS t0_r3, "games"."image" AS t0_r4, "game_translations"."id" AS t1_r0, "game_translations"."game_id" AS t1_r1, "game_translations"."locale" AS t1_r2, "game_translations"."title" AS t1_r3, "game_translations"."description" AS t1_r4, "game_translations"."created_at" AS t1_r5, "game_translations"."updated_at" AS t1_r6 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)  ORDER BY "games"."id" desc[0m
+  [1m[35mGameTranslation Load (0.4ms)[0m  SELECT "game_translations".* FROM "game_translations"
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/index.html.arb (258.4ms)
+Completed 200 OK in 267ms (Views: 254.4ms | ActiveRecord: 7.1ms)
+
+
+Started GET "/admin/users" for 127.0.0.1 at 2015-05-02 14:31:43 +0200
+Processing by Admin::UsersController#index as HTML
+  [1m[36mAdmin Load (0.5ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35m (1.0ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "users" LIMIT 30 OFFSET 0) subquery_for_count
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "users" LIMIT 30 OFFSET 0) subquery_for_count[0m
+  [1m[35m (1.1ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "users" LIMIT 30 OFFSET 0) subquery_for_count[0m
+  [1m[35mUser Load (1.1ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" desc LIMIT 30 OFFSET 0
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/index.html.arb (267.2ms)
+Completed 200 OK in 274ms (Views: 266.5ms | ActiveRecord: 3.8ms)
+
+
+Started GET "/admin/games" for 127.0.0.1 at 2015-05-02 14:32:23 +0200
+Processing by Admin::GamesController#index as HTML
+  [1m[36mAdmin Load (0.6ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.6ms)[0m  SELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0
+  [1m[36m (0.7ms)[0m  [1mSELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)[0m
+  [1m[35m (0.8ms)[0m  SELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)
+  [1m[36mSQL (1.4ms)[0m  [1mSELECT  DISTINCT "games"."id", "games"."id" AS alias_0 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id"  ORDER BY "games"."id" desc LIMIT 30 OFFSET 0[0m
+  [1m[35mSQL (1.1ms)[0m  SELECT "games"."id" AS t0_r0, "games"."created_at" AS t0_r1, "games"."updated_at" AS t0_r2, "games"."icon" AS t0_r3, "games"."image" AS t0_r4, "game_translations"."id" AS t1_r0, "game_translations"."game_id" AS t1_r1, "game_translations"."locale" AS t1_r2, "game_translations"."title" AS t1_r3, "game_translations"."description" AS t1_r4, "game_translations"."created_at" AS t1_r5, "game_translations"."updated_at" AS t1_r6 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)  ORDER BY "games"."id" desc
+  [1m[36mGameTranslation Load (0.8ms)[0m  [1mSELECT "game_translations".* FROM "game_translations"[0m
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/index.html.arb (255.3ms)
+Completed 200 OK in 261ms (Views: 252.4ms | ActiveRecord: 6.0ms)
+
+
+Started GET "/admin/games/new" for 127.0.0.1 at 2015-05-02 14:32:26 +0200
+Processing by Admin::GamesController#new as HTML
+  [1m[35mAdmin Load (0.3ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1  [["id", 1]]
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/new.html.arb (225.4ms)
+Completed 200 OK in 231ms (Views: 227.8ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/admin/games" for 127.0.0.1 at 2015-05-02 14:32:30 +0200
+Processing by Admin::GamesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"PPXaYqV2yJtG0ToRM/xZllc5+aHzopGzWzpYDz0abd1XU/TTSD7Ed5c2JgQUNMqVczFetiSuiiWLVsctx1rBTw==", "game"=>{"icon"=>#<ActionDispatch::Http::UploadedFile:0x007f8c556539a0 @tempfile=#<Tempfile:/tmp/RackMultipart20150502-4631-1gkvv4j.desktop>, @original_filename="SoapUI 5.0.0.desktop", @content_type="application/x-desktop", @headers="Content-Disposition: form-data; name=\"game[icon]\"; filename=\"SoapUI 5.0.0.desktop\"\r\nContent-Type: application/x-desktop\r\n">}, "commit"=>"Create Game"}
+  [1m[36mAdmin Load (0.7ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/new.html.arb (221.7ms)
+Completed 200 OK in 248ms (Views: 223.7ms | ActiveRecord: 1.4ms)
+
+
+Started POST "/admin/games" for 127.0.0.1 at 2015-05-02 14:32:35 +0200
+Processing by Admin::GamesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"usPh1dS8Tdnw4l2zIVrPebX6/+A1SQHU+GFBqD9/kXrRZc9kOfRBNSEFQaYGklx6kfJY9+JFGkIoDd6KxT896A==", "game"=>{"icon"=>#<ActionDispatch::Http::UploadedFile:0x007f8c550c3a58 @tempfile=#<Tempfile:/tmp/RackMultipart20150502-4631-1x332gi.desktop>, @original_filename="SoapUI 5.0.0.desktop", @content_type="application/x-desktop", @headers="Content-Disposition: form-data; name=\"game[icon]\"; filename=\"SoapUI 5.0.0.desktop\"\r\nContent-Type: application/x-desktop\r\n">, "image"=>#<ActionDispatch::Http::UploadedFile:0x007f8c550c3940 @tempfile=#<Tempfile:/tmp/RackMultipart20150502-4631-sko2dt.desktop>, @original_filename="SoapUI 5.0.0.desktop", @content_type="application/x-desktop", @headers="Content-Disposition: form-data; name=\"game[image]\"; filename=\"SoapUI 5.0.0.desktop\"\r\nContent-Type: application/x-desktop\r\n">}, "commit"=>"Create Game"}
+  [1m[35mAdmin Load (0.3ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (49.5ms)[0m  INSERT INTO "games" ("icon", "image", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["icon", "ybnria8llrcmoafkqewm.jpg"], ["image", "uxojtaswskqnlpuiilrt.jpg"], ["created_at", "2015-05-02 12:32:35.958161"], ["updated_at", "2015-05-02 12:32:35.958161"]]
+  [1m[36m (0.7ms)[0m  [1mROLLBACK[0m
+Completed 500 Internal Server Error in 1250ms (ActiveRecord: 50.9ms)
+
+Cloudinary::CarrierWave::UploadError (Invalid image file):
+  cloudinary (1.1.0) lib/cloudinary/carrier_wave/storage.rb:40:in `store!'
+  carrierwave (0.10.0) lib/carrierwave/uploader/store.rb:59:in `block in store!'
+  carrierwave (0.10.0) lib/carrierwave/uploader/callbacks.rb:17:in `with_callbacks'
+  carrierwave (0.10.0) lib/carrierwave/uploader/store.rb:58:in `store!'
+  carrierwave (0.10.0) lib/carrierwave/mount.rb:375:in `store!'
+  carrierwave (0.10.0) lib/carrierwave/mount.rb:207:in `store_icon!'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:432:in `block in make_lambda'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:228:in `call'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:228:in `block in halting_and_conditional'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:506:in `call'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:506:in `block in call'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:506:in `each'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:506:in `call'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:92:in `_run_callbacks'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:776:in `_run_save_callbacks'
+  activerecord (4.2.1) lib/active_record/callbacks.rb:302:in `create_or_update'
+  activerecord (4.2.1) lib/active_record/persistence.rb:120:in `save'
+  activerecord (4.2.1) lib/active_record/validations.rb:37:in `save'
+  activerecord (4.2.1) lib/active_record/attribute_methods/dirty.rb:21:in `save'
+  activerecord (4.2.1) lib/active_record/transactions.rb:286:in `block (2 levels) in save'
+  activerecord (4.2.1) lib/active_record/transactions.rb:347:in `block in with_transaction_returning_status'
+  activerecord (4.2.1) lib/active_record/connection_adapters/abstract/database_statements.rb:213:in `block in transaction'
+  activerecord (4.2.1) lib/active_record/connection_adapters/abstract/transaction.rb:188:in `within_new_transaction'
+  activerecord (4.2.1) lib/active_record/connection_adapters/abstract/database_statements.rb:213:in `transaction'
+  activerecord (4.2.1) lib/active_record/transactions.rb:220:in `transaction'
+  activerecord (4.2.1) lib/active_record/transactions.rb:344:in `with_transaction_returning_status'
+  activerecord (4.2.1) lib/active_record/transactions.rb:286:in `block in save'
+  activerecord (4.2.1) lib/active_record/transactions.rb:301:in `rollback_active_record_state!'
+  activerecord (4.2.1) lib/active_record/transactions.rb:285:in `save'
+  activeadmin (1.0.0.pre1) lib/active_admin/resource_controller/data_access.rb:159:in `block in save_resource'
+  activesupport (4.2.1) lib/active_support/core_ext/object/try.rb:77:in `call'
+  activesupport (4.2.1) lib/active_support/core_ext/object/try.rb:77:in `public_send'
+  activesupport (4.2.1) lib/active_support/core_ext/object/try.rb:77:in `try!'
+  activesupport (4.2.1) lib/active_support/core_ext/object/try.rb:63:in `try'
+  activeadmin (1.0.0.pre1) lib/active_admin/callbacks.rb:79:in `block (2 levels) in define_active_admin_callbacks'
+  activeadmin (1.0.0.pre1) lib/active_admin/resource_controller/data_access.rb:158:in `save_resource'
+  activeadmin (1.0.0.pre1) lib/active_admin/resource_controller/data_access.rb:148:in `block in create_resource'
+  activesupport (4.2.1) lib/active_support/core_ext/object/try.rb:77:in `call'
+  activesupport (4.2.1) lib/active_support/core_ext/object/try.rb:77:in `public_send'
+  activesupport (4.2.1) lib/active_support/core_ext/object/try.rb:77:in `try!'
+  activesupport (4.2.1) lib/active_support/core_ext/object/try.rb:63:in `try'
+  activeadmin (1.0.0.pre1) lib/active_admin/callbacks.rb:79:in `block (2 levels) in define_active_admin_callbacks'
+  activeadmin (1.0.0.pre1) lib/active_admin/resource_controller/data_access.rb:147:in `create_resource'
+  inherited_resources (1.6.0) lib/inherited_resources/actions.rb:33:in `create'
+  actionpack (4.2.1) lib/action_controller/metal/implicit_render.rb:4:in `send_action'
+  actionpack (4.2.1) lib/abstract_controller/base.rb:198:in `process_action'
+  actionpack (4.2.1) lib/action_controller/metal/rendering.rb:10:in `process_action'
+  actionpack (4.2.1) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:117:in `call'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:117:in `call'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:555:in `block (2 levels) in compile'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:505:in `call'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:505:in `call'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:92:in `_run_callbacks'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:776:in `_run_process_action_callbacks'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.1) lib/abstract_controller/callbacks.rb:19:in `process_action'
+  actionpack (4.2.1) lib/action_controller/metal/rescue.rb:29:in `process_action'
+  actionpack (4.2.1) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+  activesupport (4.2.1) lib/active_support/notifications.rb:164:in `block in instrument'
+  activesupport (4.2.1) lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+  activesupport (4.2.1) lib/active_support/notifications.rb:164:in `instrument'
+  actionpack (4.2.1) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+  actionpack (4.2.1) lib/action_controller/metal/params_wrapper.rb:250:in `process_action'
+  activerecord (4.2.1) lib/active_record/railties/controller_runtime.rb:18:in `process_action'
+  actionpack (4.2.1) lib/abstract_controller/base.rb:137:in `process'
+  actionview (4.2.1) lib/action_view/rendering.rb:30:in `process'
+  actionpack (4.2.1) lib/action_controller/metal.rb:196:in `dispatch'
+  actionpack (4.2.1) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+  actionpack (4.2.1) lib/action_controller/metal.rb:237:in `block in action'
+  actionpack (4.2.1) lib/action_dispatch/routing/route_set.rb:74:in `call'
+  actionpack (4.2.1) lib/action_dispatch/routing/route_set.rb:74:in `dispatch'
+  actionpack (4.2.1) lib/action_dispatch/routing/route_set.rb:43:in `serve'
+  actionpack (4.2.1) lib/action_dispatch/journey/router.rb:43:in `block in serve'
+  actionpack (4.2.1) lib/action_dispatch/journey/router.rb:30:in `each'
+  actionpack (4.2.1) lib/action_dispatch/journey/router.rb:30:in `serve'
+  actionpack (4.2.1) lib/action_dispatch/routing/route_set.rb:819:in `call'
+  warden (1.2.3) lib/warden/manager.rb:35:in `block in call'
+  warden (1.2.3) lib/warden/manager.rb:34:in `catch'
+  warden (1.2.3) lib/warden/manager.rb:34:in `call'
+  rack (1.6.0) lib/rack/etag.rb:24:in `call'
+  rack (1.6.0) lib/rack/conditionalget.rb:38:in `call'
+  rack (1.6.0) lib/rack/head.rb:13:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/flash.rb:260:in `call'
+  rack (1.6.0) lib/rack/session/abstract/id.rb:225:in `context'
+  rack (1.6.0) lib/rack/session/abstract/id.rb:220:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/cookies.rb:560:in `call'
+  activerecord (4.2.1) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:649:in `call'
+  activerecord (4.2.1) lib/active_record/migration.rb:378:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `call'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `_run_callbacks'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:776:in `_run_call_callbacks'
+  activesupport (4.2.1) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.0) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.0) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.0) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/static.rb:113:in `call'
+  rack (1.6.0) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.0) lib/rack/lock.rb:17:in `call'
+  rack (1.6.0) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.0) lib/rack/handler/webrick.rb:89:in `service'
+  /home/leniec/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/leniec/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/leniec/.rvm/rubies/ruby-2.1.5/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (8.3ms)
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.2ms)
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.3ms)
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (27.0ms)
+
+
+Started GET "/admin/games" for 127.0.0.1 at 2015-05-02 14:37:25 +0200
+Processing by Admin::GamesController#index as HTML
+  [1m[35mAdmin Load (0.6ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.9ms)[0m  [1mSELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0[0m
+  [1m[35m (1.5ms)[0m  SELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)
+  [1m[36m (1.0ms)[0m  [1mSELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)[0m
+  [1m[35mSQL (1.3ms)[0m  SELECT  DISTINCT "games"."id", "games"."id" AS alias_0 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id"  ORDER BY "games"."id" desc LIMIT 30 OFFSET 0
+  [1m[36mSQL (1.3ms)[0m  [1mSELECT "games"."id" AS t0_r0, "games"."created_at" AS t0_r1, "games"."updated_at" AS t0_r2, "games"."icon" AS t0_r3, "games"."image" AS t0_r4, "game_translations"."id" AS t1_r0, "game_translations"."game_id" AS t1_r1, "game_translations"."locale" AS t1_r2, "game_translations"."title" AS t1_r3, "game_translations"."description" AS t1_r4, "game_translations"."created_at" AS t1_r5, "game_translations"."updated_at" AS t1_r6 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)  ORDER BY "games"."id" desc[0m
+  [1m[35mGameTranslation Load (0.8ms)[0m  SELECT "game_translations".* FROM "game_translations"
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/index.html.arb (282.6ms)
+Completed 200 OK in 316ms (Views: 275.6ms | ActiveRecord: 18.2ms)
+
+
+Started GET "/admin/games/new" for 127.0.0.1 at 2015-05-02 14:37:27 +0200
+Processing by Admin::GamesController#new as HTML
+  [1m[36mAdmin Load (0.6ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1[0m  [["id", 1]]
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/new.html.arb (227.9ms)
+Completed 200 OK in 234ms (Views: 230.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/admin/games/new" for 127.0.0.1 at 2015-05-02 14:37:47 +0200
+Processing by Admin::GamesController#new as HTML
+  [1m[35mAdmin Load (0.6ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1  [["id", 1]]
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/new.html.arb (229.4ms)
+Completed 200 OK in 265ms (Views: 228.5ms | ActiveRecord: 12.5ms)
+
+
+Started GET "/admin/games/new" for 127.0.0.1 at 2015-05-02 14:38:52 +0200
+Processing by Admin::GamesController#new as HTML
+  [1m[36mAdmin Load (1.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1[0m  [["id", 1]]
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/new.html.arb (260.6ms)
+Completed 200 OK in 299ms (Views: 259.0ms | ActiveRecord: 13.6ms)
+
+
+Started GET "/admin/games/new" for 127.0.0.1 at 2015-05-02 14:39:06 +0200
+Processing by Admin::GamesController#new as HTML
+  [1m[35mAdmin Load (0.5ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1  [["id", 1]]
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/new.html.arb (225.7ms)
+Completed 200 OK in 262ms (Views: 224.5ms | ActiveRecord: 14.2ms)
+
+
+Started GET "/admin/games" for 127.0.0.1 at 2015-05-02 14:43:02 +0200
+Processing by Admin::GamesController#index as HTML
+  [1m[36mAdmin Load (0.4ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = $1  ORDER BY "admins"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (1.1ms)[0m  SELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0
+  [1m[36m (1.0ms)[0m  [1mSELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)[0m
+  [1m[35m (0.7ms)[0m  SELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  DISTINCT "games"."id" FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" LIMIT 30 OFFSET 0[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(DISTINCT "games"."id") FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)
+  [1m[36mSQL (1.4ms)[0m  [1mSELECT  DISTINCT "games"."id", "games"."id" AS alias_0 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id"  ORDER BY "games"."id" desc LIMIT 30 OFFSET 0[0m
+  [1m[35mSQL (1.5ms)[0m  SELECT "games"."id" AS t0_r0, "games"."created_at" AS t0_r1, "games"."updated_at" AS t0_r2, "games"."icon" AS t0_r3, "games"."image" AS t0_r4, "game_translations"."id" AS t1_r0, "game_translations"."game_id" AS t1_r1, "game_translations"."locale" AS t1_r2, "game_translations"."title" AS t1_r3, "game_translations"."description" AS t1_r4, "game_translations"."created_at" AS t1_r5, "game_translations"."updated_at" AS t1_r6 FROM "games" LEFT OUTER JOIN "game_translations" ON "game_translations"."game_id" = "games"."id" WHERE "games"."id" IN (6)  ORDER BY "games"."id" desc
+  [1m[36mGameTranslation Load (0.6ms)[0m  [1mSELECT "game_translations".* FROM "game_translations"[0m
+  Rendered /home/leniec/.rvm/gems/ruby-2.1.5@pvpc-core/gems/activeadmin-1.0.0.pre1/app/views/active_admin/resource/index.html.arb (241.5ms)
+Completed 200 OK in 249ms (Views: 237.3ms | ActiveRecord: 6.7ms)

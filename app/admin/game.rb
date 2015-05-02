@@ -5,8 +5,8 @@ ActiveAdmin.register Game do
 
   form do |f|
     inputs do
-      f.input :icon, as: :file
-      f.input :image, as: :file
+      f.input :icon, as: :file, input_html: {accept: 'image/*'}
+      f.input :image, as: :file, input_html: {accept: 'image/*'}
       f.has_many :game_translations, allow_destroy: true do |gtf|
         gtf.input :locale, as: :select, collection: I18n.available_locales
         gtf.input :title
