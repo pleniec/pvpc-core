@@ -1,10 +1,10 @@
-class Api::V1::UsersController < Api::BaseController
-  skip_before_action :authenticate
+class Api::V1::UserController < Api::BaseController
+  skip_before_action :authenticate, only: [:create, :login]
 
   def create
     @user = User.new(create_params)
     @user.generate_access_token!
-    render status: @user.save ? :ok : :unprocessable_entity
+    @user.save!
   end
 
   def login
@@ -15,6 +15,6 @@ class Api::V1::UsersController < Api::BaseController
   private
 
   def create_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password, :nickname)
   end
 end

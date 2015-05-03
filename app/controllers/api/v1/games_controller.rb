@@ -4,6 +4,6 @@ class Api::V1::GamesController < Api::BaseController
   end
 
   def show
-    @game = Game.find(params[:id])
+    @game = Game.eager_load(:translations, :rules).find(params[:id])
   end
 end

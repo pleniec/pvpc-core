@@ -2,8 +2,17 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :user_games
+  has_many :games, through: :user_games
+
+  validates :nickname, presence: true, uniqueness: true
   validates :access_token, uniqueness: true,
             if: -> (u) { u.access_token.present? }
+
+  def self.authenticate_with_access_token(access_token)
+    return nil unless access_token
+    self.find_by_access_token(access_token)
+  end
 
   def self.authenticate(email, password)
     return nil if email.nil? || password.nil?

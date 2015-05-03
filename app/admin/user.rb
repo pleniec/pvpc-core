@@ -3,6 +3,7 @@ ActiveAdmin.register User do
 
   actions :index, :show
 
+  filter :nickname
   filter :email
   filter :sign_in_count
   filter :last_sign_in_at
@@ -11,6 +12,7 @@ ActiveAdmin.register User do
 
   index do
     id_column
+    column :nickname
     column :email
     column :sign_in_count
     column :last_sign_in_at
@@ -22,6 +24,7 @@ ActiveAdmin.register User do
   show do
     attributes_table do
       row :id
+      row :nickname
       row :email
       row :reset_password_sent_at
       row :sign_in_count

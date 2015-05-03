@@ -5,9 +5,13 @@ Rails.application.routes.draw do
 
   namespace :api, constraints: {format: :json}, defaults: {format: :json} do
     namespace :v1 do
-      resources :users, only: [:create] do
-        post :login, on: :collection
+      resources :user, only: [:create] do
+        collection do
+          post :login
+        end
       end
+      resources :user_games, path: 'user/games',
+                only: [:index, :create, :update, :destroy]
       resources :games, only: [:index, :show]
     end
   end

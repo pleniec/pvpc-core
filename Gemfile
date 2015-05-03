@@ -11,15 +11,14 @@ gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'uglifier'
+gem 'globalize'
 
 group :production do
   gem 'rails_12factor'
 end
 
-group :development do
+group :development, :test do
   gem 'spring'
-end
-
-group :test do
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end

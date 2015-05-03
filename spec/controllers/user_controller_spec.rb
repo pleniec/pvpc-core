@@ -1,7 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::UsersController do
-  include_examples 'without_basic_authentication', create: :post, login: :post
+RSpec.describe Api::V1::UserController do
+  include_examples 'without_basic_authentication',
+                   create: :post, login: :post
 
   context 'with authentication' do
     include_context 'with_basic_authentication'

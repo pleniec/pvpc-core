@@ -1,7 +1,9 @@
 ActiveAdmin.register Game do
   permit_params :name, :icon, :image,
                 game_translations_attributes: [:id, :locale,
-                                               :description, :_destroy]
+                                               :description, :_destroy],
+                rules_attributes: [:id, :name, :_destroy,
+                  entries_attributes: [:id, :key, :value, :_destroy]]
 
   filter :name
   filter :created_at
@@ -15,6 +17,13 @@ ActiveAdmin.register Game do
       f.has_many :game_translations, allow_destroy: true do |gtf|
         gtf.input :locale, as: :select, collection: I18n.available_locales
         gtf.input :description
+      end
+      f.has_many :rules, allow_destroy: true do |grf|
+        grf.input :name
+        grf.has_many :entries, allow_destroy: true do |graf|
+          graf.input :key
+          graf.input :value
+        end
       end
     end
     f.actions
@@ -50,6 +59,17 @@ ActiveAdmin.register Game do
             column :id
             column :locale
             column :description
+          end
+        end
+      end
+      if game.rules.any?
+        panel 'Rules' do
+          table_for game.rules do
+            column :id
+            column :name
+            column :entries do |rule|
+              rule.entries.map { |e| "#{e.key}: #{e.value}" }.join(', ')
+            end
           end
         end
       end
