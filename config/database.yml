@@ -1,17 +1,22 @@
-db: &db
+heroku_dev: &heroku_dev
+  host: ec2-54-247-79-142.eu-west-1.compute.amazonaws.com
+  adapter: postgresql
+  database: dcrc47jt3asttp
+  username: clalmadevtfngq
+  password: 8gJqLeyXLY-COJMU9zWnl1ORv0
+
+local: &local
   host: localhost
   adapter: postgresql
+  database: pvpc
   username: pvpc
   password: pvpc123
 
 development:
-  <<: *db
-  database: pvpc_dev
+  <<: *heroku_dev
 
 test:
-  <<: *db
-  database: pvpc_test
+  <<: *local
 
 production:
-  <<: *db
-  database: pvpc_dev
+  <<: *heroku_dev

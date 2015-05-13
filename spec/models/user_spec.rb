@@ -1,25 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe User do
-  before :each do
-    @email = 'user@mail.com'
-    @password = 'password123'
-    @user = User.create(email: @email, password: @password)
+  before do
+    @user = FactoryGirl.create(:user)
   end
 
   describe 'authentication' do
-    it 'returns nil on nil email' do
-      authentication_result = User.authenticate(nil, @password)
-      expect(authentication_result).to be nil
-    end
-
-    it 'returns nil on invalid credentials' do
-      authentication_result = User.authenticate(@email, 'password1234')
-      expect(authentication_result).to be nil
+    it 'raises User::InvalidCredentials on invalid credentials' do
+      credentials = [[nil, nil], [@user.email, nil], [nil, 'password123'], [@user.email, 'password1234']]
+      credentials.each do |email, password|
+        expect { User.authenticate(email, password) }.to raise_error(User::InvalidCredentials)
+      end
     end
 
     it 'returns user on valid credentials' do
-      authentication_result = User.authenticate(@email, @password)
+      authentication_result = User.authenticate(@user.email, 'password123')
       expect(authentication_result).to eql(@user)
     end
   end

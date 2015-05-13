@@ -7,6 +7,7 @@ class Api::BaseController < ApplicationController
   before_action :authenticate
 
   rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+  rescue_from User::InvalidCredentials, with: :invalid_credentials
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   private
@@ -22,5 +23,9 @@ class Api::BaseController < ApplicationController
 
   def record_not_found(e)
     render json: {message: e.message}, status: :not_found
+  end
+
+  def invalid_credentials
+    render json: {message: 'invalid credentials'}, status: :unprocessable_entity
   end
 end

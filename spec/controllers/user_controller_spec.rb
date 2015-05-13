@@ -1,29 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UserController do
-  include_examples 'without_basic_authentication',
-                   create: :post, login: :post
-
-  context 'with authentication' do
-    include_context 'with_basic_authentication'
+  context 'authenticated (http)' do
+    include_context 'http_authenticated'
 
     describe 'POST create' do
       it '422 on invalid data' do
-        post :create, format: :json, user: {email: '', password: ''}
+        post :create, format: :json, user: {bad_attribute: '20c35u'}
         expect(response.status).to eql(422)
       end
 
       it 'creates user on valid data' do
-        post :create, format: :json, user: {email: 'user@mail.com',
-                                            password: 'password123'}
+        post :create, format: :json, user: FactoryGirl.attributes_for(:user)
         expect(response.status).to eql(200)
-        expect(User.count).to eql(1)
+        expect(User.any?).to be true
       end
     end
 
     describe 'POST login' do
       before :each do
-        User.create!(email: 'user@mail.com', password: 'password123')
+        @user = FactoryGirl.create(:user)
       end
 
       it '422 on invalid data' do
@@ -32,7 +28,7 @@ RSpec.describe Api::V1::UserController do
       end
 
       it 'creates access token on valid data' do
-        post :login, format: :json, email: 'user@mail.com', password: 'password123'
+        post :login, format: :json, email: @user.email, password: 'password123'
         response_body = JSON.parse(response.body)
         expect(response_body['access_token']).to eql(User.first.access_token)
       end

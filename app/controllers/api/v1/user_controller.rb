@@ -9,7 +9,6 @@ class Api::V1::UserController < Api::BaseController
 
   def login
     @user = User.authenticate(params[:email], params[:password])
-    render status: @user ? :ok : :unprocessable_entity
   end
 
   private
