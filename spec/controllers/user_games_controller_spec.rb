@@ -1,30 +1,44 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UserGamesController do
-  include_examples 'unauthenticated',
-                   index: {method: :get},
-                   create: {method: :post},
-                   update: {method: :patch, id: 1},
-                   destroy: {method: :delete, id: 1}
-
   context 'authenticated' do
     include_context 'authenticated'
 
     before do
-      @games = FactoryGirl.create_list(:game, 3)
+      @game = FactoryGirl.create(:game)
     end
 
     describe 'POST #create' do
       it 'adds game to user' do
-        post :create, id: @games[0], nickname: 'trol', access_token: @access_token
+        post :create, id: @game.id, user_game: {nickname: 'trol'}, access_token: @current_user.access_token
         expect(response.status).to eql(200)
       end
     end
 
-    describe 'PATCH #update' do
-    end
+    context 'with one game created' do
+      before do
+        UserGame.create!(user_id: @current_user.id, game_id: @game.id, nickname: 'trol')
+      end
 
-    describe 'DELETE #destroy' do
+      describe 'GET #index' do
+        it 'shows user games' do
+          get :index, access_token: @current_user.access_token, format: :json
+        end
+      end
+
+      describe 'PATCH #update' do
+        it "updates user's nickname in game" do
+          patch :update, id: @game.id, user_game: {nickname: 'trolek'}, access_token: @current_user.access_token
+          expect(@current_user.user_games[0].nickname).to eql('trolek')
+        end
+      end
+
+      describe 'DELETE #destroy' do
+        it 'deletes game from user' do
+          delete :destroy, id: @game.id, access_token: @current_user.access_token
+          expect(@current_user.games.any?).to be false
+        end
+      end
     end
   end
 end
