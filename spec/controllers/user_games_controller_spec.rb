@@ -23,6 +23,7 @@ RSpec.describe Api::V1::UserGamesController do
       describe 'GET #index' do
         it 'shows user games' do
           get :index, access_token: @current_user.access_token, format: :json
+          expect(response.status).to eql(200)
         end
       end
 

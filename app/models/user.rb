@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   has_many :user_games
   has_many :games, through: :user_games
+  has_many :received_invites, class_name: 'FriendshiptInvite', foreign_key: :to_user_id
+  has_many :sent_invites, class_name: 'FriendshiptInvite', foreign_key: :from_user_id
 
   before_create :generate_access_token!
 
