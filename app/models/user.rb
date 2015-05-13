@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_many :user_games
   has_many :games, through: :user_games
 
+  before_create :generate_access_token!
+
   validates :nickname, presence: true, uniqueness: true
   validates :access_token, uniqueness: true,
             if: -> (u) { u.access_token.present? }

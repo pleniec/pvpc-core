@@ -23,8 +23,7 @@ RSpec.describe User do
     expect(@user.persisted?).to be true
   end
 
-  it 'generates access token' do
-    @user.generate_access_token!
-    expect(@user.access_token).not_to be nil
+  it 'has access token after create' do
+    expect(@user.access_token).to_not be nil
   end
 end

@@ -10,8 +10,21 @@ RSpec.describe Api::V1::UserGamesController do
   context 'authenticated' do
     include_context 'authenticated'
 
-    it 'lols' do
-      game = FactoryGirl.create(:game)
+    before do
+      @games = FactoryGirl.create_list(:game, 3)
+    end
+
+    describe 'POST #create' do
+      it 'adds game to user' do
+        post :create, id: @games[0], nickname: 'trol', access_token: @access_token
+        expect(response.status).to eql(200)
+      end
+    end
+
+    describe 'PATCH #update' do
+    end
+
+    describe 'DELETE #destroy' do
     end
   end
 end

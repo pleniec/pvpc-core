@@ -11,9 +11,8 @@ class Api::V1::UserGamesController < Api::BaseController
   end
 
   def update
-    @user_game = UserGame.find_by!(user_id: current_user.id,
-                                   game_id: params[:game_id])
-    @user_game.update!(nickname: params[:nickname])
+    UserGame.find_by!(user_id: current_user.id,
+                      game_id: params[:game_id]).update!(update_params)
     render nothing: true
   end
 
@@ -21,5 +20,11 @@ class Api::V1::UserGamesController < Api::BaseController
     UserGame.find_by!(user_id: current_user.id,
                       game_id: params[:game_id]).destroy!
     render nothing: true
+  end
+
+  private
+
+  def update_params
+    {nickname: params[:nickname]}
   end
 end
