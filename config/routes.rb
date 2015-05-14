@@ -10,9 +10,9 @@ Rails.application.routes.draw do
         resources :games, only: [:index, :create, :update, :destroy],
                   controller: :user_games
       end
-      resources :friendship_invites, path: 'user/invites',
-                only: [:index, :create]
       resources :games, only: [:index]
+      #resources :friendship_invites, path: 'user/invites',
+      #          only: [:index, :create]
     end
   end
 end

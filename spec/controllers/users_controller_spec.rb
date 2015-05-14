@@ -1,8 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController do
-  context 'authenticated (http)' do
+  context 'unauthenticated' do
     include_context 'http_authenticated'
+
+    describe 'POST #create' do
+      it 'creates user' do
+        post :create, format: :json, user: {email: 'user@mail.com', nickname: 'zalu', password: 'password123'}
+        expect(response.status).to eql(200)
+        expect(User.count).to eql(1)
+      end
+
+      it "doesn't create user on invalid data" do
+        post :create, format: :json, user: {sraken: 'hehe'}
+        expect(response.status).to eql(422)
+        expect(User.count).to eql(0)
+      end
+    end
+  end
+
+  context 'authenticated' do
+    include_context 'authenticated'
+  end
+
+=begin
+  context 'authenticated (http)' do
 
     describe 'POST create' do
       it '422 on invalid data' do
@@ -34,4 +56,5 @@ RSpec.describe Api::V1::UsersController do
       end
     end
   end
+=end
 end

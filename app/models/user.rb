@@ -31,4 +31,13 @@ class User < ActiveRecord::Base
   def generate_access_token!
     self.access_token = Devise.friendly_token
   end
+
+  def to_builder(include_access_token = false)
+    Jbuilder.new do |json|
+      json.id id
+      json.email email
+      json.nickname nickname
+      json.access_token access_token if include_access_token
+    end
+  end
 end
