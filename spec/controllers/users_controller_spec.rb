@@ -46,5 +46,20 @@ RSpec.describe Api::V1::UsersController do
         expect(JSON.parse(response.body).all? { |u| u['access_token'].nil? })
       end
     end
+
+    describe 'PATCH #update' do
+      it 'updates user' do
+        patch :update, id: @users[0].id, access_token: @users[0].access_token, format: :json,
+          user: {email: 'troll@zal.pl'}
+        expect(response.status).to eql(200)
+        expect(@users[0].reload.email).to eql('troll@zal.pl')
+      end
+
+      it "doesn't update other user" do
+        patch :update, id: @users[1].id, access_token: @users[0].access_token, format: :json,
+          user: {email: 'troll@zal.pl'}
+        expect(response.status).to eql(403)
+      end
+    end
   end
 end

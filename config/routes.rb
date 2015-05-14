@@ -9,10 +9,9 @@ Rails.application.routes.draw do
         post :login, on: :collection
         resources :games, only: [:index, :create, :update, :destroy],
                   controller: :user_games
+        resources :friendship_invites, only: [:index, :create, :update, :destroy]
       end
       resources :games, only: [:index]
-      #resources :friendship_invites, path: 'user/invites',
-      #          only: [:index, :create]
     end
   end
 end

@@ -16,7 +16,8 @@ module Api
       end
 
       def update
-        User.find(params[:id]).update!(update_params)
+        @user.update!(update_params)
+        render nothing: true
       end
 
       private
