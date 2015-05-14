@@ -17,44 +17,34 @@ RSpec.describe Api::V1::UsersController do
         expect(User.count).to eql(0)
       end
     end
+
+    describe 'POST #login' do
+      before do
+        @user = FactoryGirl.create(:user)
+      end
+
+      it 'authenticates user' do
+        post :login, format: :json, email: @user.email, password: 'password123'
+        expect(response.status).to eql(200)
+        expect(JSON.parse(response.body)['access_token']).not_to be nil
+      end
+
+      it "doesn't authenticate user on invalid credentials" do
+        post :login, format: :json, email: @user.email, password: 'password123456'
+        expect(response.status).to eql(422)
+      end
+    end
   end
 
   context 'authenticated' do
     include_context 'authenticated'
-  end
 
-=begin
-  context 'authenticated (http)' do
-
-    describe 'POST create' do
-      it '422 on invalid data' do
-        post :create, format: :json, user: {bad_attribute: '20c35u'}
-        expect(response.status).to eql(422)
-      end
-
-      it 'creates user on valid data' do
-        post :create, format: :json, user: FactoryGirl.attributes_for(:user)
+    describe 'GET #index' do
+      it 'renders users' do
+        get :index, format: :json, access_token: @users[0].access_token
         expect(response.status).to eql(200)
-        expect(User.any?).to be true
-      end
-    end
-
-    describe 'POST login' do
-      before :each do
-        @user = FactoryGirl.create(:user)
-      end
-
-      it '422 on invalid data' do
-        post :login, format: :json, email: 'wrl', password: 'password123'
-        expect(response.status).to eql(422)
-      end
-
-      it 'creates access token on valid data' do
-        post :login, format: :json, email: @user.email, password: 'password123'
-        response_body = JSON.parse(response.body)
-        expect(response_body['access_token']).to eql(User.first.access_token)
+        expect(JSON.parse(response.body).all? { |u| u['access_token'].nil? })
       end
     end
   end
-=end
 end
