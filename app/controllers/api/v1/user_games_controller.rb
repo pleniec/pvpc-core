@@ -1,34 +1,35 @@
-class Api::V1::UserGamesController < Api::BaseController
-  def index
-    @games = current_user.games
-  end
+module Api
+  module V1
+    class UserGamesController < Api::BaseController
+      load_and_authorize_resource
 
-  def create
-    UserGame.create!(user_id: current_user.id,
-                     game_id: params[:id],
-                     nickname: create_params[:nickname])
-    render nothing: true
-  end
+      def index
+      end
 
-  def update
-    UserGame.find_by!(user_id: current_user.id,
-                      game_id: params[:id]).update!(update_params)
-    render nothing: true
-  end
+      def create
+        UserGame.create!(create_params)
+        render nothing: true
+      end
 
-  def destroy
-    UserGame.find_by!(user_id: current_user.id,
-                      game_id: params[:id]).destroy!
-    render nothing: true
-  end
+      def update
+        @user_game.update!(update_params)
+        render nothing: true
+      end
 
-  private
+      def destroy
+        @user_game.destroy!
+        render nothing: true
+      end
 
-  def create_params
-    params.require(:user_game).permit(:nickname)
-  end
+      private
 
-  def update_params
-    params.require(:user_game).permit(:nickname)
+      def create_params
+        params.require(:user_game).permit(:nickname, :game_id).merge(user_id: current_user.id)
+      end
+
+      def update_params
+        params.require(:user_game).permit(:nickname)
+      end
+    end
   end
 end

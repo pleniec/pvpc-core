@@ -13,4 +13,18 @@ class Game < ActiveRecord::Base
   validates :name, presence: true
   validates :icon, presence: true
   validates :image, presence: true
+
+  default_scope { eager_load(rules: :entries) }
+
+  def to_builder
+    Jbuilder.new do |json|
+      json.id id
+      json.name name
+      json.icon icon
+      json.image image
+      json.rules rules do |rule|
+        json.merge! rule.to_builder.attributes!
+      end
+    end
+  end
 end

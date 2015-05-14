@@ -1,9 +1,10 @@
-class Api::V1::GamesController < Api::BaseController
-  def index
-    @games = Game.all
-  end
+module Api
+  module V1
+    class GamesController < Api::BaseController
+      load_and_authorize_resource
 
-  def show
-    @game = Game.eager_load(:translations, :rules).find(params[:id])
+      def index
+      end
+    end
   end
 end

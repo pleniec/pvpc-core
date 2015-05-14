@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::UserController do
+RSpec.describe Api::V1::UsersController do
   context 'authenticated (http)' do
     include_context 'http_authenticated'
 

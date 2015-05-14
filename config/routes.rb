@@ -5,14 +5,14 @@ Rails.application.routes.draw do
 
   namespace :api, constraints: {format: :json}, defaults: {format: :json} do
     namespace :v1 do
-      resources :user, only: [:create, :update] do
+      resources :users, only: [:create, :update] do
         post :login, on: :collection
+        resources :games, only: [:index, :create, :update, :destroy],
+                  controller: :user_games
       end
-      resources :user_games, path: 'user/games',
-                only: [:index, :create, :update, :destroy]
       resources :friendship_invites, path: 'user/invites',
                 only: [:index, :create]
-      resources :games, only: [:index, :show]
+      resources :games, only: [:index]
     end
   end
 end

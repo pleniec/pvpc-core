@@ -1,45 +1,69 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UserGamesController do
-  context 'authenticated' do
-    include_context 'authenticated'
+  include_context 'authenticated'
 
-    before do
-      @game = FactoryGirl.create(:game)
+  before do
+    @games = FactoryGirl.create_list(:game, 4).to_a
+    @user_games = @games[0..1].map do |game|
+      FactoryGirl.create(:user_game, user: @users[0], game: game)
+    end
+  end
+
+  describe 'GET #index' do
+    it "renders user's games" do
+      get :index, user_id: @users[0].id, access_token: @users[0].access_token, format: :json
+      expect(response.status).to eql(200)
+      expect(JSON.parse(response.body).size).to eql(2)
+    end
+  end
+
+  describe 'POST #create' do
+    it 'adds game to user' do
+      post :create, user_id: @users[0].id, access_token: @users[0].access_token, format: :json,
+        user_game: {nickname: 'nickname', game_id: @games[2].id}
+      expect(@users[0].games.count).to eql(3)
     end
 
-    describe 'POST #create' do
-      it 'adds game to user' do
-        post :create, id: @game.id, user_game: {nickname: 'trol'}, access_token: @current_user.access_token
-        expect(response.status).to eql(200)
-      end
+    it 'does not add duplicates' do
+      post :create, user_id: @users[0].id, access_token: @users[0].access_token, format: :json,
+        user_game: {nickname: 'nickname', game_id: @games[0].id}
+      expect(response.status).to eql(422)
     end
 
-    context 'with one game created' do
-      before do
-        UserGame.create!(user_id: @current_user.id, game_id: @game.id, nickname: 'trol')
-      end
+    it 'adds game to other user' do
+      post :create, user_id: @users[1].id, access_token: @users[1].access_token, format: :json,
+        user_game: {nickname: 'nickname', game_id: @games[0].id}
+      expect(response.status).to eql(200)
+      expect(@users[1].games.count).to eql(1)
+    end
+  end
 
-      describe 'GET #index' do
-        it 'shows user games' do
-          get :index, access_token: @current_user.access_token, format: :json
-          expect(response.status).to eql(200)
-        end
-      end
+  describe 'PATCH #update' do
+    it "updates user's nick" do
+      patch :update, user_id: @users[0].id, id: @user_games[0].id, access_token: @users[0].access_token, format: :json,
+        user_game: {nickname: 'nick'}
+      expect(response.status).to eql(200)
+      expect(@user_games[0].reload.nickname).to eql('nick')
+    end
 
-      describe 'PATCH #update' do
-        it "updates user's nickname in game" do
-          patch :update, id: @game.id, user_game: {nickname: 'trolek'}, access_token: @current_user.access_token
-          expect(@current_user.user_games[0].nickname).to eql('trolek')
-        end
-      end
+    it "doesn't update other user's nickname" do
+      patch :update, user_id: @users[0].id, id: @user_games[0].id, access_token: @users[1].access_token, format: :json,
+        user_game: {nickname: 'nick'}
+      expect(response.status).to eql(403)
+    end
+  end
 
-      describe 'DELETE #destroy' do
-        it 'deletes game from user' do
-          delete :destroy, id: @game.id, access_token: @current_user.access_token
-          expect(@current_user.games.any?).to be false
-        end
-      end
+  describe 'DELETE #destroy' do
+    it 'deletes game from user' do
+      delete :destroy, user_id: @users[0].id, id: @user_games[0].id, access_token: @users[0].access_token, format: :json
+      expect(response.status).to eql(200)
+      expect(@users[0].games.count).to eql(1)
+    end
+
+    it "doesn't delete other user's game" do
+      delete :destroy, user_id: @users[0].id, id: @user_games[0].id, access_token: @users[1].access_token, format: :json
+      expect(response.status).to eql(403)
     end
   end
 end
