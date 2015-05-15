@@ -33,8 +33,19 @@ RSpec.describe Api::V1::FriendshipInvitesController do
   end
 
   describe 'PATCH #update' do
+    it 'accepts friendship invite' do
+      patch :update, user_id: @users[0].id, id: @users[0].friendship_invites[0].id,
+        access_token: @users[0].access_token, format: :json
+      expect(@users[0].friends.count).to eql(1)
+      expect(@users[1].friends.count).to eql(1)
+    end
   end
 
   describe 'DELETE #destroy' do
+    it 'rejects friendship invite' do
+      delete :destroy, user_id: @users[0].id, id: @users[0].friendship_invites[0].id,
+        access_token: @users[0].access_token, format: :json
+      expect(@users[0].friendship_invites.count).to eql(0)
+    end
   end
 end
