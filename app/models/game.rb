@@ -2,8 +2,6 @@ class Game < ActiveRecord::Base
   mount_uploader :icon, GameIconUploader unless Rails.env.test?
   mount_uploader :image, GameImageUploader unless Rails.env.test?
 
-  translates :description
-
   has_many :game_translations
   has_many :rules, class_name: 'GameRule', foreign_key: :game_id
 
@@ -16,7 +14,7 @@ class Game < ActiveRecord::Base
 
   default_scope { eager_load(rules: :entries) }
 
-  def to_builder
+  def to_builder(with_rules = false)
     Jbuilder.new do |json|
       json.id id
       json.name name

@@ -11,7 +11,6 @@ gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'uglifier'
-gem 'globalize'
 gem 'cancancan', '~> 1.10'
 
 group :production do

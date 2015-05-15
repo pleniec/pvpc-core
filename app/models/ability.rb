@@ -10,6 +10,8 @@ class Ability
     can [:index, :create], UserGame
     can [:update, :destroy], UserGame, user_id: user.id
     can [:index, :update, :destroy], FriendshipInvite, to_user_id: user.id
-    can [:create], FriendshipInvite, from_user_id: user.id
+    can :create, FriendshipInvite, from_user_id: user.id
+    can :index, Friendship
+    can :destroy, Friendship, user_id: user.id
   end
 end
