@@ -1,13 +1,14 @@
 module Api
   module V1
     class UserGamesController < Api::BaseController
-      load_and_authorize_resource
+      load_and_authorize_resource :user
+      load_and_authorize_resource :user_game, through: :user
 
       def index
       end
 
       def create
-        UserGame.create!(create_params)
+        @user.user_games.create!(create_params)
       end
 
       def update
@@ -21,7 +22,7 @@ module Api
       private
 
       def create_params
-        params.require(:user_game).permit(:nickname, :game_id).merge(user_id: current_user.id)
+        params.require(:user_game).permit(:nickname, :game_id)
       end
 
       def update_params

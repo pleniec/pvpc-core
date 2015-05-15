@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    can [:index, :create, :login], User
+    can [:index, :show, :create, :login], User
     can :update, User, id: user.id
     can :index, Game
     can [:index, :create], UserGame

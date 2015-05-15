@@ -19,6 +19,19 @@ RSpec.describe User do
     end
   end
 
+  describe 'token authentication' do
+    it 'returns nil on invalid access token' do
+      access_tokens = [nil, 'invalidaccesstoken']
+      access_tokens.each do |access_token|
+        expect(User.authenticate_with_access_token(access_token)).to be nil
+      end
+    end
+
+    it 'returns user on valid access token' do
+      expect(User.authenticate_with_access_token(@user.access_token)).to eql(@user)
+    end
+  end
+
   it 'can be created' do
     expect(@user.persisted?).to be true
   end
@@ -26,4 +39,18 @@ RSpec.describe User do
   it 'has access token after create' do
     expect(@user.access_token).to_not be nil
   end
+
+  it 'generates access token' do
+    old_access_token = @user.access_token
+    @user.generate_access_token!
+    expect(@user.access_token).not_to eql(old_access_token)
+  end
+
+  it 'converts to json without access token' do
+    expect(JSON.parse(@user.to_builder.target!)['access_token']).to be nil
+  end 
+
+  it 'converts to json with access token' do
+    expect(JSON.parse(@user.to_builder(true).target!)['access_token']).not_to be nil
+  end 
 end

@@ -6,14 +6,12 @@ class FriendshipInvite < ActiveRecord::Base
 
   validates :from, presence: true
   validates :to, presence: true, uniqueness: {scope: :from}
+  validate :user_cannot_invite_himself
+  validate :user_cannot_invite_friends
 
   def accept!
     Friendship.create!(user: from, friend: to)
-    Friendship.create!(user: to, friend: friend)
-    destroy!
-  end
-
-  def reject!
+    Friendship.create!(user: to, friend: from)
     destroy!
   end
 
@@ -21,6 +19,20 @@ class FriendshipInvite < ActiveRecord::Base
     Jbuilder.new do |json|
       json.id id
       json.from { json.merge! from.to_builder.attributes! }
+    end
+  end
+
+  private
+
+  def user_cannot_invite_himself
+    if from == to
+      errors[:to] << 'cannot invite yourself'
+    end
+  end
+
+  def user_cannot_invite_friends
+    if from.friends.exists?(to.id)
+      errors[:to] << 'cannot invite friend'
     end
   end
 end

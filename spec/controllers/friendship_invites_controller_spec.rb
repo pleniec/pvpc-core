@@ -22,7 +22,7 @@ RSpec.describe Api::V1::FriendshipInvitesController do
       post :create, user_id: @users[0].id, access_token: @users[0].access_token, format: :json,
         friendship_invite: {to_user_id: @users[2].id}
       expect(response.status).to eql(200)
-      expect(@users[2].received_invitations.count).to eql(1)
+      expect(@users[2].friendship_invites.count).to eql(1)
     end
 
     it "doesn't send duplicates" do

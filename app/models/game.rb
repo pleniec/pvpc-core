@@ -20,9 +20,7 @@ class Game < ActiveRecord::Base
       json.name name
       json.icon icon
       json.image image
-      json.rules rules do |rule|
-        json.merge! rule.to_builder.attributes!
-      end
+      json.rules rules { |r| json.merge! r.to_builder.attributes! } if with_rules
     end
   end
 end

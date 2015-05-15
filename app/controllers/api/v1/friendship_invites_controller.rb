@@ -1,13 +1,14 @@
 module Api
   module V1
     class FriendshipInvitesController < Api::BaseController
-      load_and_authorize_resource
+      load_and_authorize_resource :user
+      load_and_authorize_resource :friendship_invite, through: :user
       
       def index
       end
 
       def create
-        current_user.sent_invitations.create!(create_params)
+        @user.sent_invites.create!(create_params)
       end
 
       def update
@@ -15,7 +16,7 @@ module Api
       end
 
       def destroy
-        @friendship_invite.reject!
+        @friendship_invite.destroy!
       end
 
       private

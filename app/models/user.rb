@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
 
   has_many :user_games
   has_many :games, through: :user_games
-  has_many :received_invitations, class_name: 'FriendshipInvite', foreign_key: :to_user_id
-  has_many :sent_invitations, class_name: 'FriendshipInvite', foreign_key: :from_user_id
+  has_many :friendship_invites, class_name: 'FriendshipInvite', foreign_key: :to_user_id
+  has_many :sent_invites, class_name: 'FriendshipInvite', foreign_key: :from_user_id
   has_many :friendships
   has_many :friends, through: :friendships
 
@@ -34,12 +34,12 @@ class User < ActiveRecord::Base
     self.access_token = Devise.friendly_token
   end
 
-  def to_builder(include_access_token = false)
+  def to_builder(with_access_token = false)
     Jbuilder.new do |json|
       json.id id
       json.email email
       json.nickname nickname
-      json.access_token access_token if include_access_token
+      json.access_token access_token if with_access_token
     end
   end
 end

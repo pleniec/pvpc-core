@@ -1,7 +1,4 @@
-FactoryGirl.define do  factory :friendship do
-    
-  end
-
+FactoryGirl.define do
   factory :user do
     sequence(:email) { |n| "user#{n}@mail.com" }
     password 'password123'
