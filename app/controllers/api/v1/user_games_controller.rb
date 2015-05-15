@@ -8,17 +8,14 @@ module Api
 
       def create
         UserGame.create!(create_params)
-        render nothing: true
       end
 
       def update
         @user_game.update!(update_params)
-        render nothing: true
       end
 
       def destroy
         @user_game.destroy!
-        render nothing: true
       end
 
       private

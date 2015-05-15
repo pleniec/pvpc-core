@@ -11,6 +11,7 @@ module Api
     rescue_from User::InvalidCredentials, with: :invalid_credentials
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from CanCan::AccessDenied, with: :access_denied
+    rescue_from ActionView::MissingTemplate, with: :missing_template
 
     private
 
@@ -33,6 +34,10 @@ module Api
 
     def access_denied
       render nothing: true, status: :forbidden
+    end
+
+    def missing_template
+      render nothing: true
     end
   end
 end

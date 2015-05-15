@@ -17,7 +17,6 @@ module Api
 
       def update
         @user.update!(update_params)
-        render nothing: true
       end
 
       private
