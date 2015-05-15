@@ -8,7 +8,7 @@ module Api
       end
 
       def create
-        @user.user_games.create!(create_params)
+        @user_game.save!
       end
 
       def update
