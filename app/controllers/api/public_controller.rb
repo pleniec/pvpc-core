@@ -1,15 +1,13 @@
 module Api
-  class PublicController < ApplicationController
+  class PublicController < ApiController
     attr_reader :current_user
 
     http_basic_authenticate_with name: 'pvpc', password: 'pefalpe987'
-    protect_from_forgery with: :null_session
 
     before_action :authenticate
 
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     rescue_from User::InvalidCredentials, with: :invalid_credentials
-    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from CanCan::AccessDenied, with: :access_denied
     rescue_from ActionView::MissingTemplate, with: :missing_template
 
@@ -22,10 +20,6 @@ module Api
 
     def record_invalid(e)
       render json: e.record.errors, status: :unprocessable_entity
-    end
-
-    def record_not_found(e)
-      render json: {message: e.message}, status: :not_found
     end
 
     def invalid_credentials

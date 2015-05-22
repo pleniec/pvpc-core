@@ -1,5 +1,3 @@
-if @user
+json.user do
   json.id @user.id
-else
-  json.id nil
 end

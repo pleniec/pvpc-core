@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       resources :games, only: [:index]
     end
     namespace :private do
-      get '/users/by_access_token/:access_token', to: 'api/private/users#by_access_token'
+      get 'users/by_access_token', to: 'users#by_access_token'
     end
   end
 end
