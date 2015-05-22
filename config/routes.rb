@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   namespace :api, constraints: {format: :json}, defaults: {format: :json} do
-    namespace :v1 do
+    namespace :public do
       resources :users, only: [:index, :create, :update] do
         post :login, on: :collection
         resources :games, only: [:index, :create, :update, :destroy],
@@ -13,6 +13,9 @@ Rails.application.routes.draw do
         resources :friendships, only: [:index, :destroy]
       end
       resources :games, only: [:index]
+    end
+    namespace :private do
+      get '/users/by_access_token/:access_token', to: 'api/private/users#by_access_token'
     end
   end
 end

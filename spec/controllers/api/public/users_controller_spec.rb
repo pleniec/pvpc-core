@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::UsersController do
+RSpec.describe Api::Public::UsersController do
   context 'unauthenticated' do
-    include_context 'http_authenticated'
+    include_context 'http_authenticated', 'pvpc', 'pefalpe987'
 
     describe 'POST #create' do
       it 'creates user' do
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::UsersController do
   end
 
   context 'authenticated' do
-    include_context 'authenticated'
+    include_context 'public/authenticated'
 
     describe 'GET #index' do
       it 'renders users' do

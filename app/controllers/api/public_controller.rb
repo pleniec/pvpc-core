@@ -1,5 +1,5 @@
 module Api
-  class BaseController < ApplicationController
+  class PublicController < ApplicationController
     attr_reader :current_user
 
     http_basic_authenticate_with name: 'pvpc', password: 'pefalpe987'
