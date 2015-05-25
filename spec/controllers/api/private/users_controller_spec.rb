@@ -8,12 +8,12 @@ RSpec.describe Api::Private::UsersController do
   end
 
   it 'does not return user with id on invalid access token' do
-    get :by_access_token, access_token: 'impossibru!', format: :json
+    get :token_check, access_token: 'impossibru!', format: :json
     expect(response.status).to eql(404)
   end
 
   it 'returns user with id on valid access token' do
-    get :by_access_token, access_token: @user.access_token, format: :json
+    get :token_check, access_token: @user.access_token, format: :json
     expect(response.status).to eql(200)
     expect(JSON.parse(response.body)['user']['id']).to eql(@user.id)
   end
