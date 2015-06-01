@@ -7,14 +7,14 @@ module Api
     before_action :authenticate
 
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
-    rescue_from User::InvalidCredentials, with: :invalid_credentials
+    rescue_from Users::User::InvalidCredentials, with: :invalid_credentials
     rescue_from CanCan::AccessDenied, with: :access_denied
     rescue_from ActionView::MissingTemplate, with: :missing_template
 
     private
 
     def authenticate
-      @current_user = User.authenticate_with_access_token(params[:access_token])
+      @current_user = Users::Session.new(access_token: params[:access_token]).to_user
       render nothing: true, status: :unauthorized unless @current_user
     end
 

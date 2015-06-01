@@ -4,14 +4,14 @@ RSpec.describe Api::Public::FriendshipInvitesController do
   include_context 'public/authenticated'
 
   before do
-    FriendshipInvite.create!(from: @users[0], to: @users[1])
-    FriendshipInvite.create!(from: @users[2], to: @users[1])
-    FriendshipInvite.create!(from: @users[1], to: @users[0])
+    Users::FriendshipInvite.create!(from: @users[0], to: @users[1])
+    Users::FriendshipInvite.create!(from: @users[2], to: @users[1])
+    Users::FriendshipInvite.create!(from: @users[1], to: @users[0])
   end
 
   describe 'GET #index' do
     it 'renders friendship invites' do
-      get :index, user_id: @users[0].id, access_token: @users[0].access_token, format: :json
+      get :index, user_id: @users[0].id, access_token: @users[0].session.access_token, format: :json
       expect(response.status).to eql(200)
       expect(JSON.parse(response.body).size).to eql(1)
     end
@@ -19,14 +19,14 @@ RSpec.describe Api::Public::FriendshipInvitesController do
 
   describe 'POST #create' do
     it 'sends invite' do
-      post :create, user_id: @users[0].id, access_token: @users[0].access_token, format: :json,
+      post :create, user_id: @users[0].id, access_token: @users[0].session.access_token, format: :json,
         friendship_invite: {to_user_id: @users[2].id}
       expect(response.status).to eql(200)
       expect(@users[2].friendship_invites.count).to eql(1)
     end
 
     it "doesn't send duplicates" do
-      post :create, user_id: @users[0].id, access_token: @users[0].access_token, format: :json,
+      post :create, user_id: @users[0].id, access_token: @users[0].session.access_token, format: :json,
         friendship_invite: {to_user_id: @users[1].id}
       expect(response.status).to eql(422)
     end
@@ -35,7 +35,7 @@ RSpec.describe Api::Public::FriendshipInvitesController do
   describe 'PATCH #update' do
     it 'accepts friendship invite' do
       patch :update, user_id: @users[0].id, id: @users[0].friendship_invites[0].id,
-        access_token: @users[0].access_token, format: :json
+        access_token: @users[0].session.access_token, format: :json
       expect(@users[0].friends.count).to eql(1)
       expect(@users[1].friends.count).to eql(1)
     end
@@ -44,7 +44,7 @@ RSpec.describe Api::Public::FriendshipInvitesController do
   describe 'DELETE #destroy' do
     it 'rejects friendship invite' do
       delete :destroy, user_id: @users[0].id, id: @users[0].friendship_invites[0].id,
-        access_token: @users[0].access_token, format: :json
+        access_token: @users[0].session.access_token, format: :json
       expect(@users[0].friendship_invites.count).to eql(0)
     end
   end

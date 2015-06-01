@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users, skip: :all
   devise_for :admins, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -13,9 +12,6 @@ Rails.application.routes.draw do
         resources :friendships, only: [:index, :destroy]
       end
       resources :games, only: [:index]
-    end
-    namespace :private do
-      get 'users/token_check', to: 'users#token_check'
     end
   end
 end

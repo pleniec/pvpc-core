@@ -8,13 +8,13 @@ RSpec.describe Api::Public::UsersController do
       it 'creates user' do
         post :create, format: :json, user: {email: 'user@mail.com', nickname: 'zalu', password: 'password123'}
         expect(response.status).to eql(200)
-        expect(User.count).to eql(1)
+        expect(Users::User.count).to eql(1)
       end
 
       it "doesn't create user on invalid data" do
         post :create, format: :json, user: {sraken: 'hehe'}
         expect(response.status).to eql(422)
-        expect(User.count).to eql(0)
+        expect(Users::User.count).to eql(0)
       end
     end
 
@@ -41,7 +41,7 @@ RSpec.describe Api::Public::UsersController do
 
     describe 'GET #index' do
       it 'renders users' do
-        get :index, format: :json, access_token: @users[0].access_token
+        get :index, format: :json, access_token: @users[0].session.access_token
         expect(response.status).to eql(200)
         expect(JSON.parse(response.body).all? { |u| u['access_token'].nil? })
       end
@@ -49,14 +49,14 @@ RSpec.describe Api::Public::UsersController do
 
     describe 'PATCH #update' do
       it 'updates user' do
-        patch :update, id: @users[0].id, access_token: @users[0].access_token, format: :json,
+        patch :update, id: @users[0].id, access_token: @users[0].session.access_token, format: :json,
           user: {email: 'troll@zal.pl'}
         expect(response.status).to eql(200)
         expect(@users[0].reload.email).to eql('troll@zal.pl')
       end
 
       it "doesn't update other user" do
-        patch :update, id: @users[1].id, access_token: @users[0].access_token, format: :json,
+        patch :update, id: @users[1].id, access_token: @users[0].session.access_token, format: :json,
           user: {email: 'troll@zal.pl'}
         expect(response.status).to eql(403)
       end

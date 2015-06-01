@@ -1,7 +1,7 @@
 module Api
   module Public
     class UserGamesController < Api::PublicController
-      load_and_authorize_resource :user
+      load_and_authorize_resource :user, class: Users::User
       load_and_authorize_resource :user_game, through: :user
 
       def index

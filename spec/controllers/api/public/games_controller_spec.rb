@@ -9,7 +9,7 @@ RSpec.describe Api::Public::GamesController do
     end
     
     it 'renders games' do
-      get :index, access_token: @users[0].access_token, format: :json
+      get :index, access_token: @users[0].session.access_token, format: :json
       expect(response.status).to eql(200)
       expect(JSON.parse(response.body).size).to eql(3)
     end

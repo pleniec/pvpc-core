@@ -12,6 +12,7 @@ gem 'carrierwave'
 gem 'cloudinary'
 gem 'uglifier'
 gem 'cancancan', '~> 1.10'
+gem 'redis'
 
 group :production do
   gem 'rails_12factor'

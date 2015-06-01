@@ -1,18 +1,18 @@
 module Api
   module Public
     class UsersController < Api::PublicController
-      load_and_authorize_resource
+      load_and_authorize_resource class: Users::User
       skip_before_action :authenticate, only: [:create, :login]
 
       def index
       end
 
       def create
-        @user = User.create!(create_params)
+        @user = Users::User.create!(create_params)
       end
 
       def login
-        @user = User.authenticate(params[:email], params[:password])
+        @user = Users::User.authenticate(params[:email], params[:password])
       end
 
       def update

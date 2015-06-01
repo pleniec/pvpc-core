@@ -3,6 +3,10 @@ class ApiController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
+  def current_ability
+    @current_ability ||= Users::Ability.new(current_user)
+  end
+
   private
 
   def record_not_found(e)
