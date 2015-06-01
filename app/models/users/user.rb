@@ -5,11 +5,11 @@ module Users
     devise :database_authenticatable, :registerable,
            :recoverable, :rememberable, :trackable, :validatable
 
-    has_many :user_games
-    has_many :games, through: :user_games
+    has_many :user_games, class_name: 'Games::UserGame'
+    has_many :games, class_name: 'Games::Game', through: :user_games
     has_many :friendship_invites, class_name: 'Users::FriendshipInvite', foreign_key: :to_user_id
     has_many :sent_invites, class_name: 'Users::FriendshipInvite', foreign_key: :from_user_id
-    has_many :friendships,class_name: 'Users::Friendship'
+    has_many :friendships, class_name: 'Users::Friendship'
     has_many :friends, through: :friendships
 
     after_create { session.create }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Game do
+RSpec.describe Games::Game do
   before do
     @game = FactoryGirl.create(:game)
   end

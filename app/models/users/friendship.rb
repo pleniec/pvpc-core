@@ -8,9 +8,13 @@ module Users
 
     def end!
       transaction do
-        Friendship.find_by!(user: friend, friend: user).destroy!
+        reverse.destroy!
         destroy!
       end
+    end
+
+    def reverse
+      Friendship.find_by!(user: friend, friend: user)
     end
 
     def to_builder

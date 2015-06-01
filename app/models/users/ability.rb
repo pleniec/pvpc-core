@@ -7,9 +7,9 @@ module Users
 
       can [:index, :show, :create, :login], Users::User
       can :update, Users::User, id: current_user.id
-      can :index, Game
-      can :index, UserGame
-      can [:update, :destroy, :create], UserGame do |user_game|
+      can :index, Games::Game
+      can :index, Games::UserGame
+      can [:update, :destroy, :create], Games::UserGame do |user_game|
         user_game.user == current_user
       end
       can [:index, :update, :destroy], Users::FriendshipInvite, to_user_id: current_user.id
