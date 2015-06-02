@@ -1,4 +1,4 @@
-module NestedUsersResource
+module NestedUsersResources
   extend ActiveSupport::Concern
 
   included do

@@ -1,7 +1,7 @@
 module API
   module V1
     class FriendshipsController < API::Controller
-      include NestedUsersResource
+      include NestedUsersResources
 
       def index
         @friendships = @user.friendships

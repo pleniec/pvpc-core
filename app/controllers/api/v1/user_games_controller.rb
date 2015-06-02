@@ -1,7 +1,7 @@
 module API
   module V1
     class UserGamesController < API::Controller
-      include NestedUsersResource
+      include NestedUsersResources
 
       def index
         @user_games = Games::UserGame.where(user_id: params[:user_id])

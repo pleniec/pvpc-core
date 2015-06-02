@@ -1,7 +1,7 @@
 module API
   module V1
     class FriendshipInvitesController < API::Controller
-      include NestedUsersResource
+      include NestedUsersResources
 
       before_action :set_friendship_invite, only: [:update, :destroy]
 
