@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Games::Game do
+  include_context 'flush_redis'
+  
   before do
     @game = FactoryGirl.create(:game)
   end

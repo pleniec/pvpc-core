@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Users::FriendshipInvite do
+  include_context 'flush_redis'
+  
   before do
     @users = FactoryGirl.create_list(:user, 2)
   end
