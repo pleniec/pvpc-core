@@ -1,9 +1,8 @@
 module API
   module V1
     class GamesController < API::Controller
-      load_and_authorize_resource class: Games::Game
-
       def index
+        @games = Games::Game.eager_load(rules: :entries).all
       end
     end
   end

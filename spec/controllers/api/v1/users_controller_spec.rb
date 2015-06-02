@@ -41,14 +41,6 @@ RSpec.describe API::V1::UsersController do
   context 'authenticated' do
     include_context 'authenticated'
 
-    describe 'GET #index' do
-      it 'renders users' do
-        get :index, format: :json, access_token: @users[0].session.access_token
-        expect(response.status).to eql(200)
-        expect(JSON.parse(response.body).all? { |u| u['access_token'].nil? })
-      end
-    end
-
     describe 'PATCH #update' do
       it 'updates user' do
         patch :update, id: @users[0].id, access_token: @users[0].session.access_token, format: :json,

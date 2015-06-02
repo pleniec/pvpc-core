@@ -23,6 +23,7 @@ RSpec.describe API::V1::UserGamesController do
     it 'adds game to user' do
       post :create, user_id: @users[0].id, access_token: @users[0].session.access_token, format: :json,
         user_game: {nickname: 'nickname', game_id: @games[2].id}
+      expect(response.status).to eql(200)
       expect(@users[0].games.count).to eql(3)
     end
 

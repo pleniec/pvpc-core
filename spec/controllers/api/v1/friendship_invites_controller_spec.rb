@@ -23,7 +23,7 @@ RSpec.describe API::V1::FriendshipInvitesController do
       post :create, user_id: @users[0].id, access_token: @users[0].session.access_token, format: :json,
         friendship_invite: {to_user_id: @users[2].id}
       expect(response.status).to eql(200)
-      expect(@users[2].friendship_invites.count).to eql(1)
+      expect(@users[2].received_invites.count).to eql(1)
     end
 
     it "doesn't send duplicates" do
@@ -35,7 +35,7 @@ RSpec.describe API::V1::FriendshipInvitesController do
 
   describe 'PATCH #update' do
     it 'accepts friendship invite' do
-      patch :update, user_id: @users[1].id, id: @users[1].friendship_invites.first.id,
+      patch :update, user_id: @users[1].id, id: @users[1].received_invites.first.id,
         access_token: @users[1].session.access_token, format: :json
       expect(response.status).to eql(200)
       expect(@users[0].friends.count).to eql(1)
@@ -45,9 +45,9 @@ RSpec.describe API::V1::FriendshipInvitesController do
 
   describe 'DELETE #destroy' do
     it 'rejects friendship invite' do
-      delete :destroy, user_id: @users[1].id, id: @users[1].friendship_invites.first.id,
+      delete :destroy, user_id: @users[1].id, id: @users[1].received_invites.first.id,
         access_token: @users[1].session.access_token, format: :json
-      expect(@users[1].friendship_invites.count).to eql(1)
+      expect(@users[1].received_invites.count).to eql(1)
     end
   end
 end

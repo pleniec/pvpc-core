@@ -1,13 +1,15 @@
 module API
   module V1
     class FriendshipsController < API::Controller
-      load_and_authorize_resource :user, class: Users::User
-      load_and_authorize_resource :friendship, class: Users::Friendship, through: :user
-      
+      include NestedUsersResource
+
       def index
+        @friendships = @user.friendships
       end
 
       def destroy
+        @friendship = @user.friendships.find(params[:id])
+        authorize! :destroy, @friendship
         @friendship.destroy!
       end
     end

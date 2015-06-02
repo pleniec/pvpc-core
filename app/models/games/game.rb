@@ -13,8 +13,6 @@ module Games
     validates :icon, presence: true
     validates :image, presence: true
 
-    default_scope { eager_load(rules: :entries) }
-
     def to_builder(with_rules = false)
       Jbuilder.new do |json|
         json.id id

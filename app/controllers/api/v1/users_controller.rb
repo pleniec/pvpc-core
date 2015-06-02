@@ -1,11 +1,7 @@
 module API
   module V1
     class UsersController < API::Controller
-      load_and_authorize_resource class: Users::User
       skip_before_action :authenticate, only: [:create, :login]
-
-      def index
-      end
 
       def create
         @user = Users::User.create!(create_params)
@@ -16,6 +12,8 @@ module API
       end
 
       def update
+        @user = Users::User.find(params[:id])
+        authorize! :update, @user
         @user.update!(update_params)
       end
 
