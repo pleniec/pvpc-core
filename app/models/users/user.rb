@@ -11,6 +11,9 @@ module Users
     has_many :sent_invites, class_name: 'Users::FriendshipInvite', foreign_key: :from_user_id
     has_many :friendships, class_name: 'Users::Friendship'
     has_many :friends, through: :friendships
+    has_many :founded_teams, class_name: 'Teams::Team', foreign_key: :founder_id
+    has_many :user_teams, class_name: 'Teams::UserTeam'
+    has_many :teams, through: :user_teams
 
     after_create { session.create }
 

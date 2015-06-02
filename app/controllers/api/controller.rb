@@ -36,8 +36,8 @@ module API
       render json: {message: 'invalid credentials'}, status: :unprocessable_entity
     end
 
-    def access_denied
-      render nothing: true, status: :forbidden
+    def access_denied(e)
+      render json: {message: e.message}, status: :forbidden
     end
 
     def missing_template

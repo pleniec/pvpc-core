@@ -4,6 +4,7 @@ module API
       include NestedUsersResources
       
       def index
+        @user_teams = @user.user_teams.eager_load(:team)
       end
 
       def create
