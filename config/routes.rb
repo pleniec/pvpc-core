@@ -10,7 +10,10 @@ Rails.application.routes.draw do
                   controller: :user_games
         resources :friendship_invites, only: [:index, :create, :update, :destroy]
         resources :friendships, only: [:index, :destroy]
+        resources :teams, only: [:index, :create],
+                  controller: :user_teams
       end
+      resources :teams, only: :show
       resources :games, only: [:index]
     end
   end

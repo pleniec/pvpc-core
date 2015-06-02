@@ -7,14 +7,14 @@ RSpec.describe API::V1::FriendshipInvitesController do
   before do
     Users::FriendshipInvite.create!(from: @users[0], to: @users[1])
     Users::FriendshipInvite.create!(from: @users[2], to: @users[1])
-    Users::FriendshipInvite.create!(from: @users[1], to: @users[0])
+    Users::FriendshipInvite.create!(from: @users[1], to: @users[3])
   end
 
   describe 'GET #index' do
     it 'renders friendship invites' do
-      get :index, user_id: @users[0].id, access_token: @users[0].session.access_token, format: :json
+      get :index, user_id: @users[1].id, access_token: @users[1].session.access_token, format: :json
       expect(response.status).to eql(200)
-      expect(JSON.parse(response.body).size).to eql(1)
+      expect(JSON.parse(response.body).size).to eql(2)
     end
   end
 
@@ -35,8 +35,9 @@ RSpec.describe API::V1::FriendshipInvitesController do
 
   describe 'PATCH #update' do
     it 'accepts friendship invite' do
-      patch :update, user_id: @users[0].id, id: @users[0].friendship_invites[0].id,
-        access_token: @users[0].session.access_token, format: :json
+      patch :update, user_id: @users[1].id, id: @users[1].friendship_invites.first.id,
+        access_token: @users[1].session.access_token, format: :json
+      expect(response.status).to eql(200)
       expect(@users[0].friends.count).to eql(1)
       expect(@users[1].friends.count).to eql(1)
     end
@@ -44,9 +45,9 @@ RSpec.describe API::V1::FriendshipInvitesController do
 
   describe 'DELETE #destroy' do
     it 'rejects friendship invite' do
-      delete :destroy, user_id: @users[0].id, id: @users[0].friendship_invites[0].id,
-        access_token: @users[0].session.access_token, format: :json
-      expect(@users[0].friendship_invites.count).to eql(0)
+      delete :destroy, user_id: @users[1].id, id: @users[1].friendship_invites.first.id,
+        access_token: @users[1].session.access_token, format: :json
+      expect(@users[1].friendship_invites.count).to eql(1)
     end
   end
 end

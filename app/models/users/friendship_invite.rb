@@ -6,9 +6,11 @@ module Users
     default_scope { eager_load(:from, :to) }
 
     validates :from, presence: true
-    validates :to, presence: true, uniqueness: {scope: :from}
-    validate :user_cannot_invite_himself
-    validate :user_cannot_invite_friends
+    validates :to, presence: true
+    validate :cannot_invite_himself
+    validate :cannot_invite_friends
+    validate :cannot_invite_already_invited_user
+    validate :cannot_invite_user_that_invited_you
 
     def accept!
       Users::Friendship.create!(user: from, friend: to)
@@ -25,15 +27,27 @@ module Users
 
     private
 
-    def user_cannot_invite_himself
+    def cannot_invite_himself
       if from == to
         errors[:to] << 'cannot invite yourself'
       end
     end
 
-    def user_cannot_invite_friends
+    def cannot_invite_friends
       if from.friends.exists?(to.id)
         errors[:to] << 'cannot invite friend'
+      end
+    end
+
+    def cannot_invite_already_invited_user
+      if Users::FriendshipInvite.exists?(from: from, to: to)
+        errors[:to] << 'user is already invited'
+      end
+    end
+
+    def cannot_invite_user_that_invited_you
+      if Users::FriendshipInvite.exists?(from: to, to: from)
+        errors[:to] << 'cannot invite user that invited you'
       end
     end
   end
