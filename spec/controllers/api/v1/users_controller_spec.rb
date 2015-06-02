@@ -1,6 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Api::Public::UsersController do
+RSpec.describe API::V1::UsersController do
+  include_context 'flush_redis'
+  
   context 'unauthenticated' do
     include_context 'http_authenticated', 'pvpc', 'pefalpe987'
 
@@ -37,7 +39,7 @@ RSpec.describe Api::Public::UsersController do
   end
 
   context 'authenticated' do
-    include_context 'public/authenticated'
+    include_context 'authenticated'
 
     describe 'GET #index' do
       it 'renders users' do

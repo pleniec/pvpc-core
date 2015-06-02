@@ -1,6 +1,6 @@
-module Api
-  module Public
-    class FriendshipInvitesController < Api::PublicController
+module API
+  module V1
+    class FriendshipInvitesController < API::Controller
       load_and_authorize_resource :user, class: Users::User
       load_and_authorize_resource :friendship_invite, class: Users::FriendshipInvite, through: :user
       

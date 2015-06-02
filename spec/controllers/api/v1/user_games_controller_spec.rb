@@ -1,7 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Api::Public::UserGamesController do
-  include_context 'public/authenticated'
+RSpec.describe API::V1::UserGamesController do
+  include_context 'authenticated'
+  include_context 'flush_redis'
 
   before do
     @games = FactoryGirl.create_list(:game, 4).to_a

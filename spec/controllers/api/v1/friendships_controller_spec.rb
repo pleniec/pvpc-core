@@ -1,7 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Api::Public::FriendshipsController do
-  include_context 'public/authenticated'
+RSpec.describe API::V1::FriendshipsController do
+  include_context 'authenticated'
+  include_context 'flush_redis'
 
   before do
     Users::FriendshipInvite.create!(from: @users[1], to: @users[0]).accept!

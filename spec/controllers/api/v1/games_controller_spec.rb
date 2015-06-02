@@ -1,7 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Api::Public::GamesController do
-  include_context 'public/authenticated'
+RSpec.describe API::V1::GamesController do
+  include_context 'authenticated'
+  include_context 'flush_redis'
 
   describe 'GET #index' do
     before do

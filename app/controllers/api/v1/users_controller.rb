@@ -1,6 +1,6 @@
-module Api
-  module Public
-    class UsersController < Api::PublicController
+module API
+  module V1
+    class UsersController < API::Controller
       load_and_authorize_resource class: Users::User
       skip_before_action :authenticate, only: [:create, :login]
 

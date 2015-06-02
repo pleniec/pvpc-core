@@ -1,6 +1,6 @@
-module Api
-  module Public
-    class UserGamesController < Api::PublicController
+module API
+  module V1
+    class UserGamesController < API::Controller
       load_and_authorize_resource :user, class: Users::User
       load_and_authorize_resource :user_game, class: Games::UserGame, through: :user
 

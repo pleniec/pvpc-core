@@ -5,7 +5,7 @@ RSpec.describe Users::FriendshipInvite do
     @users = FactoryGirl.create_list(:user, 2)
   end
 
-  it 'cannot invite user multiple times' do
+  it 'cannot invite the same user multiple times' do
     Users::FriendshipInvite.create!(from: @users[0], to: @users[1])
     expect do 
       Users::FriendshipInvite.create!(from: @users[0], to: @users[1])
@@ -29,6 +29,9 @@ RSpec.describe Users::FriendshipInvite do
     Users::FriendshipInvite.create!(from: @users[0], to: @users[1]).accept!
     expect do
       Users::FriendshipInvite.create!(from: @users[0], to: @users[1])
+    end.to raise_error(ActiveRecord::RecordInvalid)
+    expect do
+      Users::FriendshipInvite.create!(from: @users[1], to: @users[0])
     end.to raise_error(ActiveRecord::RecordInvalid)
   end
 end

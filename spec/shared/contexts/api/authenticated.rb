@@ -1,4 +1,4 @@
-RSpec.shared_context 'public/authenticated' do
+RSpec.shared_context 'authenticated' do
   include_context 'http_authenticated', 'pvpc', 'pefalpe987'
 
   before do

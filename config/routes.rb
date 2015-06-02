@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   namespace :api, constraints: {format: :json}, defaults: {format: :json} do
-    namespace :public do
+    namespace :v1 do
       resources :users, only: [:index, :create, :update] do
         post :login, on: :collection
         resources :games, only: [:index, :create, :update, :destroy],

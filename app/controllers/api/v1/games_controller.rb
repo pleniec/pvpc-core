@@ -1,6 +1,6 @@
-module Api
-  module Public
-    class GamesController < Api::PublicController
+module API
+  module V1
+    class GamesController < API::Controller
       load_and_authorize_resource class: Games::Game
 
       def index

@@ -1,6 +1,6 @@
-module Api
-  module Public
-    class FriendshipsController < Api::PublicController
+module API
+  module V1
+    class FriendshipsController < API::Controller
       load_and_authorize_resource :user, class: Users::User
       load_and_authorize_resource :friendship, class: Users::Friendship, through: :user
       
