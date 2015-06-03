@@ -3,14 +3,14 @@ module API
     class UserGamesController < API::Controller
       include NestedUsersResources
 
-      def index
-        @user_games = Games::UserGame.where(user_id: params[:user_id])
+      before_action :set_user_game, only: [:update, :destroy]
 
-        render json: @user_games.map(&:to_hash)
+      def index
+        render json: @user.user_games
       end
 
       def create
-        @user_game = Games::UserGame.new(create_params.merge(user_id: params[:user_id]))
+        @user_game = @user.user_games.new(create_params)
         authorize! :create, @user_game
         @user_game.save!
 
@@ -18,15 +18,13 @@ module API
       end
 
       def update
-        @user_game = Games::UserGame.find(params[:id])
         authorize! :update, @user_game
         @user_game.update!(update_params)
 
-        render nothing: true
+        render json: @user_game.to_hash
       end
 
       def destroy
-        @user_game = Games::UserGame.find(params[:id])
         authorize! :destroy, @user_game
         @user_game.destroy!
 
@@ -34,6 +32,10 @@ module API
       end
 
       private
+
+      def set_user_game
+        @user_game = @user.user_games.find(params[:id])
+      end
 
       def create_params
         params.require(:user_game).permit(:nickname, :game_id)

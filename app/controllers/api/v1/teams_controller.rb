@@ -5,15 +5,11 @@ module API
       has_scope :limit
 
       def index
-        @teams = apply_scopes(Teams::Team).all
-
-        render json: @teams.map(&:to_simple_hash)
+        render json: apply_scopes(Teams::Team).all.map(&:to_simple_hash)
       end
 
       def show
-        @team = Teams::Team.eager_load(:founder).find(params[:id])
-
-        render json: @team.to_detailed_hash
+        render json: Teams::Team.eager_load(:founder).find(params[:id]).to_detailed_hash
       end
 
       def create
