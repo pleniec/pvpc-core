@@ -4,6 +4,7 @@ module API
       before_action :set_team
 
       def index
+        render json: @team.user_teams.map(&:to_hash_without_access_token)
       end
 
       def create

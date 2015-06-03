@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
   has_many :sent_invites, class_name: 'FriendshipInvite', foreign_key: :from_user_id
   has_many :friendships
   has_many :friends, through: :friendships
-  has_many :user_teams
-  has_many :teams, through: :user_teams
+  has_many :team_memberships
+  has_many :teams, through: :team_memberships
 
   after_create { session.create }
 

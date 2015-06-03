@@ -1,8 +1,7 @@
 class Team < ActiveRecord::Base
   belongs_to :founder, class_name: 'User'
   has_many :divisions
-  has_many :user_teams
-  has_many :members, through: :user_teams, source: :users
+  has_many :team_memberships
 
   after_create do
     founder.teams << self

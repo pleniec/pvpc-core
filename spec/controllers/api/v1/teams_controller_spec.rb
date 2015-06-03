@@ -58,7 +58,7 @@ RSpec.describe API::V1::TeamsController do
       expect(response.status).to eql(200)
 
       expect(Team.count).to eql(6)
-      expect(@users[1].user_teams.count).to eql(1)
+      expect(@users[1].team_memberships.count).to eql(1)
     end
 
     it 'cannot create team to other user' do
