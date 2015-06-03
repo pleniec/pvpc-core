@@ -10,13 +10,13 @@ RSpec.describe API::V1::UsersController do
       it 'creates user' do
         post :create, format: :json, user: {email: 'user@mail.com', nickname: 'zalu', password: 'password123'}
         expect(response.status).to eql(200)
-        expect(Users::User.count).to eql(1)
+        expect(User.count).to eql(1)
       end
 
       it "doesn't create user on invalid data" do
         post :create, format: :json, user: {sraken: 'hehe'}
         expect(response.status).to eql(422)
-        expect(Users::User.count).to eql(0)
+        expect(User.count).to eql(0)
       end
     end
 

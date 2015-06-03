@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Users::User do
+RSpec.describe User do
   include_context 'flush_redis'
   
   before do
@@ -11,12 +11,12 @@ RSpec.describe Users::User do
     it 'raises User::InvalidCredentials on invalid credentials' do
       credentials = [[nil, nil], [@user.email, nil], [nil, 'password123'], [@user.email, 'password1234']]
       credentials.each do |email, password|
-        expect { Users::User.authenticate(email, password) }.to raise_error(Users::User::InvalidCredentials)
+        expect { User.authenticate(email, password) }.to raise_error(User::InvalidCredentials)
       end
     end
 
     it 'returns user on valid credentials' do
-      authentication_result = Users::User.authenticate(@user.email, 'password123')
+      authentication_result = User.authenticate(@user.email, 'password123')
       expect(authentication_result).to eql(@user)
     end
   end
@@ -25,12 +25,12 @@ RSpec.describe Users::User do
     it 'returns nil on invalid access token' do
       access_tokens = [nil, 'invalidaccesstoken']
       access_tokens.each do |access_token|
-        expect(Users::Session.new(access_token: access_token).to_user).to be nil
+        expect(Session.new(access_token: access_token).to_user).to be nil
       end
     end
 
     it 'returns user on valid access token' do
-      expect(Users::Session.new(access_token: @user.session.access_token).to_user).to eql(@user)
+      expect(Session.new(access_token: @user.session.access_token).to_user).to eql(@user)
     end
   end
 

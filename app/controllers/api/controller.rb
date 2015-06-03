@@ -9,12 +9,8 @@ module API
 
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
-    rescue_from Users::User::InvalidCredentials, with: :invalid_credentials
+    rescue_from User::InvalidCredentials, with: :invalid_credentials
     rescue_from CanCan::AccessDenied, with: :access_denied
-
-    def current_ability
-      @current_ability ||= Users::Ability.new(current_user)
-    end
 
     private
 
@@ -23,7 +19,7 @@ module API
     end
 
     def authenticate
-      @current_user = Users::Session.new(access_token: params[:access_token]).to_user
+      @current_user = Session.new(access_token: params[:access_token]).to_user
       render nothing: true, status: :unauthorized unless @current_user
     end
 

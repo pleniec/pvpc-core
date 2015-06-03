@@ -4,15 +4,15 @@ module API
       skip_before_action :authenticate, only: [:create, :login]
 
       def create
-        render json: Users::User.create!(create_params).to_hash_with_access_token
+        render json: User.create!(create_params).to_hash_with_access_token
       end
 
       def login
-        render json: Users::User.authenticate(params[:email], params[:password]).to_hash_with_access_token
+        render json: User.authenticate(params[:email], params[:password]).to_hash_with_access_token
       end
 
       def update
-        @user = Users::User.find(params[:id])
+        @user = User.find(params[:id])
         authorize! :update, @user
         @user.update!(update_params)
 

@@ -5,15 +5,15 @@ module API
       has_scope :limit
 
       def index
-        render json: apply_scopes(Teams::Team).all.map(&:to_simple_hash)
+        render json: apply_scopes(Team).all.map(&:to_simple_hash)
       end
 
       def show
-        render json: Teams::Team.eager_load(:founder).find(params[:id]).to_detailed_hash
+        render json: Team.eager_load(:founder).find(params[:id]).to_detailed_hash
       end
 
       def create
-        @team = Teams::Team.new(create_params)
+        @team = Team.new(create_params)
         authorize! :create, @team
         @team.save!
         

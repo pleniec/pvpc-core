@@ -1,4 +1,4 @@
-ActiveAdmin.register Users::User do
+ActiveAdmin.register User do
   config.batch_actions = false
 
   actions :index, :show

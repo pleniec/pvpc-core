@@ -57,7 +57,7 @@ RSpec.describe API::V1::TeamsController do
         team: FactoryGirl.attributes_for(:team, founder_id: @users[1].id)
       expect(response.status).to eql(200)
 
-      expect(Teams::Team.count).to eql(6)
+      expect(Team.count).to eql(6)
       expect(@users[1].user_teams.count).to eql(1)
     end
 

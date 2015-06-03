@@ -1,4 +1,4 @@
-ActiveAdmin.register Games::Game do
+ActiveAdmin.register Game do
   permit_params :name, :icon, :image,
                 game_translations_attributes: [:id, :locale,
                                                :description, :_destroy],

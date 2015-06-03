@@ -5,8 +5,8 @@ RSpec.describe API::V1::FriendshipsController do
   include_context 'flush_redis'
 
   before do
-    Users::FriendshipInvite.create!(from: @users[1], to: @users[0]).accept!
-    Users::FriendshipInvite.create!(from: @users[2], to: @users[0]).accept!
+    FriendshipInvite.create!(from: @users[1], to: @users[0]).accept!
+    FriendshipInvite.create!(from: @users[2], to: @users[0]).accept!
   end
 
   describe 'GET #index' do
