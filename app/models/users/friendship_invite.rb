@@ -18,11 +18,8 @@ module Users
       destroy!
     end
 
-    def to_builder
-      Jbuilder.new do |json|
-        json.id id
-        json.from { json.merge! from.to_builder.attributes! }
-      end
+    def to_hash
+      {id: id, from: from.to_hash_without_access_token}
     end
 
     private

@@ -5,16 +5,22 @@ module API
 
       def create
         @user = Users::User.create!(create_params)
+
+        render json: @user.to_hash_with_access_token
       end
 
       def login
         @user = Users::User.authenticate(params[:email], params[:password])
+
+        render json: @user.to_hash_with_access_token
       end
 
       def update
         @user = Users::User.find(params[:id])
         authorize! :update, @user
         @user.update!(update_params)
+
+        render nothing: true
       end
 
       private

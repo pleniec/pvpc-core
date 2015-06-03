@@ -24,6 +24,10 @@ module Users
       can :destroy, Users::Friendship do |friendship|
         friendship.user == current_user
       end
+
+      can :create, Teams::Team do |team|
+        team.founder_id == current_user.id
+      end
     end
   end
 end

@@ -8,22 +8,30 @@ module API
       def index
         @friendship_invites = @user.received_invites
         @friendship_invites.each { |fi| authorize! :index, fi }
+
+        render json: @friendship_invites.map(&:to_hash)
       end
 
       def create
         @friendship_invite = @user.sent_invites.new(create_params)
         authorize! :create, @friendship_invite
         @friendship_invite.save!
+
+        render nothing: true
       end
 
       def update
         authorize! :update, @friendship_invite
         @friendship_invite.accept!
+
+        render nothing: true
       end
 
       def destroy
         authorize! :destroy, @friendship_invite
         @friendship_invite.destroy!
+
+        render nothing: true
       end
 
       private

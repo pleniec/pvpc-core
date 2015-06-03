@@ -30,13 +30,12 @@ module Users
       @session ||= Session.new(user: self)
     end
 
-    def to_builder(with_access_token = false)
-      Jbuilder.new do |json|
-        json.id id
-        json.email email
-        json.nickname nickname
-        json.access_token session.access_token if with_access_token
-      end
+    def to_hash_without_access_token
+      {id: id, email: email, nickname: nickname}
+    end
+
+    def to_hash_with_access_token
+      to_hash_without_access_token.merge(access_token: session.access_token)
     end
   end
 end

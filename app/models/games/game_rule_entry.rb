@@ -4,5 +4,9 @@ module Games
 
     validates :key, presence: true
     validates :value, presence: true
+
+    def to_hash
+      {key: key, value: value}
+    end
   end
 end

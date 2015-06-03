@@ -13,6 +13,7 @@ gem 'cloudinary'
 gem 'uglifier'
 gem 'cancancan', '~> 1.10'
 gem 'redis'
+gem 'has_scope'
 
 group :production do
   gem 'rails_12factor'

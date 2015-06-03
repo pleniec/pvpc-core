@@ -17,11 +17,8 @@ module Users
       Friendship.find_by!(user: friend, friend: user)
     end
 
-    def to_builder
-      Jbuilder.new do |json|
-        json.id id
-        json.friend { json.merge! friend.to_builder.attributes! }
-      end
+    def to_hash
+      {id: id, friend: friend.to_hash_without_access_token}
     end
   end
 end

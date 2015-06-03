@@ -13,14 +13,12 @@ module Games
     validates :icon, presence: true
     validates :image, presence: true
 
-    def to_builder(with_rules = false)
-      Jbuilder.new do |json|
-        json.id id
-        json.name name
-        json.icon icon
-        json.image image
-        json.rules rules { |r| json.merge! r.to_builder.attributes! } if with_rules
-      end
+    def to_simple_hash
+        {id: id, name: name, icon: icon}
+    end
+
+    def to_detailed_hash
+        to_simple_hash.merge(image: image, rules: rules.map(&:to_hash))
     end
   end
 end

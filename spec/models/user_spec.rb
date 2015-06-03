@@ -41,12 +41,4 @@ RSpec.describe Users::User do
   it 'has access token after create' do
     expect(@user.session.access_token).to_not be nil
   end
-
-  it 'converts to json without access token' do
-    expect(JSON.parse(@user.to_builder.target!)['access_token']).to be nil
-  end 
-
-  it 'converts to json with access token' do
-    expect(JSON.parse(@user.to_builder(true).target!)['access_token']).not_to be nil
-  end 
 end

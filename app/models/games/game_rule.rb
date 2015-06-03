@@ -7,13 +7,8 @@ module Games
 
     validates :name, presence: true
 
-    def to_builder
-      Jbuilder.new do |json|
-        json.name name
-        json.entries entries do |entry|
-          json.set! entry.key, entry.value
-        end
-      end
+    def to_hash
+      {name: name, entries: entries.map(&:to_hash)}
     end
   end
 end

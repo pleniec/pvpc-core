@@ -31,4 +31,10 @@ FactoryGirl.define do
   factory :user_game, class: Games::UserGame do
     sequence(:nickname) { |n| "nickname#{n}" }
   end
+
+  factory :team, class: Teams::Team do
+    sequence(:name) { |n| "name#{n}" }
+    sequence(:description) { |n| "description#{n}" }
+    sequence(:tag) { |n| "TG#{n}" }
+  end
 end

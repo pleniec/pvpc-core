@@ -13,8 +13,4 @@ RSpec.describe Users::Friendship do
     expect(@users[0].friends.count).to eql(0)
     expect(@users[1].friends.count).to eql(0)
   end
-
-  it 'can be converted to json' do
-    expect(JSON.parse(@users[0].friendships[0].to_builder.target!)).not_to be nil
-  end
 end

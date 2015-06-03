@@ -9,12 +9,8 @@ module Games
 
     default_scope { eager_load(game: {rules: :entries}) }
 
-    def to_builder
-      Jbuilder.new do |json|
-        json.id id
-        json.nickname nickname
-        json.game game.to_builder.attributes!
-      end
+    def to_hash
+      {id: id, nickname: nickname, game: game.to_simple_hash}
     end
   end
 end
