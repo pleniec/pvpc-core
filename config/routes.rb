@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       resources :teams, only: [:index, :show, :create] do
         resources :divisions, only: [:index, :show, :create]
         resources :members, only: [:index, :create, :update, :destroy],
-                  controller: :team_members
+                  controller: :team_memberships
       end
       resources :games, only: [:index, :show]
     end

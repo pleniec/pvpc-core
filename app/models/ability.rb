@@ -27,5 +27,9 @@ class Ability
     can :create, Team do |team|
       team.founder_id == current_user.id
     end
+
+    can [:create, :update, :destroy] TeamMembership do |team_membership|
+      team_membership.team.founder == current_user
+    end
   end
 end
