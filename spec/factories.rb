@@ -28,7 +28,7 @@ FactoryGirl.define do
     sequence(:value) { |n| "entry_value#{n}" }
   end
 
-  factory :user_game do
+  factory :game_ownership do
     sequence(:nickname) { |n| "nickname#{n}" }
   end
 

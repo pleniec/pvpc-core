@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :user_games
+  has_many :game_ownerships
   has_many :games, through: :user_games
   has_many :received_invites, class_name: 'FriendshipInvite', foreign_key: :to_user_id
   has_many :sent_invites, class_name: 'FriendshipInvite', foreign_key: :from_user_id
@@ -26,6 +26,15 @@ class User < ActiveRecord::Base
 
   def session
     @session ||= Session.new(user: self)
+  end
+
+  def to_builder(with_access_token = false)
+    Jbuilder.new do |json|
+      json.id id
+      json.email email
+      json.nickname nickname
+      json.access_token session.access_token if with_access_token
+    end
   end
 
   def to_hash_without_access_token

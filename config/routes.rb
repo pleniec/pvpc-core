@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   scope defaults: {format: :json} do
     resources :games, only: [:index, :show]
+    resources :users, only: [:create, :update] do
+      post :login, on: :collection
+      resources :game_ownerships, only: [:index, :create, :update, :destroy]
+    end
   end
+
 =begin
   devise_for :admins, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

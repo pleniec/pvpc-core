@@ -5,6 +5,14 @@ class Ability
     current_user ||= User.new
 
     can [:index, :show], Game
+    can [:create, :login], User
+    can :update, User do |user|
+      user == current_user
+    end
+    can :index, GameOwnership
+    can [:create, :update, :destroy], GameOwnership do |game_ownership|
+      game_ownership.user == current_user
+    end
 =begin
     ### USERS
 

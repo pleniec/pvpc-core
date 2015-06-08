@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  skip_before_action :authenticate
+
   inherit_resources
   authorize_resource
 

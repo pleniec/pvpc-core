@@ -11,7 +11,6 @@ RSpec.configure do |config|
 
   config.before do
     request.env['HTTP_AUTHORIZATION'] = 'Basic ' + Base64::encode64('pvpc:pefalpe987')
-    @users = FactoryGirl.create_list(:user, 5)
   end
 
   config.after do
