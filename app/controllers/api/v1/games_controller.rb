@@ -1,12 +1,13 @@
 module API
   module V1
     class GamesController < API::Controller
+      load_and_authorize_resource only: :index
+
       def index
-        render json: Game.all.map(&:to_simple_hash)
       end
 
       def show
-        render json: Game.eager_load(rules: :entries).find(params[:id]).to_detailed_hash
+        @game = Game.eager_load(rules: :entries).find(params[:id])
       end
     end
   end

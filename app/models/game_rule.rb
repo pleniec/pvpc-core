@@ -6,7 +6,13 @@ class GameRule < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def to_hash
-    {name: name, entries: entries.map(&:to_hash)}
+  def to_builder
+    Jbuilder.new do |json|
+      json.id id
+      json.name name
+      json.entries entries do |entry|
+        json.merge! entry.to_builder.attributes!
+      end
+    end
   end
 end

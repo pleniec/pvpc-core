@@ -12,6 +12,21 @@ class Game < ActiveRecord::Base
   validates :icon, presence: true
   validates :image, presence: true
 
+  def to_builder(detailed = false)
+    Jbuilder.new do |json|
+      json.id id
+      json.name name
+      json.icon icon
+
+      if detailed
+        json.image image
+        json.rules rules do |rule|
+          json.merge! rule.to_builder.attributes!
+        end
+      end
+    end
+  end
+
   def to_simple_hash
       {id: id, name: name, icon: icon}
   end

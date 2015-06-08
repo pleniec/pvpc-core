@@ -4,7 +4,11 @@ class GameRuleEntry < ActiveRecord::Base
   validates :key, presence: true
   validates :value, presence: true
 
-  def to_hash
-    {key: key, value: value}
+  def to_builder
+    Jbuilder.new do |json|
+      json.id id
+      json.key key
+      json.value value
+    end
   end
 end

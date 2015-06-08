@@ -4,12 +4,22 @@ class Ability
   def initialize(current_user)
     current_user ||= User.new
 
-    can :update, User do |user|
-      user == current_user
+    ### USERS
+
+    can :show, User
+
+    ### GAMES
+
+    can [:index, :show], Game
+    can :index, UserGame
+    can [:create, :update, :destroy], UserGame do |user_game|
+      user_game.user == current_user
     end
 
-    can [:update, :destroy, :create], UserGame do |user_game|
-      user_game.user == current_user
+    ###
+
+    can :update, User do |user|
+      user == current_user
     end
 
     can [:index, :update, :destroy], FriendshipInvite do |friendship_invite|
@@ -28,7 +38,7 @@ class Ability
       team.founder_id == current_user.id
     end
 
-    can [:create, :update, :destroy] TeamMembership do |team_membership|
+    can [:create, :update, :destroy], TeamMembership do |team_membership|
       team_membership.team.founder == current_user
     end
   end
