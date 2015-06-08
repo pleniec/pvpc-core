@@ -1,12 +1,17 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(current_user)
+  def initialize(current_user, params)
     current_user ||= User.new
 
+    can [:index, :show], Game
+=begin
     ### USERS
 
     can :show, User
+    can :update, User do |user|
+      user == current_user
+    end
 
     ### GAMES
 
@@ -16,15 +21,17 @@ class Ability
       user_game.user == current_user
     end
 
-    ###
-
-    can :update, User do |user|
-      user == current_user
+    ### FRIENDSHIPS
+   
+    can :index, FriendshipInvite do
+      params[:user_id] == current_user.id
     end
 
     can [:index, :update, :destroy], FriendshipInvite do |friendship_invite|
       friendship_invite.to == current_user
     end
+
+    ###
 
     can :create, FriendshipInvite do |friendship_invite|
       friendship_invite.from == current_user
@@ -41,5 +48,6 @@ class Ability
     can [:create, :update, :destroy], TeamMembership do |team_membership|
       team_membership.team.founder == current_user
     end
+=end
   end
 end

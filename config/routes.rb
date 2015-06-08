@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  scope defaults: {format: :json} do
+    resources :games, only: [:index, :show]
+  end
+=begin
   devise_for :admins, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-
   namespace :api, constraints: {format: :json}, defaults: {format: :json} do
     namespace :v1 do
       resources :users, only: [:create, :update] do
@@ -10,6 +13,7 @@ Rails.application.routes.draw do
                   controller: :user_games
         resources :friendship_invites, only: [:index, :create, :update, :destroy]
         resources :friendships, only: [:index, :destroy]
+        resources :received_invites, only: [:index, :update, :destroy]
       end
       resources :teams, only: [:index, :show, :create] do
         resources :divisions, only: [:index, :show, :create]
@@ -19,4 +23,5 @@ Rails.application.routes.draw do
       resources :games, only: [:index, :show]
     end
   end
+=end
 end

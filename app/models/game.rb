@@ -26,12 +26,4 @@ class Game < ActiveRecord::Base
       end
     end
   end
-
-  def to_simple_hash
-      {id: id, name: name, icon: icon}
-  end
-
-  def to_detailed_hash
-      to_simple_hash.merge(image: image, rules: rules.map(&:to_hash))
-  end
 end

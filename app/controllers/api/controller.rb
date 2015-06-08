@@ -12,6 +12,10 @@ module API
     rescue_from User::InvalidCredentials, with: :invalid_credentials
     rescue_from CanCan::AccessDenied, with: :access_denied
 
+    def current_ability
+      @current_ability ||= Ability.new(current_user, params)
+    end
+
     private
 
     def record_not_found(e)

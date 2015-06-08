@@ -1,10 +1,8 @@
 module API
   module V1
     class UserGamesController < API::Controller
-      load_and_authorize_resource :user
-      load_and_authorize_resource :user_game, through: :user
-
       def index
+        authorize! :index, UserGame
         @user_games = UserGame.eager_load(:game)
       end
 
