@@ -1,4 +1,4 @@
-class GamesController < ApplicationController
+class GamesController < APIController
   skip_before_action :authenticate
 
   inherit_resources

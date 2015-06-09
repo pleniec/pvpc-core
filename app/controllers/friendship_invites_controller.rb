@@ -1,4 +1,4 @@
-class FriendshipInvitesController < ApplicationController
+class FriendshipInvitesController < APIController
   inherit_resources
   load_and_authorize_resource
 

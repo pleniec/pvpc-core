@@ -1,4 +1,4 @@
-class GameOwnershipsController < ApplicationController
+class GameOwnershipsController < APIController
   inherit_resources
   load_and_authorize_resource
   belongs_to :user

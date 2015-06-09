@@ -1,4 +1,4 @@
-class TeamsController < ApplicationController
+class TeamsController < APIController
   inherit_resources
   load_and_authorize_resource
 

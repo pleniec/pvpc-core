@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < APIController
   skip_before_action :authenticate, only: [:create, :login]
 
   inherit_resources
