@@ -34,12 +34,4 @@ class User < ActiveRecord::Base
       json.access_token session.access_token if with_access_token
     end
   end
-
-  def to_hash_without_access_token
-    {id: id, email: email, nickname: nickname}
-  end
-
-  def to_hash_with_access_token
-    to_hash_without_access_token.merge(access_token: session.access_token)
-  end
 end

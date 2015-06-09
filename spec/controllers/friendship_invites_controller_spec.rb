@@ -41,7 +41,7 @@ RSpec.describe FriendshipInvitesController do
 
   describe 'GET #index' do
     it "renders user's invites" do
-      get_json :index, limit: 100, access_token: @users[0].session.access_token, to_user_id: @users[0].id
+      get_json :index, access_token: @users[0].session.access_token, to_user_id: @users[0].id
       expect(response.status).to eql(200)
       expect(response_body.size).to eql(2)
     end

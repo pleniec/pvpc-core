@@ -1,4 +1,4 @@
-module ControllersHelper
+module Helper
   [:get, :post, :patch, :delete].each do |method|
     define_method "#{method}_json" do |action, params|
       send method, action, params.merge(format: :json)

@@ -1,4 +1,4 @@
-require 'controllers_helper'
+require 'helper'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -9,7 +9,7 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.before do
+  config.before type: :controller do
     request.env['HTTP_AUTHORIZATION'] = 'Basic ' + Base64::encode64('pvpc:pefalpe987')
   end
 
@@ -17,6 +17,6 @@ RSpec.configure do |config|
     Redis.current.flushall
   end
 
-  config.include ControllersHelper
+  config.include Helper
   Dir["./spec/shared/**/*.rb"].sort.each { |f| require f }
 end

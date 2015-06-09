@@ -3,15 +3,21 @@ class Team < ActiveRecord::Base
   has_many :divisions
   has_many :team_memberships
 
+  validates :founder, presence: true
+
   after_create do
     founder.teams << self
   end
 
-  def to_simple_hash
-    {id: id, name: name}
-  end
-
-  def to_detailed_hash
-    to_simple_hash.merge(description: description, tag: tag, founder: founder.to_hash_without_access_token)
+  def to_builder(detailed = false)
+    Jbuilder.new do |json|
+      json.id id
+      json.name name
+      if detailed
+        json.description description
+        json.tag tag
+        json.founder founder.to_builder.attributes!
+      end
+    end
   end
 end

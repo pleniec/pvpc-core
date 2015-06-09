@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User do
-  include_context 'flush_redis'
-  
   before do
     @user = FactoryGirl.create(:user)
   end
