@@ -2,12 +2,13 @@ require 'rails_helper'
 
 RSpec.describe GamesController do
   before do
+    @user = FactoryGirl.create(:user)
     @games = FactoryGirl.create_list(:game, 3)
   end
 
   describe 'GET #index' do
     it 'renders games' do
-      get_json :index, access_token: @users[0].session.access_token
+      get_json :index, access_token: @user.session.access_token
       expect(response.status).to eql(200)
       expect(response_body.size).to eql(3)
     end
@@ -15,7 +16,7 @@ RSpec.describe GamesController do
 
   describe 'GET #show' do
     it 'renders single game' do
-      get_json :show, access_token: @users[0].session.access_token, id: @games[0].id
+      get_json :show, access_token: @user.session.access_token, id: @games[0].id
       expect(response.status).to eql(200)
       expect(response_body['id']).to eql(@games[0].id)
     end

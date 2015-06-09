@@ -2,17 +2,33 @@ class Ability
   include CanCan::Ability
 
   def initialize(current_user, params)
-    current_user ||= User.new
-
     can [:index, :show], Game
-    can [:create, :login], User
-    can :update, User do |user|
-      user == current_user
-    end
     can :index, GameOwnership
     can [:create, :update, :destroy], GameOwnership do |game_ownership|
       game_ownership.user == current_user
     end
+
+    ###
+
+    can [:create, :login], User
+    can :update, User do |user|
+      user == current_user
+    end
+
+    ###
+
+    can [:create], FriendshipInvite do |friendship_invite|
+      friendship_invite.from_user == current_user
+    end
+    if params[:to_user_id] == current_user.id
+      can :index, FriendshipInvite
+    end
+    can [:destroy, :accept], FriendshipInvite do |friendship_invite|
+      friendship_invite.to_user == current_user
+    end
+
+    ###
+
 =begin
     ### USERS
 

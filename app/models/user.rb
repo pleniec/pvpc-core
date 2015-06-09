@@ -5,9 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :game_ownerships
-  has_many :games, through: :user_games
-  has_many :received_invites, class_name: 'FriendshipInvite', foreign_key: :to_user_id
-  has_many :sent_invites, class_name: 'FriendshipInvite', foreign_key: :from_user_id
+  has_many :friendship_invites, foreign_key: :to_user_id
   has_many :friendships
   has_many :friends, through: :friendships
   has_many :team_memberships

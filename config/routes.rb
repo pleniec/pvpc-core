@@ -5,6 +5,9 @@ Rails.application.routes.draw do
       post :login, on: :collection
       resources :game_ownerships, only: [:index, :create, :update, :destroy]
     end
+    resources :friendship_invites, only: [:index, :create, :destroy] do
+      post :accept, on: :member
+    end
   end
 
 =begin
