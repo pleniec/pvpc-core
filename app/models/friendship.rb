@@ -16,7 +16,10 @@ class Friendship < ActiveRecord::Base
     Friendship.find_by!(user: friend, friend: user)
   end
 
-  def to_hash
-    {id: id, friend: friend.to_hash_without_access_token}
+  def to_builder
+    Jbuilder.new do |json|
+      json.id id
+      json.friend friend.to_builder.attributes!
+    end
   end
 end
