@@ -7,8 +7,6 @@ FactoryGirl.define do
 
   factory :game do
     sequence(:name) { |n| "game#{n}" }
-    icon 'icon'
-    image 'image'
 
     after :create do |game|
       create_list(:game_rule, 3, game: game)

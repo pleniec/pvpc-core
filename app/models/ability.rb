@@ -5,6 +5,9 @@ class Ability
     current_user ||= User.new
 
     can [:index, :show], Game
+
+    ###
+
     can :index, GameOwnership
     can [:create, :update, :destroy], GameOwnership do |game_ownership|
       game_ownership.user == current_user
@@ -28,6 +31,9 @@ class Ability
     can [:destroy, :accept], FriendshipInvite do |friendship_invite|
       friendship_invite.to_user == current_user
     end
+
+    ###
+
     can :index, Friendship
     can :destroy, Friendship do |friendship|
       friendship.user == current_user
