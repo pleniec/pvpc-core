@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Friendship do
   before do
     @users = FactoryGirl.create_list(:user, 2)
-    FriendshipInvite.create!(from: @users[0], to: @users[1]).accept!
+    FriendshipInvite.create!(from_user: @users[0], to_user: @users[1]).accept!
   end
 
   it 'can be ended' do

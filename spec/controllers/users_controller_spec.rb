@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe UsersController do
+  before do
+    @users = FactoryGirl.create_list(:user, 2)
+  end
+
   describe 'POST #create' do
     it 'creates user' do
       post_json :create, user: {email: 'user@mail.com', nickname: 'zalu', password: 'password123'}

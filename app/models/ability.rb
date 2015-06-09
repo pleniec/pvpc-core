@@ -2,6 +2,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(current_user, params)
+    current_user ||= User.new
+
     can [:index, :show], Game
     can :index, GameOwnership
     can [:create, :update, :destroy], GameOwnership do |game_ownership|
