@@ -1,9 +1,8 @@
-class APIController < ApplicationController
+class APIController < ActionController::Base
   attr_reader :current_user
 
   respond_to :json
   http_basic_authenticate_with name: 'pvpc', password: 'pefalpe987'
-  protect_from_forgery with: :null_session
 
   before_action :authenticate
 
