@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
     @session ||= Session.new(user: self)
   end
 
+  def settings
+    @settings ||= UserSettings.new(self)
+  end
+
   def to_builder(with_access_token = false)
     Jbuilder.new do |json|
       json.id id
