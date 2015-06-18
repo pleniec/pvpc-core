@@ -15,7 +15,7 @@ class UsersController < APIController
     when :create
       params.require(:user).permit(:email, :password, :nickname)
     when :update
-      params.require(:user).permit(:nickname)
+      params.require(:user).permit(:nickname, :settings_mask)
     end
   end
 end

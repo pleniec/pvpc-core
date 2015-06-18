@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
       json.id id
       json.email email
       json.nickname nickname
+      json.settings_mask settings_mask
       json.access_token session.access_token if with_access_token
     end
   end
