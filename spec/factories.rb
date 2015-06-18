@@ -3,6 +3,14 @@ FactoryGirl.define do
     sequence(:email) { |n| "user#{n}@mail.com" }
     password 'password123'
     sequence(:nickname) { |n| "user#{n}" }
+
+    factory :user_with_game_ownerships do
+      after :create do |user|
+        create_list(:game, 3).each do |game|
+          create(:game_ownership, user: user, game: game)
+        end
+      end
+    end
   end
 
   factory :game do

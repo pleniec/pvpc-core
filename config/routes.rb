@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   
   scope defaults: {format: :json} do
     resources :games, only: [:index, :show]
-    resources :users, only: [:create, :update] do
+    resources :users, only: [:create, :update, :show] do
       post :login, on: :collection
       resources :game_ownerships, only: [:index, :create, :update, :destroy]
       resources :friendships, only: [:index, :destroy]
