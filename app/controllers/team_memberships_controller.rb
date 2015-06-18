@@ -12,10 +12,10 @@ class TeamMembershipsController < APIController
   end
 
   def team_membership_params
-    case action_name.to_sym
-    when :create
+    case action_name
+    when 'create'
       params.require(:team_membership).permit(:user_id, :team_id, :captain)
-    when :update
+    when 'update'
       params.require(:team_membership).permit(:captain)
     end
   end

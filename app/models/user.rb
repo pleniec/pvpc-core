@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     @settings ||= UserSettings.new(self)
   end
 
+  def strangers
+    User.where.not(id: friends.pluck('users.id') + [id])
+  end
+
   def to_builder(options = {})
     Jbuilder.new do |json|
       json.id id

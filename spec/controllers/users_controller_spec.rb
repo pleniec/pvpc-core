@@ -42,4 +42,14 @@ RSpec.describe UsersController do
       expect(@users[1].reload.nickname).not_to eql('kalu')
     end
   end
+
+  describe 'GET #strangers' do
+    it 'is' do
+      @users = FactoryGirl.create_list(:user, 3)
+      FriendshipInvite.create(from_user: @users[0], to_user: @users[1]).accept!
+      get_json :strangers, id: @users[0].id, access_token: @users[0].session.access_token
+      expect(response.status).to eql(200)
+      expect(response_body.first['id']).to eql(@users[2].id)
+    end
+  end
 end

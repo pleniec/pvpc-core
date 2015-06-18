@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :games, only: [:index, :show]
     resources :users, only: [:create, :update, :show] do
       post :login, on: :collection
+      get :strangers, on: :member
       resources :game_ownerships, only: [:index, :create, :update, :destroy]
       resources :friendships, only: [:index, :destroy]
     end

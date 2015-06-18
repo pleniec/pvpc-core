@@ -16,7 +16,7 @@ class Ability
     ###
 
     can [:create, :login, :show], User
-    can :update, User do |user|
+    can [:update, :strangers], User do |user|
       user == current_user
     end
 

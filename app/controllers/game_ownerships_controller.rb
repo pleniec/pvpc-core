@@ -10,10 +10,10 @@ class GameOwnershipsController < APIController
   end
 
   def game_ownership_params
-    case action_name.to_sym
-    when :create
+    case action_name
+    when 'create'
       params.require(:game_ownership).permit(:user_id, :game_id, :nickname)
-    when :update
+    when 'update'
       params.require(:game_ownership).permit(:nickname)
     end
   end
