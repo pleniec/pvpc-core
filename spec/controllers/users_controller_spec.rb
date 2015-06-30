@@ -4,7 +4,7 @@ RSpec.describe UsersController do
   describe 'POST #create' do
     it 'creates user' do
       post_json :create, user: {email: 'user@mail.com', nickname: 'zalu', password: 'password123'}
-      expect(response.status).to eql(200)
+      expect(response.status).to eql(201)
       expect(User.exists?(response_body['id'])).to be true
     end
   end
@@ -31,7 +31,7 @@ RSpec.describe UsersController do
     it 'updates user' do
       @users = FactoryGirl.create_list(:user, 2)
       patch_json :update, id: @users[0].id, access_token: @users[0].session.access_token, user: {nickname: 'kalu'}
-      expect(response.status).to eql(204)
+      expect(response.status).to eql(200)
       expect(@users[0].reload.nickname).to eql('kalu')
     end
 

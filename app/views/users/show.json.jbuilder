@@ -1,1 +1,1 @@
-json.merge! @user.to_builder(game_ownerships: true).attributes!
+json.merge! @model.to_builder.attributes!

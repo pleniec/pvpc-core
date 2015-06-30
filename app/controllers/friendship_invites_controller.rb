@@ -1,17 +1,15 @@
 class FriendshipInvitesController < APIController
-  inherit_resources
-  load_and_authorize_resource
-
   has_scope :to_user_id
 
   def accept
-    FriendshipInvite.find(params[:id]).accept!
-    render nothing: true, status: :no_content
+    @model = FriendshipInvite.find(params[:id])
+    authorize! :accept, @model
+    @model.accept!
   end
 
   protected
 
-  def friendship_invite_params
+  def create_params
     params.require(:friendship_invite).permit(:from_user_id, :to_user_id)
   end
 end

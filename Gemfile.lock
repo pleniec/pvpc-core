@@ -215,6 +215,7 @@ DEPENDENCIES
   factory_girl_rails
   has_scope
   jbuilder (~> 2.0)
+  kaminari
   pg
   rails (= 4.2.1)
   rails_12factor

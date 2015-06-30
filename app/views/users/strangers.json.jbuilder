@@ -1,3 +1,3 @@
-json.array! @users do |user|
-  json.merge! user.to_builder.attributes!
+json.array! @models do |model|
+  json.merge! model.to_builder.attributes!
 end

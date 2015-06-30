@@ -12,6 +12,7 @@ gem 'uglifier'
 gem 'cancancan', '~> 1.10'
 gem 'redis'
 gem 'has_scope'
+gem 'kaminari'
 
 group :production do
   gem 'rails_12factor'

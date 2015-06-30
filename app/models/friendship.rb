@@ -5,6 +5,8 @@ class Friendship < ActiveRecord::Base
   validates :user, presence: true
   validates :friend, presence: true, uniqueness: {scope: :user}
 
+  scope :user_id, ->(user_id) { where(user_id: user_id) }
+
   def end!
     transaction do
       reverse.destroy!

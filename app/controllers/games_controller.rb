@@ -1,12 +1,3 @@
 class GamesController < APIController
   skip_before_action :authenticate
-
-  inherit_resources
-  load_and_authorize_resource
-
-  protected
-
-  def resource
-    get_resource_ivar || set_resource_ivar(end_of_association_chain.eager_load(:rules).find(params[:id]))
-  end
 end

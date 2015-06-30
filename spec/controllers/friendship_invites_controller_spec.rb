@@ -55,7 +55,7 @@ RSpec.describe FriendshipInvitesController do
   describe 'DELETE #destroy' do
     it 'declines invite' do
       delete_json :destroy, id: @users[0].friendship_invites[0].id, access_token: @users[0].session.access_token
-      expect(response.status).to eql(204)
+      expect(response.status).to eql(200)
       expect(@users[0].friendship_invites.count).to eql(1)
     end
 
@@ -69,7 +69,7 @@ RSpec.describe FriendshipInvitesController do
   describe 'POST #accept' do
     it 'accepts invite' do
       post_json :accept, id: @users[0].friendship_invites[0].id, access_token: @users[0].session.access_token
-      expect(response.status).to eql(204)
+      expect(response.status).to eql(200)
       expect(@users[0].friendships.count).to eql(1)
       expect(@users[1].friendships.count).to eql(1)
     end
