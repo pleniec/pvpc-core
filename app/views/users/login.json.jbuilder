@@ -1,1 +1,1 @@
-json.merge! @model.to_builder(access_token: true, settings_mask: true).attributes!
+json.merge! @model.to_builder(access_token: true, settings_mask: true, game_ownerships: true).attributes!
