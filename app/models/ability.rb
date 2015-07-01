@@ -4,6 +4,8 @@ class Ability
   def initialize(current_user, params)
     current_user ||= User.new
 
+    ###
+
     can [:index, :show], Game
 
     ###
@@ -51,6 +53,13 @@ class Ability
     can :index, TeamMembership
     can [:create, :update, :destroy], TeamMembership do |team_membership|
       team_membership.team.founder == current_user
+    end
+
+    ###
+
+    can [:index, :show], Division
+    can [:create, :update, :destroy], Division do |division|
+      division.team.founder == current_user
     end
   end
 end
