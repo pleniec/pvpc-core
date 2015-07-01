@@ -1,6 +1,5 @@
 class DivisionsController < APIController
-  has_scope :team_id
-  has_scope :game_id
+  has_scope :team_id, :game_id
 
   protected
 

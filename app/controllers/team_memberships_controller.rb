@@ -1,6 +1,5 @@
 class TeamMembershipsController < APIController
-  has_scope :team_id
-  has_scope :user_id
+  has_scope :team_id, :user_id
 
   protected
 
