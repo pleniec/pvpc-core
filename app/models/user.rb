@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
 
   validates :nickname, presence: true, uniqueness: true
 
+  scope :nickname, ->(nickname) { where(User.arel_table[:nickname].matches("#{nickname}%")) }
+  scope :strangers_to_user_id, ->(user_id) { where.not(id: Friendship.where(user_id: user_id).pluck(:friend_id) + [user_id]) }
+
   def self.authenticate(email, password)
     user = self.find_by_email(email)
     raise InvalidCredentials if user.nil? || !user.valid_password?(password)
@@ -28,10 +31,6 @@ class User < ActiveRecord::Base
 
   def settings
     @settings ||= UserSettings.new(self)
-  end
-
-  def strangers
-    User.where.not(id: friends.pluck('users.id') + [id])
   end
 
   def to_builder(options = {})
