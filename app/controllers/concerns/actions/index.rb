@@ -1,6 +1,7 @@
 module Actions
   module Index
     extend ActiveSupport::Concern
+    include Actions::Base
 
     def index
       authorize! :index, model_class

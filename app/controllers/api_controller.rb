@@ -17,10 +17,4 @@ class APIController < ActionController::Base
   def current_ability
     @current_ability ||= Ability.new(current_user, params)
   end
-
-  protected
-
-  def model_class
-    Object.const_get(controller_path.classify)
-  end
 end

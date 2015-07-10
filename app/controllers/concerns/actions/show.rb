@@ -1,6 +1,7 @@
 module Actions
   module Show
     extend ActiveSupport::Concern
+    include Actions::Base
 
     def show
       @model = show_query.find(params[:id])

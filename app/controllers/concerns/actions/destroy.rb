@@ -1,6 +1,7 @@
 module Actions
   module Destroy
     extend ActiveSupport::Concern
+    include Actions::Base
 
     def destroy
       @model = destroy_query.find(params[:id])

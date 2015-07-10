@@ -1,6 +1,7 @@
 module Actions
   module Update
     extend ActiveSupport::Concern
+    include Actions::Base
 
     def update
       @model = update_query.find(params[:id])

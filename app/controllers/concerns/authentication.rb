@@ -10,6 +10,6 @@ module Authentication
 
   def authenticate
     @current_user = Session.new(access_token: params[:access_token]).to_user
-    render nothing: true, status: :unauthorized unless @current_user
+    render json: {message: 'invalid access token'}, status: :unauthorized unless @current_user
   end
 end
