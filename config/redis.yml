@@ -9,6 +9,9 @@ redis_lab: &redis_lab
 development:
   <<: *local
 
+staging:
+  <<: *redis_lab
+
 test:
   <<: *local
 

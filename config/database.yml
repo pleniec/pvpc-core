@@ -15,6 +15,9 @@ local: &local
 development:
   <<: *heroku_dev
 
+staging:
+  <<: *heroku_dev
+
 test:
   <<: *local
 
