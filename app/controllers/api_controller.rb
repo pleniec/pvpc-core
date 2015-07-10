@@ -5,11 +5,9 @@ class APIController < ActionController::Base
   include Actions::Update
   include Actions::Destroy
 
-  attr_reader :current_user
+  include Authentication
 
   http_basic_authenticate_with name: 'pvpc', password: 'pefalpe987'
-
-  before_action :authenticate
 
   rescue_from(ActiveRecord::RecordNotFound) { |e| render json: {message: e.message}, status: :not_found }
   rescue_from(ActiveRecord::RecordInvalid) { |e| render json: e.record.errors, status: :unprocessable_entity }
@@ -24,12 +22,5 @@ class APIController < ActionController::Base
 
   def model_class
     Object.const_get(controller_path.classify)
-  end
-
-  private
-
-  def authenticate
-    @current_user = Session.new(access_token: params[:access_token]).to_user
-    render nothing: true, status: :unauthorized unless @current_user
   end
 end
