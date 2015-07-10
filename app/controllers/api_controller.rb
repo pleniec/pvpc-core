@@ -1,4 +1,10 @@
 class APIController < ActionController::Base
+  include Actions::Index
+  include Actions::Show
+  include Actions::Create
+  include Actions::Update
+  include Actions::Destroy
+
   attr_reader :current_user
 
   http_basic_authenticate_with name: 'pvpc', password: 'pefalpe987'
@@ -14,56 +20,10 @@ class APIController < ActionController::Base
     @current_ability ||= Ability.new(current_user, params)
   end
 
-  def index
-    authorize! :index, model_class
-    @total = index_query.offset(nil).limit(nil).count
-    @models = index_query.to_a
-  end
-
-  def show
-    @model = show_query.find(params[:id])
-    authorize! :show, @model
-  end
-
-  def create
-    @model = model_class.new(create_params)
-    authorize! :create, @model
-    @model.save!
-    render status: :created
-  end
-
-  def update
-    @model = update_query.find(params[:id])
-    authorize! :update, @model
-    @model.update!(update_params)
-  end
-
-  def destroy
-    @model = destroy_query.find(params[:id])
-    authorize! :destroy, @model
-    @model.destroy!
-  end
-
   protected
 
   def model_class
     Object.const_get(controller_path.classify)
-  end
-
-  def index_query
-    apply_scopes(model_class).all
-  end
-
-  def show_query
-    model_class
-  end
-
-  def update_query
-    model_class
-  end
-
-  def destroy_query
-    model_class
   end
 
   private
