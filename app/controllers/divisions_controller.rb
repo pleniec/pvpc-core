@@ -4,10 +4,10 @@ class DivisionsController < APIController
   protected
 
   def create_params
-    params.require(:division).permit(:team_id, :game_id, :name)
+    super.permit(:team_id, :game_id, :name)
   end
 
   def update_params
-    params.require(:division).permit(:name)
+    super.permit(:name)
   end
 end

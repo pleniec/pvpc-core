@@ -10,10 +10,10 @@ class UsersController < APIController
   protected
 
   def create_params
-    params.require(:user).permit(:email, :password, :nickname)
+    super.permit(:email, :password, :nickname)
   end
 
   def update_params
-    params.require(:user).permit(:nickname, :settings_mask)
+    super.permit(:nickname, :settings_mask)
   end
 end

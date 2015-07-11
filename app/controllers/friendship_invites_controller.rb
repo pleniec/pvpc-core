@@ -10,6 +10,6 @@ class FriendshipInvitesController < APIController
   protected
 
   def create_params
-    params.require(:friendship_invite).permit(:from_user_id, :to_user_id)
+    super.permit(:from_user_id, :to_user_id)
   end
 end
