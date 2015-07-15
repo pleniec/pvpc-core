@@ -38,3 +38,11 @@ curl -X GET -H 'Content-Type: application/json' 'http://pvpc:pefalpe987@localhos
 curl -X GET -H 'Content-Type: application/json' 'http://pvpc:pefalpe987@localhost:3000/games/1'
 ```
 # game ownerships
+### add game to user's games
+```
+curl -X POST -H 'Content-Type: application/json' --data '{"model": {"user_id": 38, "nickname": "plajer", "game_id": 1}}'  'http://pvpc:pefalpe987@localhost:3000/game_ownerships?access_token=yesD_1fCXwKY_x-zNay6'
+```
+### update user's nickname in game
+```
+curl -X PATCH -H 'Content-Type: application/json' --data '{"model": {"nickname": "pro_platyer"}}'  'http://pvpc:pefalpe987@localhost:3000/game_ownerships/125?access_token=yesD_1fCXwKY_x-zNay6'
+```

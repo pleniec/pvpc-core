@@ -10,6 +10,7 @@ class GameOwnership < ActiveRecord::Base
   def to_builder
     Jbuilder.new do |json|
       json.id id
+      json.nickname nickname
       json.game do
         json.merge! game.to_builder.attributes!
       end
