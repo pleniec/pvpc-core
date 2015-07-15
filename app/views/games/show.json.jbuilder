@@ -1,1 +1,1 @@
-json.merge! @model.to_builder.attributes!
+json.merge! @model.to_builder(true).attributes!
