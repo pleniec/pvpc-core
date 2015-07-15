@@ -54,3 +54,12 @@ curl -X GET -H 'Content-Type: application/json' 'http://pvpc:pefalpe987@localhos
 ```
 curl -X DELETE -H 'Content-st:3000/game_ownerships/124?access_token=yesD_1fCXwKY_x-zNay6'
 ```
+# friendship invites
+### invite user to be friend
+```
+curl -X POST -H 'Content-Type: application/json' --data '{"model": {"from_user_id": 38, "to_user_id": 2}}'  'http://pvpc:pefalpe987@localhost:3000/friendship_invites?access_token=3N2R2RcW_QKjKvpmAYcS'
+```
+### show user's friendship invites
+```
+curl -X GET -H 'Content-Type: application/json' 'http://pvpc:pefalpe987@localhost:3000/friendship_invites?to_user_id=38&access_token=3N2R2RcW_QKjKvpmAYcS'
+```
