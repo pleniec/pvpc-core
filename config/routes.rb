@@ -16,6 +16,9 @@ Rails.application.routes.draw do
       resources :teams, only: [:index, :show, :create]
       resources :team_memberships, only: [:index, :create, :update, :destroy]
       resources :divisions, only: [:index, :show, :create, :update, :destroy]
+      resources :conversation_participants, only: [:index]
+    end
+    namespace :private do
     end
   end
 end
