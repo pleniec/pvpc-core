@@ -59,5 +59,11 @@ class Ability
     can [:create, :update, :destroy], Division do |division|
       division.team.founder == current_user
     end
+
+    ###
+
+    can :create, Conversation do |conversation|
+      conversation.conversation_participants.any? { |cp| cp.user_id == current_user.id }
+    end
   end
 end
