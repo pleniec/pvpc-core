@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Public::TeamMembershipsController do
+RSpec.describe TeamMembershipsController do
   before do
     @founder = FactoryGirl.create(:user)
     @team = FactoryGirl.create(:team, founder: @founder)

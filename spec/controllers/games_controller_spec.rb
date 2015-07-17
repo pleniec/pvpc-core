@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Public::GamesController do
+RSpec.describe GamesController do
   before do
     @user = FactoryGirl.create(:user)
     @games = FactoryGirl.create_list(:game, 3)

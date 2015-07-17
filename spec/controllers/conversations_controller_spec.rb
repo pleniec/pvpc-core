@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Public::ConversationsController do
+RSpec.describe ConversationsController do
   before do
     @users = FactoryGirl.create_list(:user, 3)
   end
