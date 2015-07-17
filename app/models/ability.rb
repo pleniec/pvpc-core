@@ -65,5 +65,9 @@ class Ability
     can :create, Conversation do |conversation|
       conversation.conversation_participants.any? { |cp| cp.user_id == current_user.id }
     end
+
+    ###
+
+    can :index, ConversationParticipant if params[:user_id].to_i == current_user.id
   end
 end
