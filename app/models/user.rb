@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  InvalidCredentials = Class.new(StandardError)
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -20,7 +18,7 @@ class User < ActiveRecord::Base
 
   def self.authenticate(email, password)
     user = self.find_by_email(email)
-    raise InvalidCredentials if user.nil? || !user.valid_password?(password)
+    return nil if user.nil? || !user.valid_password?(password)
     user.session.create
     user
   end

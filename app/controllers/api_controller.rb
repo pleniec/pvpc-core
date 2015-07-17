@@ -11,7 +11,6 @@ class APIController < ActionController::Base
 
   rescue_from(ActiveRecord::RecordNotFound) { |e| render json: {message: e.message}, status: :not_found }
   rescue_from(ActiveRecord::RecordInvalid) { |e| render json: e.record.errors, status: :unprocessable_entity }
-  rescue_from(User::InvalidCredentials) { render json: {message: 'invalid credentials'}, status: :unprocessable_entity }
   rescue_from(CanCan::AccessDenied) { |e| render json: {message: e.message}, status: :forbidden }
 
   def current_ability
