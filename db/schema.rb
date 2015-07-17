@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618121149) do
+ActiveRecord::Schema.define(version: 20150717094300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,18 @@ ActiveRecord::Schema.define(version: 20150618121149) do
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
+
+  create_table "conversation_participants", force: :cascade do |t|
+    t.integer  "user_id",         null: false
+    t.integer  "conversation_id", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "team_id",    null: false
@@ -109,6 +121,14 @@ ActiveRecord::Schema.define(version: 20150618121149) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name",       null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "user_id",         null: false
+    t.integer  "conversation_id", null: false
+    t.text     "text",            null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "team_memberships", force: :cascade do |t|
