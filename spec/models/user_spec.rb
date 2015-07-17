@@ -6,13 +6,6 @@ RSpec.describe User do
   end
 
   describe 'authentication' do
-    it 'raises User::InvalidCredentials on invalid credentials' do
-      credentials = [[nil, nil], [@user.email, nil], [nil, 'password123'], [@user.email, 'password1234']]
-      credentials.each do |email, password|
-        expect { User.authenticate(email, password) }.to raise_error(User::InvalidCredentials)
-      end
-    end
-
     it 'returns user on valid credentials' do
       authentication_result = User.authenticate(@user.email, 'password123')
       expect(authentication_result).to eql(@user)

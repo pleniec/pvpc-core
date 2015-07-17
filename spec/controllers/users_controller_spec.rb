@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersController do
+RSpec.describe Public::UsersController do
   describe 'POST #create' do
     it 'creates user' do
       post_json :create, model: {email: 'user@mail.com', nickname: 'zalu', password: 'password123'}

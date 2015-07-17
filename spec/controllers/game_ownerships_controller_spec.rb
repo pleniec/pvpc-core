@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe GameOwnershipsController do
+RSpec.describe Public::GameOwnershipsController do
   before do
     @users = FactoryGirl.create_list(:user, 2)
     @games = FactoryGirl.create_list(:game, 5)

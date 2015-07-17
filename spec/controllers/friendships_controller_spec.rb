@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FriendshipsController do
+RSpec.describe Public::FriendshipsController do
   before do
     @users = FactoryGirl.create_list(:user, 3)
     FriendshipInvite.create!(from_user: @users[1], to_user: @users[0]).accept!

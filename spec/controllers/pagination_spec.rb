@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe GamesController do
+RSpec.describe Public::GamesController do
   describe 'pagination' do
     before do
       @games = FactoryGirl.create_list(:game, 5)
