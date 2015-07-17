@@ -7,6 +7,7 @@ module Public
     def login
       @model = User.authenticate(params[:email], params[:password])
       render json: {credentials: ['invalid']}, status: :unprocessable_entity if @model.nil?
+      render :model
     end
 
     protected

@@ -31,23 +31,20 @@ class User < ActiveRecord::Base
     @settings ||= UserSettings.new(self)
   end
 
-  def to_builder(options = {})
+  def to_builder(controller, action)
     Jbuilder.new do |json|
       json.id id
       json.email email
       json.nickname nickname
 
-      if options[:settings_mask]
+      if action == :login || action == :create
         json.settings_mask settings_mask
-      end
-
-      if options[:access_token]
         json.access_token session.access_token
       end
 
-      if options[:game_ownerships]
+      if action == :login
         json.game_ownerships game_ownerships do |game_ownership|
-          json.merge! game_ownership.to_builder.attributes!
+          json.merge! game_ownership.to_builder(controller, action).attributes!
         end
       end
     end

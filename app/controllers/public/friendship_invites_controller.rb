@@ -6,6 +6,7 @@ module Public
       @model = FriendshipInvite.find(params[:id])
       authorize! :accept, @model
       @model.accept!
+      render :model
     end
 
     protected

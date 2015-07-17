@@ -7,7 +7,7 @@ module Actions
       @model = model_class.new(create_params)
       authorize! :create, @model
       @model.save!
-      render status: :created
+      render :model, status: :created
     end
 
     protected

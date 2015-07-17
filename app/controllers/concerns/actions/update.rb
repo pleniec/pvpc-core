@@ -7,6 +7,7 @@ module Actions
       @model = update_query.find(params[:id])
       authorize! :update, @model
       @model.update!(update_params)
+      render :model
     end
 
     protected

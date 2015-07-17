@@ -10,7 +10,7 @@ RSpec.describe Public::TeamsController do
     it 'renders teams' do
       get_json :index, access_token: @user.session.access_token
       expect(response.status).to eql(200)
-      expect(response_body.size).to eql(3)
+      expect(response_body['models'].size).to eql(3)
     end
   end
 

@@ -6,6 +6,7 @@ module Actions
     def show
       @model = show_query.find(params[:id])
       authorize! :show, @model
+      render :model
     end
 
     protected

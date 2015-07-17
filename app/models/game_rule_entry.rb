@@ -4,7 +4,7 @@ class GameRuleEntry < ActiveRecord::Base
   validates :key, presence: true
   validates :value, presence: true
 
-  def to_builder
+  def to_builder(controller, action)
     Jbuilder.new do |json|
       json.id id
       json.key key

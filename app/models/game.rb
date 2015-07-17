@@ -7,14 +7,14 @@ class Game < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def to_builder(detailed = false)
+  def to_builder(controller, action)
     Jbuilder.new do |json|
       json.id id
       json.name name
 
-      if detailed
+      if action == :show
         json.rules rules do |rule|
-          json.merge! rule.to_builder.attributes!
+          json.merge! rule.to_builder(controller, action).attributes!
         end
       end
     end

@@ -27,7 +27,7 @@ RSpec.describe Public::GameOwnershipsController do
     it "renders user's games" do
       get_json :index, user_id: @users[0].id, access_token: @users[0].session.access_token
       expect(response.status).to eql(200)
-      expect(response_body.size).to eql(3)
+      expect(response_body['models'].size).to eql(3)
     end
 
     it "renders other user's games" do

@@ -6,11 +6,11 @@ class ConversationParticipant < ActiveRecord::Base
 
   scope :user_id, ->(user_id) { where(user_id: user_id) }
 
-  def to_builder
+  def to_builder(controller, action)
     Jbuilder.new do |json|
       json.id
       json.conversation do
-        json.merge! conversation.to_builder.attributes!
+        json.merge! conversation.to_builder(controller, action).attributes!
       end
     end
   end

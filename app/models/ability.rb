@@ -62,7 +62,7 @@ class Ability
 
     ###
 
-    can :create, Conversation do |conversation|
+    can [:create, :show], Conversation do |conversation|
       conversation.conversation_participants.any? { |cp| cp.user_id == current_user.id }
     end
 

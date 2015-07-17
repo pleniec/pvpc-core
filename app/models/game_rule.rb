@@ -6,12 +6,12 @@ class GameRule < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def to_builder
+  def to_builder(controller, action)
     Jbuilder.new do |json|
       json.id id
       json.name name
       json.entries entries do |entry|
-        json.merge! entry.to_builder.attributes!
+        json.merge! entry.to_builder(controller, action).attributes!
       end
     end
   end

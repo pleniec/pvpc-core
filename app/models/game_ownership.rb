@@ -7,12 +7,12 @@ class GameOwnership < ActiveRecord::Base
 
   scope :user_id, ->(user_id) { where(user_id: user_id) }
 
-  def to_builder
+  def to_builder(controller, action)
     Jbuilder.new do |json|
       json.id id
       json.nickname nickname
       json.game do
-        json.merge! game.to_builder.attributes!
+        json.merge! game.to_builder(controller, action).attributes!
       end
     end
   end

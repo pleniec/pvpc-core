@@ -27,7 +27,7 @@ RSpec.describe Public::TeamMembershipsController do
     it 'renders team members' do
       get_json :index, access_token: @users[0].session.access_token, team_id: @team.id
       expect(response.status).to eql(200)
-      expect(response_body.size).to eql(1)
+      expect(response_body['models'].size).to eql(1)
     end
   end
 end
