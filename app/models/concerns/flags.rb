@@ -33,6 +33,7 @@ module Flags
     end
 
     def update!(attributes)
+      return if attributes.nil?
       attributes.each do |attribute, value|
         unless @attributes.include?(attribute)
           raise Flags::UnknownAttributeError.new(attribute, @record)

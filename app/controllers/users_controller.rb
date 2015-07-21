@@ -16,6 +16,6 @@ class UsersController < APIController
   end
 
   def update_params
-    params.permit(:nickname, :settings_mask)
+    params.permit(:nickname, flags: User::FLAGS)
   end
 end

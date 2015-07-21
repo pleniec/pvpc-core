@@ -33,14 +33,14 @@ RSpec.describe User do
     expect(@user.session.access_token).to_not be nil
   end
 
-  it 'has settings' do
-    expect(@user.settings.play_message_sound).to be false
+  it 'has flags' do
+    expect(@user.flags.play_message_sound).to be false
   end
 
-  it 'can update settings' do
-    @user.settings.play_message_sound = true
+  it 'can update flags' do
+    @user.flags.play_message_sound = true
     @user.save!
 
-    expect(User.find(@user.id).settings.play_message_sound).to be true
+    expect(User.find(@user.id).flags.play_message_sound).to be true
   end
 end
