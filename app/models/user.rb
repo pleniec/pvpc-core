@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include Flags
+  
   FLAGS = [:block_messages_from_strangers, :block_messages_from_foreign_teams, :play_message_sound,
            :open_new_message, :notify_on_new_friendship_invite, :notify_on_new_message_on_my_profile,
            :notify_on_new_tournament_in_observed_games, :notify_3_days_before_upcoming_match,
@@ -15,8 +17,6 @@ class User < ActiveRecord::Base
            :notify_15_minutes_before_upcoming_tournament, :notify_on_upcoming_tournament_match,
            :notify_on_new_team_member, :notify_on_team_member_leave, :notify_on_new_division, :notify_on_division_removal,
            :notify_on_team_promotions_and_degradations, :notify_on_new_message_attached_to_team_profile]
-
-  include Flags
   flags *FLAGS
 
   devise :database_authenticatable, :registerable,
