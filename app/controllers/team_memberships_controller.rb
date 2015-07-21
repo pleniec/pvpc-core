@@ -4,10 +4,10 @@ class TeamMembershipsController < APIController
   protected
 
   def create_params
-    super.permit(:user_id, :team_id, :captain)
+    params.permit(:user_id, :team_id, :captain)
   end
 
   def update_params
-    super.permit(:captain)
+    params.permit(:captain)
   end
 end

@@ -15,9 +15,5 @@ module Actions
     def update_query
       model_class
     end
-
-    def update_params
-      params.require(:model)
-    end
   end
 end

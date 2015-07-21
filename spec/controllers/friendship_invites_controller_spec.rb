@@ -11,14 +11,14 @@ RSpec.describe FriendshipInvitesController do
   describe 'POST #create' do
     it 'creates invite' do
       post_json :create, access_token: @users[0].session.access_token,
-        model: {from_user_id: @users[0].id, to_user_id: @users[3].id}
+        from_user_id: @users[0].id, to_user_id: @users[3].id
       expect(response.status).to eql(201)
       expect(@users[3].friendship_invites.count).to eql(1)
     end
 
     it 'cannot create invite as other user' do
       post_json :create, access_token: @users[0].session.access_token,
-        model: {from_user_id: @users[1].id, to_user_id: @users[3].id}
+        from_user_id: @users[1].id, to_user_id: @users[3].id
       expect(response.status).to eql(403)
       expect(@users[3].friendship_invites.count).to eql(0)
     end
@@ -26,14 +26,14 @@ RSpec.describe FriendshipInvitesController do
     it 'cannot invite the same user multiple times' do
       FriendshipInvite.create!(from_user: @users[0], to_user: @users[3])
       post_json :create, access_token: @users[0].session.access_token,
-        model: {from_user_id: @users[0].id, to_user_id: @users[3].id}
+        from_user_id: @users[0].id, to_user_id: @users[3].id
       expect(response.status).to eql(422)
       expect(@users[3].friendship_invites.count).to eql(1)
     end
 
     it 'does not allow user to invite himself' do
       post_json :create, access_token: @users[0].session.access_token,
-        model: {from_user_id: @users[0].id, to_user_id: @users[0].id}
+        from_user_id: @users[0].id, to_user_id: @users[0].id
       expect(response.status).to eql(422)
       expect(@users[1].friendship_invites.count).to eql(0)
     end

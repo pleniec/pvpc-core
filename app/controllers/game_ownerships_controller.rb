@@ -4,10 +4,10 @@ class GameOwnershipsController < APIController
   protected
 
   def create_params
-    super.permit(:user_id, :game_id, :nickname)
+    params.permit(:user_id, :game_id, :nickname)
   end
 
   def update_params
-    super.permit(:nickname)
+    params.permit(:nickname)
   end
 end

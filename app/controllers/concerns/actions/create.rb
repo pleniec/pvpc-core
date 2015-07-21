@@ -9,11 +9,5 @@ module Actions
       @model.save!
       render :model, status: :created
     end
-
-    protected
-
-    def create_params
-      params.require(:model)
-    end
   end
 end
