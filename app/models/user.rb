@@ -31,6 +31,11 @@ class User < ActiveRecord::Base
     @settings ||= UserSettings.new(self)
   end
 
+  def update!(attributes)
+    settings.update(attributes[:settings])
+    super
+  end
+
   def to_builder(controller, action)
     Jbuilder.new do |json|
       json.id id
@@ -40,6 +45,9 @@ class User < ActiveRecord::Base
       if action == :login || action == :create
         json.settings_mask settings_mask
         json.access_token session.access_token
+        json.settings do
+          json.merge! settings.to_builder.attributes!
+        end
       end
 
       if action == :login
