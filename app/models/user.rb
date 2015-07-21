@@ -52,10 +52,9 @@ class User < ActiveRecord::Base
       json.nickname nickname
 
       if action == :login || action == :create
-        json.settings_mask settings_mask
         json.access_token session.access_token
-        json.settings do
-          json.merge! settings.to_builder.attributes!
+        json.flags do
+          json.merge! flags.to_builder.attributes!
         end
       end
 
