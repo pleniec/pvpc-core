@@ -42,14 +42,6 @@ module Flags
       end
     end
 
-    def to_builder
-      Jbuilder.new do |json|
-        @attributes.each do |attribute|
-          json.set! attribute, send(attribute)
-        end
-      end
-    end
-
     def to_h
       @attributes.map { |a| [a, send(a)] }.to_h
     end

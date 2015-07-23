@@ -80,7 +80,7 @@ RSpec.describe GameOwnershipsController do
     it "removes game from user's account" do
       destroy user_id: @users[0].id, id: @users[0].game_ownerships[0].id,
         access_token: @users[0].session.access_token
-      expect(response.status).to eql(200)
+      expect(response.status).to eql(204)
       expect(@users[0].game_ownerships.count).to eql(2)
     end
 

@@ -55,7 +55,7 @@ RSpec.describe FriendshipInvitesController do
   describe 'DELETE #destroy' do
     it 'declines invite' do
       destroy id: @users[0].friendship_invites[0].id, access_token: @users[0].session.access_token
-      expect(response.status).to eql(200)
+      expect(response.status).to eql(204)
       expect(@users[0].friendship_invites.count).to eql(1)
     end
 

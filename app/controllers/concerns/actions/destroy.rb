@@ -7,7 +7,7 @@ module Actions
       @model = destroy_query.find(params[:id])
       authorize! :destroy, @model
       @model.destroy!
-      render :model
+      render nothing: true, status: :no_content
     end
 
     protected

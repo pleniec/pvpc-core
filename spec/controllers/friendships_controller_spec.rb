@@ -20,7 +20,7 @@ RSpec.describe FriendshipsController do
     it 'ends friendship' do
       destroy user_id: @users[0].id, id: @users[0].friendships[0].id,
         access_token: @users[0].session.access_token
-      expect(response.status).to eql(200)
+      expect(response.status).to eql(204)
       expect(@users[0].friendships.count).to eql(1)
     end
 

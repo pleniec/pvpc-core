@@ -6,7 +6,7 @@ class UsersController < APIController
   def login
     @model = User.authenticate(params[:email], params[:password])
     render json: {credentials: ['invalid']}, status: :unprocessable_entity if @model.nil?
-    render :model
+    render :private
   end
 
   protected
@@ -17,5 +17,13 @@ class UsersController < APIController
 
   def update_params
     params.permit(:nickname, flags: User::FLAGS)
+  end
+
+  def create_view
+    :private
+  end
+
+  def update_view
+    :private
   end
 end
