@@ -25,13 +25,13 @@ RSpec.describe GameOwnershipsController do
 
   describe 'GET #index' do
     it "renders user's games" do
-      get_json :index, user_id: @users[0].id, access_token: @users[0].session.access_token
+      index user_id: @users[0].id, access_token: @users[0].session.access_token
       expect(response.status).to eql(200)
       expect(response_body['models'].size).to eql(3)
     end
 
     it "renders other user's games" do
-      get_json :index, user_id: @users[1].id, access_token: @users[0].session.access_token
+      index user_id: @users[1].id, access_token: @users[0].session.access_token
       expect(response.status).to eql(200)
       expect(response_body.size).to eql(2)
     end
@@ -39,21 +39,21 @@ RSpec.describe GameOwnershipsController do
 
   describe 'POST #create' do
     it 'adds game to user' do
-      post_json :create, access_token: @users[0].session.access_token,
+      create access_token: @users[0].session.access_token,
         user_id: @users[0].id, game_id: @games[3].id, nickname: 'nickname0'
       expect(response.status).to eql(201)
       expect(@users[0].game_ownerships.count).to eql(4)
     end
 
     it 'cannot add game multiple times' do
-      post_json :create, access_token: @users[0].session.access_token,
+      create access_token: @users[0].session.access_token,
         user_id: @users[0].id, game_id: @games[0].id, nickname: 'nickname0'
       expect(response.status).to eql(422)
       expect(@users[0].game_ownerships.count).to eql(3)
     end
 
     it 'cannot add game to other user' do
-      post_json :create, access_token: @users[0].session.access_token,
+      create access_token: @users[0].session.access_token,
         user_id: @users[1].id, game_id: @games[0].id, nickname: 'nickname0'
       expect(response.status).to eql(403)
       expect(@users[1].game_ownerships.count).to eql(2)
@@ -62,14 +62,14 @@ RSpec.describe GameOwnershipsController do
 
   describe 'PATCH #update' do
     it "updates user's nickname" do
-      patch_json :update, user_id: @users[0].id, id: @users[0].game_ownerships[0].id,
+      update user_id: @users[0].id, id: @users[0].game_ownerships[0].id,
         access_token: @users[0].session.access_token, nickname: 'nyk'
       expect(response.status).to eql(200)
       expect(@users[0].game_ownerships[0].reload.nickname).to eql('nyk')
     end
 
     it "cannot update other user's nickname" do
-      patch_json :update, user_id: @users[1].id, id: @users[1].game_ownerships[0].id,
+      update user_id: @users[1].id, id: @users[1].game_ownerships[0].id,
         access_token: @users[0].session.access_token, nickname: 'nyk'
       expect(response.status).to eql(403)
       expect(@users[1].game_ownerships[0].reload.nickname).not_to eql('nyk')
@@ -78,14 +78,14 @@ RSpec.describe GameOwnershipsController do
 
   describe 'DELETE #destroy' do
     it "removes game from user's account" do
-      delete_json :destroy, user_id: @users[0].id, id: @users[0].game_ownerships[0].id,
+      destroy user_id: @users[0].id, id: @users[0].game_ownerships[0].id,
         access_token: @users[0].session.access_token
       expect(response.status).to eql(200)
       expect(@users[0].game_ownerships.count).to eql(2)
     end
 
     it "cannot remove game from other user's account" do
-      delete_json :destroy, user_id: @users[1].id, id: @users[1].game_ownerships[0].id,
+      destroy user_id: @users[1].id, id: @users[1].game_ownerships[0].id,
         access_token: @users[0].session.access_token
       expect(response.status).to eql(403)
       expect(@users[1].game_ownerships.count).to eql(2)

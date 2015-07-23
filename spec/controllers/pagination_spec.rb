@@ -7,7 +7,7 @@ RSpec.describe GamesController do
     end
 
     it 'renders all games' do
-      get_json :index
+      index
       expect(response.status).to eql(200)
       expect(response_body['total']).to eql(5)
       expect(response_body['models'].size).to eql(5)
@@ -18,7 +18,7 @@ RSpec.describe GamesController do
     end
 
     it 'renders games with offset' do
-      get_json :index, offset: 2
+      index offset: 2
       expect(response.status).to eql(200)
       expect(response_body['total']).to eql(5)
       expect(response_body['models'].size).to eql(3)
@@ -29,7 +29,7 @@ RSpec.describe GamesController do
     end
 
     it 'renders games with limit' do
-      get_json :index, limit: 2
+      index limit: 2
       expect(response.status).to eql(200)
       expect(response_body['total']).to eql(5)
       expect(response_body['models'].size).to eql(2)
@@ -40,7 +40,7 @@ RSpec.describe GamesController do
     end
 
     it 'renders games with limit and offset' do
-      get_json :index, offset: 2, limit: 2
+      index offset: 2, limit: 2
       expect(response.status).to eql(200)
       expect(response_body['total']).to eql(5)
       expect(response_body['models'].size).to eql(2)

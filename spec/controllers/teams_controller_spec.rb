@@ -8,7 +8,7 @@ RSpec.describe TeamsController do
 
   describe 'GET #index' do
     it 'renders teams' do
-      get_json :index, access_token: @user.session.access_token
+      index access_token: @user.session.access_token
       expect(response.status).to eql(200)
       expect(response_body['models'].size).to eql(3)
     end
@@ -16,7 +16,7 @@ RSpec.describe TeamsController do
 
   describe 'GET #show' do
     it 'renders team' do
-      get_json :show, access_token: @user.session.access_token, id: @teams[0].id
+      show access_token: @user.session.access_token, id: @teams[0].id
       expect(response.status).to eql(200)
       expect(response_body.keys.size).to be > 2
     end
@@ -24,7 +24,7 @@ RSpec.describe TeamsController do
 
   describe 'POST #create' do
     it 'creates team' do
-      post_json :create, access_token: @user.session.access_token,
+      create access_token: @user.session.access_token,
         name: 'tim', description: 'nice team', tag: 'hdp', founder_id: @user.id
       expect(response.status).to eql(201)
       expect(Team.count).to eql(4)
@@ -32,7 +32,7 @@ RSpec.describe TeamsController do
 
     it 'cannot create team as other user' do
       @other_user = FactoryGirl.create(:user)
-      post_json :create, access_token: @user.session.access_token,
+      create access_token: @user.session.access_token,
         name: 'tim', description: 'nice team', tag: 'hdp', founder_id: @other_user.id
       expect(response.status).to eql(403)
       expect(Team.count).to eql(3)
