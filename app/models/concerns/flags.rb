@@ -49,6 +49,10 @@ module Flags
         end
       end
     end
+
+    def to_h
+      @attributes.map { |a| [a, send(a)] }.to_h
+    end
   end
 
   module ClassMethods
