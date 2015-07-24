@@ -35,7 +35,7 @@ module Flags
     def update!(attributes)
       return if attributes.nil?
       attributes.each do |attribute, value|
-        unless @attributes.include?(attribute)
+        unless @attributes.include?(attribute.to_sym)
           raise Flags::UnknownAttributeError.new(attribute, @record)
         end
         send("#{attribute}=", value)
@@ -56,12 +56,12 @@ module Flags
   end
 
   def update(attributes)
-    flags.update!(attributes[:flags])
+    flags.update!(attributes.delete(:flags))
     super
   end
 
   def update!(attributes)
-    flags.update!(attributes[:flags])
+    flags.update!(attributes.delete(:flags))
     super
   end
 end

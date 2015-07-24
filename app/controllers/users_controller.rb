@@ -5,8 +5,11 @@ class UsersController < APIController
 
   def login
     @model = User.authenticate(params[:email], params[:password])
-    render json: {credentials: ['invalid']}, status: :unprocessable_entity if @model.nil?
-    render :private
+    if @model.nil?
+      render json: {credentials: ['invalid']}, status: :unprocessable_entity
+    else
+      render :private
+    end
   end
 
   protected

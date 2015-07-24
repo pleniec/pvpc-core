@@ -7,6 +7,12 @@ RSpec.describe UsersController do
       expect(response.status).to eql(201)
       expect(User.exists?(response_body['id'])).to be true
     end
+
+    it 'renders errors on invalid values' do
+      create email: 'yyywhat?', nickname: 'zalu', password: 'password123'
+      expect(response.status).to eql(422)
+      expect(User.count).to eql(0)
+    end 
   end
 
   describe 'POST #login' do
@@ -15,6 +21,13 @@ RSpec.describe UsersController do
       post_json :login, email: @user.email, password: 'password123'
       expect(response.status).to eql(200)
       expect(response_body['access_token']).not_to be nil
+    end
+
+    it 'renders errors on invalid credentials' do
+      @user = FactoryGirl.create(:user)
+      post_json :login, email: @user.email, password: 'password???'
+      expect(response.status).to eql(422)
+      expect(response_body['access_token']).to be nil
     end
   end
 
@@ -27,12 +40,50 @@ RSpec.describe UsersController do
     end
   end
 
+  describe 'GET #index' do
+    before do
+      @users = FactoryGirl.create_list(:user, 5)
+    end
+
+    it 'renders all users' do
+      index
+      expect(response.status).to eql(200)
+      expect(response_body['models'].size).to eql(5)
+    end
+
+    it 'renders users with nickname starting with string' do
+      @users[3..4].each do |user|
+        user.nickname = 'hihi' + rand(1000).to_s
+        user.save!
+      end
+      index nickname: 'hi'
+      expect(response.status).to eql(200)
+      expect(response_body['models'].size).to eql(2)
+    end
+
+    it 'renders strangers to provided user id' do
+      FriendshipInvite.create!(from_user: @users[0], to_user: @users[1]).accept!
+      index strangers_to_user_id: @users[0].id
+      expect(response.status).to eql(200)
+      expect(response_body['models'].size).to eql(3)
+    end
+  end
+
   describe 'PATCH #update' do
     it 'updates user' do
-      @users = FactoryGirl.create_list(:user, 2)
-      update id: @users[0].id, access_token: @users[0].session.access_token, nickname: 'kalu'
+      @user = FactoryGirl.create(:user)
+      update id: @user.id, access_token: @user.session.access_token, nickname: 'kalu',
+        flags: {block_messages_from_strangers: true}
       expect(response.status).to eql(200)
-      expect(@users[0].reload.nickname).to eql('kalu')
+      @user.reload
+      expect(@user.nickname).to eql('kalu')
+      expect(@user.flags.block_messages_from_strangers).to be true
+    end
+
+    it 'renders errors on invalid values' do
+      @user = FactoryGirl.create(:user)
+      update id: @user.id, access_token: @user.session.access_token, nickname: ''
+      expect(response.status).to eql(422)
     end
 
     it 'cannot update other user' do
