@@ -8,17 +8,4 @@ class Team < ActiveRecord::Base
   after_create do
     founder.teams << self
   end
-
-  def to_builder(controller, action)
-    Jbuilder.new do |json|
-      json.id id
-      json.name name
-
-      if action == :show
-        json.description description
-        json.tag tag
-        json.founder founder.to_builder(controller, action).attributes!
-      end
-    end
-  end
 end

@@ -17,11 +17,4 @@ class Friendship < ActiveRecord::Base
   def reverse
     Friendship.find_by!(user: friend, friend: user)
   end
-
-  def to_builder(controller, action)
-    Jbuilder.new do |json|
-      json.id id
-      json.friend friend.to_builder(controller, action).attributes!
-    end
-  end
 end

@@ -19,15 +19,6 @@ class FriendshipInvite < ActiveRecord::Base
     end
   end
 
-  def to_builder(controller, action)
-    Jbuilder.new do |json|
-      json.id id
-      json.from_user do
-        json.merge! from_user.to_builder(controller, action).attributes!
-      end
-    end
-  end
-
   private
 
   def cannot_invite_himself

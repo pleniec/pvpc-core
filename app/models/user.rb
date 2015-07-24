@@ -46,25 +46,4 @@ class User < ActiveRecord::Base
   def session
     @session ||= Session.new(user: self)
   end
-
-  def to_builder(controller, action)
-    Jbuilder.new do |json|
-      json.id id
-      json.email email
-      json.nickname nickname
-
-      if action == :login || action == :create
-        json.access_token session.access_token
-        json.flags do
-          json.merge! flags.to_builder.attributes!
-        end
-      end
-
-      if action == :login
-        json.game_ownerships game_ownerships do |game_ownership|
-          json.merge! game_ownership.to_builder(controller, action).attributes!
-        end
-      end
-    end
-  end
 end

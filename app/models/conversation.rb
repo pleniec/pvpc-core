@@ -10,18 +10,6 @@ class Conversation < ActiveRecord::Base
     self.key = 'private:' + conversation_participants.map(&:user_id).sort.join(':')
   end
 
-  def to_builder(controller, action)
-    Jbuilder.new do |json|
-      json.id id
-
-      if action == :show
-        json.conversation_participants conversation_participants do |conversation_participant|
-          json.merge! conversation_participant.to_builder(controller, action).attributes!
-        end
-      end
-    end
-  end
-
   protected
 
   def number_of_conversation_participants
