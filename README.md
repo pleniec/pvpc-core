@@ -1,9 +1,11 @@
-id | email | password
--- | -- | --
-39 | tu1@mail.com | password123
-40 | tu2@mail.com | password123
-41 | tu3@mail.com | password123
-42 | tu4@mail.com | password123
+| Left align | Right align | Center align |
+|:-----------|------------:|:------------:|
+| This       |        This |     This     
+| column     |      column |    column    
+| will       |        will |     will     
+| be         |          be |      be      
+| left       |       right |    center    
+| aligned    |     aligned |   aligned
 
 ## TEST USERS
 First Header  | Second Header
