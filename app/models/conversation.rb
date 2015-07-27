@@ -15,7 +15,7 @@ class Conversation < ActiveRecord::Base
   def synchronize
     key = "chat:conversation:#{id}"
     Redis.current.del(key)
-    Redis.current.sadd(key, conversation_participants.map(&:id).to_a)
+    Redis.current.sadd(key, conversation_participants.map(&:user_id).to_a)
   end
 
   protected
