@@ -1,3 +1,8 @@
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+
 ## TEST USERS
 id |     email    |   password  | nickname
 -- | ------------ | ----------- | -
