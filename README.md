@@ -1,11 +1,9 @@
-| Left align | Right align | Center align | Nickname |
+| id | email | password | nickname |
 |:-----------|------------:|:------------:|:--------:|
-| This       |        This |     This     |hehez
-| column     |      column |    column    |hehez
-| will       |        will |     will     |hehez
-| be         |          be |      be      |hehez
-| left       |       right |    center    |hehez
-| aligned    |     aligned |   aligned    |hehez
+| 39 | tu1@mail.com | password123 | tu1
+| 40 | tu2@mail.com | password123 | tu2
+| 41 | tu3@mail.com | password123 | tu3
+| 42 | tu4@mail.com | password123 | tu4
 
 id | email | password
 -- | -- | --
