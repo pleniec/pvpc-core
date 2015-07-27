@@ -1,3 +1,10 @@
+## TEST USERS
+id |     email    |   password  | nickname
+-- | ------------ | ----------- | -
+39 | tu1@mail.com | password123 | tu1
+40 | tu2@mail.com | password123 | tu2
+41 | tu3@mail.com | password123 | tu3
+42 | tu4@mail.com | password123 | tu4
 ## REST API
 #  users
 ### create user
