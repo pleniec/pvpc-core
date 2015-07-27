@@ -10,6 +10,10 @@ class Conversation < ActiveRecord::Base
     self.key = 'private:' + conversation_participants.map(&:user_id).sort.join(':')
   end
 
+  after_create do
+    Redis.current.sadd("conversation#{id}", conversation.conversation_participants.map(&:id).to_a)
+  end
+
   protected
 
   def number_of_conversation_participants
