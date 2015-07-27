@@ -10,8 +10,12 @@ class Conversation < ActiveRecord::Base
     self.key = 'private:' + conversation_participants.map(&:user_id).sort.join(':')
   end
 
-  after_create do
-    Redis.current.sadd("chat:conversation:#{id}", conversation.conversation_participants.map(&:id).to_a)
+  after_create :synchronize
+
+  def synchronize
+    key = "chat:conversation:#{conversation.id}"
+    Redis.current.del(key)
+    Redis.current.sadd(key, conversation.conversation_participants.map(&:id).to_a)
   end
 
   protected
