@@ -31,7 +31,7 @@ RSpec.describe Conversation do
     conversation = Conversation.create!(conversation_participants_attributes: [{user_id: @users[0].id},
                                                                                {user_id: @users[1].id}])
     conversation_participant_ids = Redis.current.smembers("chat:conversation:#{conversation.id}")
-    expect(conversation_participant_ids.include?(@users[0].id))
-    expect(conversation_participant_ids.include?(@users[1].id))
+    expect(conversation_participant_ids.include?(@users[0].id.to_s)).to be true
+    expect(conversation_participant_ids.include?(@users[1].id.to_s)).to be true
   end
 end
