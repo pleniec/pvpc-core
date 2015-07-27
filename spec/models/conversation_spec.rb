@@ -26,4 +26,12 @@ RSpec.describe Conversation do
     expect(conversation.valid?).to be false
     expect(conversation.errors[:conversation_participants].size).to eql(1)
   end
+
+  it 'synchronizes with redis' do
+    conversation = Conversation.create!(conversation_participants_attributes: [{user_id: @users[0].id},
+                                                                               {user_id: @users[1].id}])
+    conversation_participant_ids = Redis.current.smembers("chat:conversation:#{conversation.id}")
+    expect(conversation_participant_ids.include?(@users[0].id))
+    expect(conversation_participant_ids.include?(@users[1].id))
+  end
 end
