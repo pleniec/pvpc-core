@@ -11,7 +11,7 @@ class Conversation < ActiveRecord::Base
   end
 
   after_create do
-    Redis.current.sadd("conversation#{id}", conversation.conversation_participants.map(&:id).to_a)
+    Redis.current.sadd("chat:conversation:#{id}", conversation.conversation_participants.map(&:id).to_a)
   end
 
   protected
