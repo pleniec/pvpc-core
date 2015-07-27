@@ -4,8 +4,8 @@ Content Cell  | Content Cell
 Content Cell  | Content Cell
 
 ## TEST USERS
-id |     email    |   password  | nickname
--- | ------------ | ----------- | -
+id | email | password  | nickname
+- | - | - | -
 39 | tu1@mail.com | password123 | tu1
 40 | tu2@mail.com | password123 | tu2
 41 | tu3@mail.com | password123 | tu3
