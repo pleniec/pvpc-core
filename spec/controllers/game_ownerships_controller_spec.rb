@@ -12,17 +12,6 @@ RSpec.describe GameOwnershipsController do
     end
   end
 
-  before do
-    @users = FactoryGirl.create_list(:user, 2)
-    @games = FactoryGirl.create_list(:game, 5)
-    @games[0..2].each do |game|
-      FactoryGirl.create(:game_ownership, game: game, user: @users[0])
-    end
-    @games[3..4].each do |game|
-      FactoryGirl.create(:game_ownership, game: game, user: @users[1])
-    end
-  end
-
   describe 'GET #index' do
     it "renders user's games" do
       index user_id: @users[0].id, access_token: @users[0].session.access_token

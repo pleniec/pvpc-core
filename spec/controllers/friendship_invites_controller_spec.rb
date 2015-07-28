@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe FriendshipInvitesController do
   before do
     @users = FactoryGirl.create_list(:user, 4)
-      FriendshipInvite.create!(from_user: @users[1], to_user: @users[0])
-      FriendshipInvite.create!(from_user: @users[2], to_user: @users[0])
-      FriendshipInvite.create!(from_user: @users[1], to_user: @users[2])
+    FriendshipInvite.create!(from_user: @users[1], to_user: @users[0])
+    FriendshipInvite.create!(from_user: @users[2], to_user: @users[0])
+    FriendshipInvite.create!(from_user: @users[1], to_user: @users[2])
   end
 
   describe 'POST #create' do
