@@ -12,15 +12,14 @@ RSpec.describe Conversation do
   end
 
   it 'creates key on create' do
-    conversation = Conversation.new(conversation_participants_attributes: [{user_id: @users[0].id},
-                                                                           {user_id: @users[1].id}])
-    conversation.save!
+    conversation = Conversation.create!(conversation_participants_attributes: [{user_id: @users[0].id},
+                                                                               {user_id: @users[1].id}])
     expect(/^private:\d+:\d+$/.match(conversation.key)).not_to be nil
   end
 
   it 'validates uniqueness of key' do
-    Conversation.new(conversation_participants_attributes: [{user_id: @users[0].id},
-                                                            {user_id: @users[1].id}]).save!
+    Conversation.create!(conversation_participants_attributes: [{user_id: @users[0].id},
+                                                                {user_id: @users[1].id}])
     conversation = Conversation.new(conversation_participants_attributes: [{user_id: @users[0].id},
                                                                            {user_id: @users[1].id}])
     expect(conversation.valid?).to be false

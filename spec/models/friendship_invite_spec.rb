@@ -7,15 +7,12 @@ RSpec.describe FriendshipInvite do
 
   it 'cannot invite the same user multiple times' do
     FriendshipInvite.create!(from_user: @users[0], to_user: @users[1])
-    expect do 
-      FriendshipInvite.create!(from_user: @users[0], to_user: @users[1])
-    end.to raise_error(ActiveRecord::RecordInvalid)
+    friendship_invite = FriendshipInvite.new(from_user: @users[0], to_user: @users[1])
+    expect(friendship_invite.valid?).to be false
   end
 
   it 'rejects user inviting himself' do
-    expect do
-      FriendshipInvite.create!(from_user: @users[0], to_user: @users[0])
-    end.to raise_error(ActiveRecord::RecordInvalid)
+    expect(FriendshipInvite.new(from_user: @users[0], to_user: @users[0]).valid?).to be false
   end
 
   it 'can be accepted' do
@@ -27,11 +24,7 @@ RSpec.describe FriendshipInvite do
 
   it 'rejects inviting friends' do
     FriendshipInvite.create!(from_user: @users[0], to_user: @users[1]).accept!
-    expect do
-      FriendshipInvite.create!(from_user: @users[0], to_user: @users[1])
-    end.to raise_error(ActiveRecord::RecordInvalid)
-    expect do
-      FriendshipInvite.create!(from_user: @users[1], to_user: @users[0])
-    end.to raise_error(ActiveRecord::RecordInvalid)
+    expect(FriendshipInvite.new(from_user: @users[0], to_user: @users[1]).valid?).to be false
+    expect(FriendshipInvite.new(from_user: @users[1], to_user: @users[0]).valid?).to be false
   end
 end
