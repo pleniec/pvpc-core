@@ -15,11 +15,11 @@ class UsersController < APIController
   protected
 
   def create_params
-    params.permit(:email, :password, :nickname)
+    params.permit(:email, :password, :nickname, :sex, :age, :nationality)
   end
 
   def update_params
-    params.permit(:nickname, flags: User::FLAGS)
+    params.permit(:nickname, :sex, :age, :nationality, flags: User::FLAGS)
   end
 
   def create_view

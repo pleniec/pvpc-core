@@ -14,6 +14,7 @@ gem 'redis'
 gem 'has_scope'
 gem 'kaminari'
 gem 'therubyracer'
+gem 'countries'
 
 group :production do
   gem 'rails_12factor'

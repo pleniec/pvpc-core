@@ -65,6 +65,10 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
+    countries (0.11.5)
+      currencies (~> 0.4.2)
+      i18n_data (~> 0.7.0)
+    currencies (0.4.2)
     devise (3.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -89,6 +93,7 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     i18n (0.7.0)
+    i18n_data (0.7.0)
     inherited_resources (1.6.0)
       actionpack (>= 3.2, < 5)
       has_scope (~> 0.6.0.rc)
@@ -216,6 +221,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin (~> 1.0.0.pre1)
   cancancan (~> 1.10)
+  countries
   devise
   factory_girl_rails
   has_scope
