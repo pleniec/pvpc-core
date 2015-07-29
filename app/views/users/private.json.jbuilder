@@ -1,6 +1,9 @@
 json.id @model.id
 json.email @model.email
 json.nickname @model.nickname
+json.sex @model.sex
+json.nationality @model.nationality
+json.description @model.description
 json.access_token @model.session.access_token
 json.flags do
   @model.flags.to_h.each do |attribute, value|
