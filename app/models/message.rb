@@ -5,4 +5,6 @@ class Message < ActiveRecord::Base
   validates :user, presence: true
   validates :conversation, presence: true
   validates :text, presence: true
+
+  has_scope :conversation_id, ->(conversation_id) { where(conversation_id: conversation_id) }
 end

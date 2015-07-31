@@ -17,5 +17,6 @@ Rails.application.routes.draw do
     resources :divisions, only: [:index, :show, :create, :update, :destroy]
     resources :conversation_participants, only: [:index]
     resources :conversations, only: [:create, :show]
+    resources :messages, only: [:index]
   end
 end
