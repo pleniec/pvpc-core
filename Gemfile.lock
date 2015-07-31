@@ -49,6 +49,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    amq-protocol (1.9.2)
     arbre (1.0.3)
       activesupport (>= 3.0.0)
     arel (6.0.0)
@@ -57,6 +58,8 @@ GEM
       sass (~> 3.4)
       thor
     builder (3.2.2)
+    bunny (2.0.0)
+      amq-protocol (>= 1.9.2)
     cancancan (1.10.1)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -220,6 +223,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin (~> 1.0.0.pre1)
+  bunny
   cancancan (~> 1.10)
   countries
   devise

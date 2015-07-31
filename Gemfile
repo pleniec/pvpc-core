@@ -15,6 +15,7 @@ gem 'has_scope'
 gem 'kaminari'
 gem 'therubyracer'
 gem 'countries'
+gem 'bunny'
 
 group :production do
   gem 'rails_12factor'
