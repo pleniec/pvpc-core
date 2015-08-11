@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
   after_create { session.create }
 
-  validates :nickname, presence: true, uniqueness: true
+  validates :nickname, presence: true, uniqueness: true, length: {in: 4..30}
   validates :sex, inclusion: {in: %w[M F]}, allow_blank: true
   validates :age, numericality: {only_integer: true, greater_than_or_equal_to: 0}, allow_blank: true
   validates :nationality, inclusion: {in: Country.all.map { |c| c[1] }}, allow_blank: true
