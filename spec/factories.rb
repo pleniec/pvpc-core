@@ -13,6 +13,13 @@ FactoryGirl.define do
     end
   end
 
+  factory :friendship_invite do
+    before :create do |friendship_invite|
+      friendship_invite.from_user = create(:user) if friendship_invite.from_user_id.nil?
+      friendship_invite.to_user = create(:user) if friendship_invite.to_user_id.nil?
+    end
+  end
+
   factory :game do
     sequence(:name) { |n| "game#{n}" }
 
