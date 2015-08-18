@@ -60,5 +60,6 @@ FactoryGirl.define do
     sequence(:name) { |n| "name#{n}" }
     sequence(:description) { |n| "description#{n}" }
     sequence(:tag) { |n| "TG#{n}" }
+    founder { create(:user) }
   end
 end
