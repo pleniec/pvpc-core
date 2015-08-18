@@ -9,12 +9,8 @@ class Friendship < ActiveRecord::Base
 
   def end!
     transaction do
-      reverse.destroy!
+      Friendship.find_by!(user: friend, friend: user).destroy!
       destroy!
     end
-  end
-
-  def reverse
-    Friendship.find_by!(user: friend, friend: user)
   end
 end

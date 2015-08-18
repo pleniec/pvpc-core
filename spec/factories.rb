@@ -20,6 +20,17 @@ FactoryGirl.define do
     end
   end
 
+  factory :friendship do
+    before :create do |friendship|
+      friendship.user = create(:user) if friendship.user_id.nil?
+      friendship.friend = create(:user) if friendship.friend_id.nil?
+    end
+    
+    after :create do |friendship|
+      Friendship.create!(user: friendship.friend, friend: friendship.user)
+    end
+  end
+
   factory :game do
     sequence(:name) { |n| "game#{n}" }
 
