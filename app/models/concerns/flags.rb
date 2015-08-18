@@ -2,28 +2,28 @@ module Flags
   extend ActiveSupport::Concern
 
   class UnknownAttributeError < StandardError
-    def initialize(attribute, record)
-      super("unknown attribute #{attribute} for #{record.class}")
+    def initialize(attribute, model)
+      super("unknown attribute #{attribute} for #{model.class}")
     end
   end
 
   class Attribute
-    def initialize(record, attributes)
-      @record = record
+    def initialize(model, attributes)
+      @model = model
       @attributes = attributes
 
       @attributes.each_with_index do |attribute, index|
         self.define_singleton_method attribute do
-          (@record.flags_mask & (1 << index)) != 0
+          (@model.flags_mask & (1 << index)) != 0
         end
 
         self.define_singleton_method "#{attribute}=" do |value|
           case value
           when true
-            @record.flags_mask = (@record.flags_mask | (1 << index))
+            @model.flags_mask = (@model.flags_mask | (1 << index))
             true
           when false
-            @record.flags_mask = (@record.flags_mask & ~(1 << index))
+            @model.flags_mask = (@model.flags_mask & ~(1 << index))
             false
           else
             raise ArgumentError, 'only boolean values are allowed'
@@ -36,7 +36,7 @@ module Flags
       return if attributes.nil?
       attributes.each do |attribute, value|
         unless @attributes.include?(attribute.to_sym)
-          raise Flags::UnknownAttributeError.new(attribute, @record)
+          raise Flags::UnknownAttributeError.new(attribute, @model)
         end
         send("#{attribute}=", value)
       end
@@ -55,13 +55,13 @@ module Flags
     end
   end
 
-  def update(attributes)
-    flags.update!(attributes.delete(:flags))
-    super
+  def update(attributes = {})
+    flags.update!(attributes[:flags])
+    super(attributes.except(:flags))
   end
 
-  def update!(attributes)
-    flags.update!(attributes.delete(:flags))
-    super
+  def update!(attributes = {})
+    flags.update!(attributes[:flags])
+    super(attributes.except(:flags))
   end
 end
