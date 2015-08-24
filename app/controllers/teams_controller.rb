@@ -2,7 +2,7 @@ class TeamsController < APIController
   protected
 
   def create_params
-    params.permit(:name, :description, :tag, :founder_id)
+    params.permit(:nickname, :description, :tag, :founder_id)
   end
 
   def create_view

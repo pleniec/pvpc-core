@@ -8,6 +8,6 @@ json.models @models do |model|
   end
   json.team do
     json.id model.team.id
-    json.name model.team.name
+    json.nickname model.team.nickname
   end
 end
