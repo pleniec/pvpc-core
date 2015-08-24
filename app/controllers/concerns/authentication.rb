@@ -3,6 +3,7 @@ module Authentication
 
   included do
     attr_reader :current_user
+    helper_method :current_user
     before_action :authenticate
   end
 

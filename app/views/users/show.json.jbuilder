@@ -11,3 +11,4 @@ json.game_ownerships @model.game_ownerships do |game_ownership|
     json.name game_ownership.game.name
   end
 end
+json.relation_to_current_user model.relation_to(current_user) if current_user
