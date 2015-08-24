@@ -45,4 +45,38 @@ RSpec.describe User do
       end
     end
   end
+
+  describe '#relation' do
+    before { @users = FactoryGirl.create_list(:user, 2) }
+
+    context 'when first user sent friendship invite to second' do
+      it 'returns "SENT_FRIENDSHIP_INVITE"' do
+        FriendshipInvite.create!(from_user: @users[0], to_user: @users[1])
+
+        expect(@users[0].relation_to(@users[1])).to eql 'SENT_FRIENDSHIP_INVITE'
+      end
+    end
+
+    context 'when second user sent friendship invite to first' do
+      it 'returns "RECEIVED_FRIENDSHIP_INVITE"' do
+        FriendshipInvite.create!(from_user: @users[1], to_user: @users[0])
+
+        expect(@users[0].relation_to(@users[1])).to eql 'RECEIVED_FRIENDSHIP_INVITE'
+      end
+    end
+
+    context 'when users are friends' do
+      it 'returns "FRIEND"' do
+        FriendshipInvite.create!(from_user: @users[0], to_user: @users[1]).accept!
+        
+        expect(@users[0].relation_to(@users[1])).to eql 'FRIEND'
+      end
+    end
+
+    context "when users are not friends and didn't send invites" do
+      it 'returns "STRANGER"' do
+        expect(@users[0].relation_to(@users[1])).to eql 'STRANGER'
+      end
+    end 
+  end
 end

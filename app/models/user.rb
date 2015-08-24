@@ -23,7 +23,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :game_ownerships
-  has_many :friendship_invites, foreign_key: :to_user_id
+  has_many :received_friendship_invites, class_name: 'FriendshipInvite', foreign_key: :to_user_id
+  has_many :sent_friendship_invites, class_name: 'FriendshipInvite', foreign_key: :from_user_id
   has_many :friendships
   has_many :friends, through: :friendships
   has_many :team_memberships
@@ -44,6 +45,18 @@ class User < ActiveRecord::Base
     return nil if user.nil? || !user.valid_password?(password)
     user.session.create
     user
+  end
+
+  def relation_to(user)
+    if user.received_friendship_invites.map(&:from_user).include?(self)
+      'SENT_FRIENDSHIP_INVITE'
+    elsif user.sent_friendship_invites.map(&:to_user).include?(self)
+      'RECEIVED_FRIENDSHIP_INVITE'
+    elsif user.friends.include?(self)
+      'FRIEND'
+    else
+      'STRANGER'
+    end
   end
 
   def session
