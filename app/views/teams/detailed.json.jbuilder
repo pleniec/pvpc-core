@@ -7,3 +7,4 @@ json.founder do
   json.email @model.founder.email
   json.nickname @model.founder.nickname
 end
+json.member_count @model.users.count
