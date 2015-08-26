@@ -2,12 +2,10 @@ development:
   adapter: postgresql
   host: <%= ENV['POSTGRES_PORT_5432_TCP_ADDR'] %>
   port: <%= ENV['POSTGRES_PORT_5432_TCP_PORT'] %>
-  username: postgres
-  password: pvpc123
+  username: pvpc
 
 test:
   adapter: postgresql
   host: localhost
   port: 5432
   username: pvpc
-  password: pvpc123
