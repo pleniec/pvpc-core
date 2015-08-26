@@ -1,23 +1,7 @@
-local: &local
-  host: localhost
-  port: 6379
-
-redis_lab: &redis_lab
-  host: pub-redis-18451.us-east-1-2.4.ec2.garantiadata.com
-  port: 18451
-
 development:
-  <<: *local
-
-staging:
-  <<: *redis_lab
-
-test:
-  <<: *local
-
-production:
-  <<: *redis_lab
-
-vagrant:
   host: <%= ENV['REDIS_PORT_6379_TCP_ADDR'] %>
   port: <%= ENV['REDIS_PORT_6379_TCP_PORT'] %>
+
+test:
+  host: localhost
+  port: 6379
