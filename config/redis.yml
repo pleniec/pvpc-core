@@ -1,9 +1,7 @@
-local: &local
-  host: localhost
-  port: 6379
-
 development:
-  <<: *local
+  host: <%= ENV['REDIS_PORT_6379_TCP_ADDR'] %>
+  port: <%= ENV['REDIS_PORT_6379_TCP_PORT'] %>
 
 test:
-  <<: *local
+  host: localhost
+  port: 6379
