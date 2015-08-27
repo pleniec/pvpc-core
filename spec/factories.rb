@@ -1,7 +1,4 @@
-FactoryGirl.define do  factory :notification do
-    
-  end
-
+FactoryGirl.define do
   factory :user do
     sequence(:email) { |n| "user#{n}@mail.com" }
     password 'password123'
@@ -64,5 +61,10 @@ FactoryGirl.define do  factory :notification do
     sequence(:description) { |n| "description#{n}" }
     sequence(:tag) { |n| "TG#{n}" }
     founder { create(:user) }
+  end
+
+  factory :notification do
+    user { create(:user) }
+    type 'NEW_FRIENDSHIP'
   end
 end
