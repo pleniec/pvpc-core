@@ -1,4 +1,7 @@
-FactoryGirl.define do
+FactoryGirl.define do  factory :notification do
+    
+  end
+
   factory :user do
     sequence(:email) { |n| "user#{n}@mail.com" }
     password 'password123'
