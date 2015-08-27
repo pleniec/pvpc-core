@@ -2,6 +2,12 @@ class FriendshipInvite < ActiveRecord::Base
   belongs_to :from_user, class_name: 'User'
   belongs_to :to_user, class_name: 'User'
 
+  after_create do
+    Notification.create!(user: to_user,
+                         type: 'NEW_FRIENDSHIP_INVITE',
+                         properties: {from_user_id: from_user_id})
+  end
+
   validates :from_user, presence: true
   validates :to_user, presence: true
   validate :cannot_invite_himself
@@ -16,6 +22,12 @@ class FriendshipInvite < ActiveRecord::Base
       Friendship.create!(user: from_user, friend: to_user)
       Friendship.create!(user: to_user, friend: from_user)
       destroy!
+      Notification.create!(user: from_user,
+                           type: 'NEW_FRIENDSHIP',
+                           properties: {friend_id: to_user})
+      Notification.create!(user: to_user,
+                           type: 'NEW_FRIENDSHIP',
+                           properties: {friend_id: from_user})
     end
   end
 
