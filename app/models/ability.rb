@@ -68,6 +68,10 @@ class Ability
 
     ###
 
-    can :index, ConversationParticipant if params[:user_id].to_i == current_user.id
+    can :index, ConversationParticipant if params[:user_id].try(:to_i) == current_user.id
+
+    ###
+
+    can :index, Notification if params[:user_id].try(:to_i) == current_user.id
   end
 end
