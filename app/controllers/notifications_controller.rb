@@ -1,7 +1,6 @@
 class NotificationsController < APIController
   def check
-    notifications = Notification.find(params[:notification_ids])
-    notifications.each { |n| n.update!(checked: true) }
+    Notification.check!(params[:notification_ids])
     render nothing: true
   end
 end
