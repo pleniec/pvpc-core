@@ -9,4 +9,8 @@ class Team < ActiveRecord::Base
   validates :founder, presence: true
 
   scope :nickname, ->(nickname) { where(Team.arel_table[:nickname].matches("#{nickname}%")) }
+
+  def captains
+    team_memberships.where(captain: true).map(&:user)
+  end
 end

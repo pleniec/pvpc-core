@@ -1,5 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe TeamMembershipInvite, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe TeamMembershipInvite do
+  describe '#accept!' do
+    it 'adds invited user to a team' do
+      team = FactoryGirl.create(:team)
+      user = FactoryGirl.create(:user)
+
+      TeamMembershipInvite.create!(from_user: team.founder, to_user: user, team: team).accept!
+
+      expect(team.users).to include(user)
+    end
+  end
 end
