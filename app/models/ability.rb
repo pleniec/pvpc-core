@@ -27,7 +27,7 @@ class Ability
     can [:create], FriendshipInvite do |friendship_invite|
       friendship_invite.from_user == current_user
     end
-    can :index, FriendshipInvite if params[:to_user_id].to_i == current_user.id
+    can :index, FriendshipInvite if params[:to_user_id].try(:to_i) == current_user.id
     can [:destroy, :accept], FriendshipInvite do |friendship_invite|
       friendship_invite.to_user == current_user
     end
