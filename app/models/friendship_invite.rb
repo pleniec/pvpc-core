@@ -22,12 +22,6 @@ class FriendshipInvite < ActiveRecord::Base
       Friendship.create!(user: from_user, friend: to_user)
       Friendship.create!(user: to_user, friend: from_user)
       destroy!
-      Notification.create!(user: from_user,
-                           type: 'NEW_FRIENDSHIP',
-                           properties: {friend_id: to_user})
-      Notification.create!(user: to_user,
-                           type: 'NEW_FRIENDSHIP',
-                           properties: {friend_id: from_user})
     end
   end
 
