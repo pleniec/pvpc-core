@@ -13,8 +13,8 @@ class Notification < ActiveRecord::Base
 
   def self.check!(notification_ids)
     transaction do
-      notifications = Notification.find(notification_ids)
-      notifications.each { |n| n.update!(checked: true) }
+      Notification.find(notification_ids)
+      Notification.where(id: notification_ids).update_all(checked: true)
     end
   end
 end
