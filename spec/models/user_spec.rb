@@ -77,6 +77,12 @@ RSpec.describe User do
       it 'returns "STRANGER"' do
         expect(@users[0].relation_to(@users[1])).to eql 'STRANGER'
       end
-    end 
+    end
+
+    context 'when users are objects with the same id' do
+      it 'returns "SELF"' do
+        expect(@users[0].relation_to(User.find(@users[0].id))).to eql 'SELF'
+      end
+    end
   end
 end
