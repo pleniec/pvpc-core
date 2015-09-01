@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   has_many :friends, through: :friendships
   has_many :team_memberships
   has_many :teams, through: :team_memberships
+  has_many :notifications
 
   after_create { session.create }
 
