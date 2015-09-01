@@ -14,7 +14,6 @@ Rails.application.routes.draw do
     end
     resources :teams, only: [:index, :show, :create]
     resources :team_memberships, only: [:index, :create, :update, :destroy]
-    resources :divisions, only: [:index, :show, :create, :update, :destroy]
     resources :conversation_participants, only: [:index]
     resources :conversations, only: [:create, :show]
     resources :messages, only: [:index]
