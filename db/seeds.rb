@@ -16,5 +16,3 @@ end
 5.times do
   FactoryGirl.create(:team, founder: @users.sample)
 end
-
-Admin.create!(email: 'admin@admin.ad', password: 'sraka123')
