@@ -2,8 +2,15 @@ local: &local
   host: localhost
   port: 6379
 
+docker: &docker
+  host: <%= ENV['REDIS_PORT_6379_TCP_ADDR'] %>
+  port: <%= ENV['REDIS_PORT_6379_TCP_PORT'] %>
+
 development:
   <<: *local
 
 test:
   <<: *local
+
+vagrant:
+  <<: *docker

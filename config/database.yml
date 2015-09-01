@@ -4,8 +4,17 @@ local: &local
   port: 5432
   username: postgres
 
+docker: &docker
+  adapter: postgresql
+  host: <%= ENV['POSTGRES_PORT_5432_TCP_ADDR'] %>
+  port: <%= ENV['POSTGRES_PORT_5432_TCP_PORT'] %>
+  username: postgres
+
 development:
   <<: *local
 
 test:
   <<: *local
+
+vagrant:
+  <<: *docker
