@@ -1,11 +1,11 @@
-development:
-  adapter: postgresql
-  host: <%= ENV['POSTGRES_PORT_5432_TCP_ADDR'] %>
-  port: <%= ENV['POSTGRES_PORT_5432_TCP_PORT'] %>
-  username: postgres
-
-test:
+local: &local
   adapter: postgresql
   host: localhost
   port: 5432
   username: postgres
+
+development:
+  <<: *local
+
+test:
+  <<: *local
