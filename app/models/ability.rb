@@ -66,6 +66,6 @@ class Ability
     ###
 
     can :index, Notification if params[:user_id].try(:to_i) == current_user.id
-    can :check, Notification { |n| n.user == current_user }
+    can(:check, Notification) { |n| n.user == current_user }
   end
 end
