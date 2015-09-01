@@ -16,14 +16,14 @@ class Notification < ActiveRecord::Base
       case type
       when 'NEW_FRIENDSHIP_INVITE'
         json.from_user do
-          from_user = User.find(properties[:from_user_id])
+          from_user = User.find_by_id(properties['from_user_id'])
           json.id from_user.id
           json.email from_user.email
           json.nickname from_user.nickname
         end
       when 'NEW_FRIENDSHIP'
         json.friend do
-          friend = User.find(properties[:friend_id])
+          friend = User.find_by_id(properties['friend_id'])
           json.id friend.id
           json.email friend.email
           json.nickname friend.nickname

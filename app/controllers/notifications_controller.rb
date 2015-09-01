@@ -1,7 +1,9 @@
 class NotificationsController < APIController
+  has_scope :user_id, :created_at, :checked, :limit, :offset
+
   def index
     super
-    @total_unchecked = current_user.notification.where(checked: false).count
+    @total_unchecked = current_user.notifications.where(checked: false).count
   end
 
   def check
