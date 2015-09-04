@@ -1,4 +1,4 @@
-class FriendshipInvitesController < APIController
+class FriendshipInvitesController < ApplicationController
   has_scope :to_user_id
 
   def accept

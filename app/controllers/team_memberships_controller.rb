@@ -1,4 +1,4 @@
-class TeamMembershipsController < APIController
+class TeamMembershipsController < ApplicationController
   has_scope :team_id, :user_id
 
   protected

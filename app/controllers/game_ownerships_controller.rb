@@ -1,4 +1,4 @@
-class GameOwnershipsController < APIController
+class GameOwnershipsController < ApplicationController
   has_scope :user_id
 
   protected

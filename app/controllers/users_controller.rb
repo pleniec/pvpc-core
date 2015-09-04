@@ -1,4 +1,4 @@
-class UsersController < APIController
+class UsersController < ApplicationController
   skip_before_action :authenticate, only: [:create, :show, :index, :login]
 
   has_scope :nickname, :strangers_to_user_id, :limit, :offset

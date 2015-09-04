@@ -1,4 +1,4 @@
-class TeamMembershipInviteController < APIController
+class TeamMembershipInviteController < ApplicationController
   has_scope :to_user_id
 
   def accept

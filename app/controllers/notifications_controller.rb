@@ -1,4 +1,4 @@
-class NotificationsController < APIController
+class NotificationsController < ApplicationController
   has_scope :user_id, :created_at, :checked, :limit, :offset
 
   def index

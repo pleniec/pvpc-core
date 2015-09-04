@@ -1,4 +1,4 @@
-class TeamsController < APIController
+class TeamsController < ApplicationController
   protected
 
   def create_params

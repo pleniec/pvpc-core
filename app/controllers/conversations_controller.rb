@@ -1,4 +1,4 @@
-class ConversationsController < APIController
+class ConversationsController < ApplicationController
   protected
 
   def create_params
