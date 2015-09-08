@@ -1,9 +1,7 @@
 json.id model.id
 json.email model.email
 json.nickname model.nickname
-if current_user && controller_name != 'users' && action_name != 'login'
-  json.relation_to_current_user model.relation_to(current_user)
-end
+json.relation_to_current_user model.relation_to_user(current_user) if current_user
 json.sex model.sex
 json.nationality model.nationality
 json.description model.description
