@@ -25,7 +25,7 @@ RSpec.describe TeamsController do
   describe 'POST #create' do
     it 'creates team' do
       create access_token: @user.session.access_token,
-        nickname: 'tim', description: 'nice team', tag: 'hdp', founder_id: @user.id
+        name: 'tim', description: 'nice team', tag: 'hdp', founder_id: @user.id
       expect(response.status).to eql(201)
       expect(Team.count).to eql(4)
     end
@@ -33,7 +33,7 @@ RSpec.describe TeamsController do
     it 'cannot create team as other user' do
       @other_user = FactoryGirl.create(:user)
       create access_token: @user.session.access_token,
-        nickname: 'tim', description: 'nice team', tag: 'hdp', founder_id: @other_user.id
+        name: 'tim', description: 'nice team', tag: 'hdp', founder_id: @other_user.id
       expect(response.status).to eql(403)
       expect(Team.count).to eql(3)
     end

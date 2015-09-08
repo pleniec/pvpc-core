@@ -1,8 +1,10 @@
 class TeamsController < ApplicationController
+  has_scope :name_like
+
   protected
 
   def create_params
-    params.permit(:nickname, :description, :tag, :founder_id)
+    params.permit(:name, :description, :tag, :founder_id)
   end
 
   def create_view

@@ -1,5 +1,5 @@
 json.id @model.id
-json.nickname @model.nickname
+json.name @model.name
 json.description @model.description
 json.tag @model.tag
 json.founder do

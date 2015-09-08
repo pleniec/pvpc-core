@@ -9,13 +9,13 @@ RSpec.describe Team do
     end
   end
 
-  describe '.nickname' do
-    it 'returns teams with matching nickname' do
-      teams = [FactoryGirl.create(:team, nickname: 'team_odin'),
-               FactoryGirl.create(:team, nickname: 'team_dwa'),
-               FactoryGirl.create(:team, nickname: 'team_tri'),
-               FactoryGirl.create(:team, nickname: 'szto?')]
-      found_teams = Team.nickname('team')
+  describe '.name_like' do
+    it 'returns teams with matching name' do
+      teams = [FactoryGirl.create(:team, name: 'team_odin'),
+               FactoryGirl.create(:team, name: 'team_dwa'),
+               FactoryGirl.create(:team, name: 'team_tri'),
+               FactoryGirl.create(:team, name: 'szto?')]
+      found_teams = Team.name_like('team')
       expect(found_teams).to include(*teams[0..2])
     end
   end

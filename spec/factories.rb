@@ -57,7 +57,7 @@ FactoryGirl.define do
   end
 
   factory :team do
-    sequence(:nickname) { |n| "nickname#{n}" }
+    sequence(:name) { |n| "name#{n}" }
     sequence(:description) { |n| "description#{n}" }
     sequence(:tag) { |n| "TG#{n}" }
     founder { create(:user) }

@@ -4,6 +4,6 @@ json.models @models do |model|
   json.user { json.partial! 'partials/user/simple', model: model.user }
   json.team do
     json.id model.team.id
-    json.nickname model.team.nickname
+    json.name model.team.name
   end
 end
