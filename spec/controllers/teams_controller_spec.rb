@@ -7,18 +7,42 @@ RSpec.describe TeamsController do
   end
 
   describe 'GET #index' do
-    it 'renders teams' do
-      index access_token: @user.session.access_token
-      expect(response.status).to eql(200)
-      expect(response_body['models'].size).to eql(3)
+    context 'with access_token parameter' do
+      it 'renders teams' do
+        index access_token: @user.session.access_token
+
+        expect(response.status).to eql(200)
+        expect(response_body['models'].size).to eql(3)
+      end
+    end
+
+    context 'without access_token parameter' do
+      it 'renders teams' do
+        index
+
+        expect(response.status).to eql(200)
+        expect(response_body['models'].size).to eql(3)
+      end
     end
   end
 
   describe 'GET #show' do
-    it 'renders team' do
-      show access_token: @user.session.access_token, id: @teams[0].id
-      expect(response.status).to eql(200)
-      expect(response_body.keys.size).to be > 2
+    context 'with access_token paramter' do
+      it 'renders team' do
+        show access_token: @user.session.access_token, id: @teams[0].id
+
+        expect(response.status).to eql(200)
+        expect(response_body.keys.size).to be > 2
+      end
+    end
+
+    context 'without access_token parameter' do
+      it 'renders team' do
+        show id: @teams[0].id
+        
+        expect(response.status).to eql(200)
+        expect(response_body.keys.size).to be > 2
+      end
     end
   end
 

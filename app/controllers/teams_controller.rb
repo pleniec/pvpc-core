@@ -1,4 +1,6 @@
 class TeamsController < ApplicationController
+  skip_before_action :authenticate, only: [:index, :show]
+
   has_scope :name_like
 
   protected
