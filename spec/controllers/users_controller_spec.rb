@@ -40,32 +40,52 @@ RSpec.describe UsersController do
     end
   end
 
-  describe 'GET #index' do
+  describe '#index' do
     before do
       @users = FactoryGirl.create_list(:user, 5)
     end
 
-    it 'renders all users' do
-      index
-      expect(response.status).to eql(200)
-      expect(response_body['models'].size).to eql(5)
-    end
-
-    it 'renders users with nickname starting with string' do
-      @users[3..4].each do |user|
-        user.nickname = 'hihi' + rand(1000).to_s
-        user.save!
+    context 'without access_token parameter' do
+      it 'renders all users' do
+        index
+        expect(response.status).to eql(200)
+        expect(response_body['models'].size).to eql(5)
       end
-      index nickname: 'hi'
-      expect(response.status).to eql(200)
-      expect(response_body['models'].size).to eql(2)
+
+      it 'renders users with nickname starting with string' do
+        @users[3..4].each do |user|
+          user.nickname = 'hihi' + rand(1000).to_s
+          user.save!
+        end
+        index nickname: 'hi'
+        expect(response.status).to eql(200)
+        expect(response_body['models'].size).to eql(2)
+      end
+
+      it 'renders strangers to provided user id' do
+        FriendshipInvite.create!(from_user: @users[0], to_user: @users[1]).accept!
+        index strangers_to_user_id: @users[0].id
+        expect(response.status).to eql(200)
+        expect(response_body['models'].size).to eql(3)
+      end
+
+      it "doesn't render users with relation_to_current_user" do
+        index
+
+        response_body['models'].each do |hash|
+          expect(hash['relation_to_current_user']).to be_nil
+        end
+      end
     end
 
-    it 'renders strangers to provided user id' do
-      FriendshipInvite.create!(from_user: @users[0], to_user: @users[1]).accept!
-      index strangers_to_user_id: @users[0].id
-      expect(response.status).to eql(200)
-      expect(response_body['models'].size).to eql(3)
+    context 'with access_token parameter' do
+      it 'renders users with relation_to_current_user' do
+        index access_token: @users[0].session.access_token
+
+        response_body['models'].each do |hash|
+          expect(hash['relation_to_current_user']).not_to be_nil
+        end
+      end
     end
   end
 
