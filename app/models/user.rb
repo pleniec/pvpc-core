@@ -49,12 +49,12 @@ class User < ActiveRecord::Base
   end
 
   def relation_to(user)
-    if user.friends.include?(self)
+    if friends.include?(user)
       'FRIEND'
-    elsif user.received_friendship_invites.map(&:from_user).include?(self)
-      'SENT_FRIENDSHIP_INVITE'
-    elsif user.sent_friendship_invites.map(&:to_user).include?(self)
+    elsif received_friendship_invites.map(&:from_user).include?(user)
       'RECEIVED_FRIENDSHIP_INVITE'
+    elsif sent_friendship_invites.map(&:to_user).include?(user)
+      'SENT_FRIENDSHIP_INVITE'
     elsif user == self
       'SELF'
     else
