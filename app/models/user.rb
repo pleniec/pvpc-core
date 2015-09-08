@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
     user
   end
 
-  def relation_to(user)
+  def relation_to_user(user)
     if friends.include?(user)
       'FRIEND'
     elsif received_friendship_invites.map(&:from_user).include?(user)
@@ -57,6 +57,18 @@ class User < ActiveRecord::Base
       'SENT_FRIENDSHIP_INVITE'
     elsif user == self
       'SELF'
+    else
+      'STRANGER'
+    end
+  end
+
+  def relation_to_team(team)
+    if team.founder == self
+      'FOUNDER'
+    elsif team.captains.include?(self)
+      'CAPTAIN'
+    elsif team.users.include?(self)
+      'MEMBER'
     else
       'STRANGER'
     end

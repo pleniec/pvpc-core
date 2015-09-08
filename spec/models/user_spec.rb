@@ -46,14 +46,14 @@ RSpec.describe User do
     end
   end
 
-  describe '#relation' do
+  describe '#relation_to_user' do
     before { @users = FactoryGirl.create_list(:user, 2) }
 
     context 'when first user sent friendship invite to second' do
       it 'returns "SENT_FRIENDSHIP_INVITE"' do
         FriendshipInvite.create!(from_user: @users[0], to_user: @users[1])
 
-        expect(@users[0].relation_to(@users[1])).to eql 'SENT_FRIENDSHIP_INVITE'
+        expect(@users[0].relation_to_user(@users[1])).to eql 'SENT_FRIENDSHIP_INVITE'
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe User do
       it 'returns "RECEIVED_FRIENDSHIP_INVITE"' do
         FriendshipInvite.create!(from_user: @users[1], to_user: @users[0])
 
-        expect(@users[0].relation_to(@users[1])).to eql 'RECEIVED_FRIENDSHIP_INVITE'
+        expect(@users[0].relation_to_user(@users[1])).to eql 'RECEIVED_FRIENDSHIP_INVITE'
       end
     end
 
@@ -69,19 +69,59 @@ RSpec.describe User do
       it 'returns "FRIEND"' do
         FriendshipInvite.create!(from_user: @users[0], to_user: @users[1]).accept!
         
-        expect(@users[0].relation_to(@users[1])).to eql 'FRIEND'
+        expect(@users[0].relation_to_user(@users[1])).to eql 'FRIEND'
       end
     end
 
     context "when users are not friends and didn't send invites" do
       it 'returns "STRANGER"' do
-        expect(@users[0].relation_to(@users[1])).to eql 'STRANGER'
+        expect(@users[0].relation_to_user(@users[1])).to eql 'STRANGER'
       end
     end
 
     context 'when users are objects with the same id' do
       it 'returns "SELF"' do
-        expect(@users[0].relation_to(User.find(@users[0].id))).to eql 'SELF'
+        expect(@users[0].relation_to_user(User.find(@users[0].id))).to eql 'SELF'
+      end
+    end
+  end
+
+  describe '#relation_to_team' do
+    context 'when user is founder of a team' do
+      it 'returns "FOUNDER"' do
+        user = FactoryGirl.create(:user)
+        team = FactoryGirl.create(:team, founder: user)
+
+        expect(user.relation_to_team(team)).to eql 'FOUNDER'
+      end
+    end
+
+    context 'when user is captain of a team' do
+      it 'returns "CAPTAIN"' do
+        user = FactoryGirl.create(:user)
+        team = FactoryGirl.create(:team)
+        TeamMembership.create!(user: user, team: team, captain: true)
+
+        expect(user.relation_to_team(team)).to eql 'CAPTAIN'
+      end
+    end
+
+    context 'when user is member of a team' do
+      it 'returns "MEMBER"' do
+        user = FactoryGirl.create(:user)
+        team = FactoryGirl.create(:team)
+        TeamMembership.create!(user: user, team: team)
+
+        expect(user.relation_to_team(team)).to eql 'MEMBER'
+      end
+    end
+
+    context 'when user is not member of a team' do
+      it 'returns "STRANGER"' do
+        user = FactoryGirl.create(:user)
+        team = FactoryGirl.create(:team)
+
+        expect(user.relation_to_team(team)).to eql 'STRANGER'
       end
     end
   end

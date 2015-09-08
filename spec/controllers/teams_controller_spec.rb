@@ -6,22 +6,28 @@ RSpec.describe TeamsController do
     @teams = FactoryGirl.create_list(:team, 3, founder: @user)
   end
 
-  describe 'GET #index' do
+  describe '#index' do
     context 'with access_token parameter' do
-      it 'renders teams' do
+      it 'renders teams with current_user_relation' do
         index access_token: @user.session.access_token
 
         expect(response.status).to eql(200)
         expect(response_body['models'].size).to eql(3)
+        response_body['models'].each do |hash|
+          expect(hash['current_user_relation']).not_to be_nil
+        end
       end
     end
 
     context 'without access_token parameter' do
-      it 'renders teams' do
+      it 'renders teams without current_user_relation' do
         index
 
         expect(response.status).to eql(200)
         expect(response_body['models'].size).to eql(3)
+        response_body['models'].each do |hash|
+          expect(hash['current_user_relation']).to be_nil
+        end
       end
     end
   end
