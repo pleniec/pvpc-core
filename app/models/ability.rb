@@ -48,6 +48,14 @@ class Ability
 
     ###
 
+    if Team.find_by_id(params[:team_id]).try(:founder) == current_user
+      can(:index, TeamMembershipRequest)
+    end
+    can(:create, TeamMembershipRequest) { |tmr| tmr.from_user == current_user }
+    can([:accept, :destroy], TeamMembershipRequest) { |tmr| tmr.team.founder == current_user }
+
+    ###
+
     can(:index, TeamMembershipInvite) if params[:to_user_id] == current_user.id
     can(:create, TeamMembershipInvite) { |tmi| tmi.team.founder == current_user }
     can([:accept, :destroy], TeamMembershipInvite) { |tmi| tmi.to_user == current_user }

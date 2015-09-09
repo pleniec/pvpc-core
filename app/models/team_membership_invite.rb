@@ -2,7 +2,7 @@ class TeamMembershipInvite < ActiveRecord::Base
   belongs_to :to_user, class_name: 'User'
   belongs_to :team
 
-  validates :to_user, presence: true, uniqueness: {scope: :team_id}
+  validates :to_user, presence: true, uniqueness: {scope: :team}
   validates :team, presence: true
   validate :cannot_invite_team_member
 

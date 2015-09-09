@@ -1,4 +1,7 @@
-FactoryGirl.define do
+FactoryGirl.define do  factory :team_membership_request do
+    
+  end
+
   factory :user do
     sequence(:email) { |n| "user#{n}@mail.com" }
     password 'password123'

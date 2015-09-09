@@ -2,7 +2,7 @@ class GameRule < ActiveRecord::Base
   belongs_to :game
 
   validates :game, presence: true
-  validates :name, presence: true, uniqueness: {scope: :game_id}
+  validates :name, presence: true, uniqueness: {scope: :game}
   validate :properties_presence
 
   private
