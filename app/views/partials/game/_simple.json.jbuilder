@@ -1,3 +1,3 @@
-  json.id model.id
-  json.name model.name
+json.id model.id
+json.name model.name
   
