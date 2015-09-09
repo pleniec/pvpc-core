@@ -1,8 +1,13 @@
 class GameRule < ActiveRecord::Base
   belongs_to :game
-  has_many :entries, class_name: 'GameRuleEntry', foreign_key: :game_rule_id
 
-  accepts_nested_attributes_for :entries, allow_destroy: true
+  validates :game, presence: true
+  validates :name, presence: true, uniqueness: {scope: :game_id}
+  validate :properties_presence
 
-  validates :name, presence: true
+  private
+
+  def properties_presence
+    errors[:properties] << "can't be blank" if properties.nil?
+  end
 end

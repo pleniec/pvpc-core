@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909135616) do
+ActiveRecord::Schema.define(version: 20150909141552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,31 +52,13 @@ ActiveRecord::Schema.define(version: 20150909135616) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "game_rule_entries", force: :cascade do |t|
-    t.integer  "game_rule_id", null: false
-    t.string   "key",          null: false
-    t.string   "value",        null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
   create_table "game_rules", force: :cascade do |t|
-    t.integer  "game_id",    null: false
-    t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "game_id",                 null: false
+    t.string   "name",                    null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.hstore   "properties", default: {}, null: false
   end
-
-  create_table "game_translations", force: :cascade do |t|
-    t.integer  "game_id",     null: false
-    t.string   "locale",      null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.text     "description"
-  end
-
-  add_index "game_translations", ["game_id"], name: "index_game_translations_on_game_id", using: :btree
-  add_index "game_translations", ["locale"], name: "index_game_translations_on_locale", using: :btree
 
   create_table "games", force: :cascade do |t|
     t.datetime "created_at", null: false

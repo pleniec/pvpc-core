@@ -41,15 +41,7 @@ FactoryGirl.define do
 
   factory :game_rule do
     sequence(:name) { |n| "game_rule#{n}" }
-
-    after :create do |rule|
-      create_list(:game_rule_entry, 3, rule: rule)
-    end
-  end
-
-  factory :game_rule_entry do
-    sequence(:key) { |n| "entry_key#{n}" }
-    sequence(:value) { |n| "entry_value#{n}" }
+    sequence(:properties) { |n| {prop1: 'val1', prop2: 'val2'} }
   end
 
   factory :game_ownership do

@@ -1,9 +1,5 @@
 class Game < ActiveRecord::Base
-  has_many :game_translations
-  has_many :rules, class_name: 'GameRule'
+  has_many :game_rules
 
-  accepts_nested_attributes_for :game_translations, allow_destroy: true
-  accepts_nested_attributes_for :rules, allow_destroy: true
-
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 end
