@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   has_many :game_ownerships
   has_many :received_friendship_invites, class_name: 'FriendshipInvite', foreign_key: :to_user_id
   has_many :sent_friendship_invites, class_name: 'FriendshipInvite', foreign_key: :from_user_id
+  has_many :received_team_membership_invites, class_name: 'TeamMembershipInvite', foreign_key: :to_user_id
   has_many :friendships
   has_many :friends, through: :friendships
   has_many :team_memberships
