@@ -6,7 +6,7 @@ RSpec.describe TeamMembershipInvite do
       team = FactoryGirl.create(:team)
       user = FactoryGirl.create(:user)
 
-      TeamMembershipInvite.create!(from_user: team.founder, to_user: user, team: team).accept!
+      TeamMembershipInvite.create!(to_user: user, team: team).accept!
 
       expect(team.users).to include(user)
     end
