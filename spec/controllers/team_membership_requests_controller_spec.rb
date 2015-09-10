@@ -129,32 +129,3 @@ RSpec.describe TeamMembershipRequestsController do
     end
   end
 end
-
-=begin
-RSpec.describe TeamMembershipInvitesController do
-  describe '#accept' do
-    before do
-      @team_membership_invite = TeamMembershipInvite.create!(team: @team,
-                                                             to_user: @user)
-    end
-
-    context 'with permitted id parameter' do
-      it 'destroys team membership invite' do
-        post_json :accept, access_token: @user.session.access_token,
-          id: @team_membership_invite.id
-
-        expect(@team.users).to include(@user)
-      end
-    end
-
-    context 'with forbidden id parameter' do
-      it 'renders forbidden status' do
-        post_json :accept, access_token: @team.founder.session.access_token,
-          id: @team_membership_invite.id
-
-        expect(response.status).to eql 403
-      end
-    end
-  end
-end
-=end
