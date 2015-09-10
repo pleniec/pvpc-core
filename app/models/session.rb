@@ -10,17 +10,17 @@ class Session
 
   def create
     @access_token = Devise.friendly_token
-    Redis.current.setex(redis_key, SESSION_TTL, @user.id)
+    Cache.session.setex(redis_key, SESSION_TTL, @user.id)
   end
 
   def destroy
-    Redis.current.del(redis_key)
+    Cache.session.del(redis_key)
   end
 
   def to_user
     return nil unless access_token
-    Redis.current.expire(redis_key, SESSION_TTL)
-    User.find_by_id(Redis.current.get(redis_key))
+    Cache.session.expire(redis_key, SESSION_TTL)
+    User.find_by_id(Cache.session.get(redis_key))
   end
 
   private

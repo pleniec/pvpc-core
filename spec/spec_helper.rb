@@ -14,7 +14,7 @@ RSpec.configure do |config|
   end
 
   config.after do
-    Redis.current.flushall
+    Cache.session.flushall
   end
 
   config.include Helper
