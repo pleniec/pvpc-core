@@ -2,6 +2,7 @@ class Team < ActiveRecord::Base
   belongs_to :founder, class_name: 'User'
   has_many :team_memberships
   has_many :users, through: :team_memberships
+  has_many :team_membership_requests
 
   after_create { users << founder }
 
