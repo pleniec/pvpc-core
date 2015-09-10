@@ -11,6 +11,6 @@ class TeamMembershipRequestsController < ApplicationController
   private
 
   def create_params
-    params.permit(:from_user_id, :team_id)
+    params.permit(:user_id, :team_id)
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe TeamMembershipRequestsController do
   end
 
   describe '#index' do
-    before { TeamMembershipRequest.create!(team: @team, from_user: @user) }
+    before { TeamMembershipRequest.create!(team: @team, user: @user) }
 
     context 'without parameters' do
       it 'renders forbidden status' do
@@ -41,7 +41,7 @@ RSpec.describe TeamMembershipRequestsController do
     context 'with permitted team_id' do
       it 'sends invite to user' do
         create access_token: @user.session.access_token,
-          team_id: @team.id, from_user_id: @user.id
+          team_id: @team.id, user_id: @user.id
 
         expect(@team.team_membership_requests.count).to eql 1
       end
@@ -50,7 +50,7 @@ RSpec.describe TeamMembershipRequestsController do
     context 'with forbidden team_id' do
       it 'renders forbidden status' do
         create access_token: @team.founder.session.access_token,
-          team_id: @team.id, from_user_id: @user.id
+          team_id: @team.id, user_id: @user.id
 
         expect(response.status).to eql 403
       end
@@ -58,10 +58,10 @@ RSpec.describe TeamMembershipRequestsController do
 
     context 'with already invited user id' do
       it 'renders unprocessable entity status' do
-        TeamMembershipRequest.create!(team: @team, from_user: @user)
+        TeamMembershipRequest.create!(team: @team, user: @user)
 
         create access_token: @user.session.access_token,
-          team_id: @team.id, from_user_id: @user.id
+          team_id: @team.id, user_id: @user.id
 
         expect(response.status).to eql 422
       end
@@ -72,7 +72,7 @@ RSpec.describe TeamMembershipRequestsController do
         TeamMembershipInvite.create!(team: @team, user: @user).accept!
 
         create access_token: @user.session.access_token,
-          team_id: @team.id, from_user_id: @user.id
+          team_id: @team.id, user_id: @user.id
 
         expect(response.status).to eql 422
       end
@@ -82,7 +82,7 @@ RSpec.describe TeamMembershipRequestsController do
   describe '#destroy' do
     before do
       @team_membership_request = TeamMembershipRequest.create!(team: @team,
-                                                               from_user: @user)
+                                                               user: @user)
     end
 
     context 'with permitted id parameter' do
@@ -107,7 +107,7 @@ RSpec.describe TeamMembershipRequestsController do
   describe '#accept' do
     before do
       @team_membership_request = TeamMembershipRequest.create!(team: @team,
-                                                               from_user: @user)
+                                                               user: @user)
     end
 
     context 'with permitted id parameter' do
