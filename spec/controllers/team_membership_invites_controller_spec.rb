@@ -8,7 +8,7 @@ RSpec.describe TeamMembershipInvitesController do
 
   describe '#index' do
     before do
-      TeamMembershipInvite.create!(team: @team, to_user: @user)
+      TeamMembershipInvite.create!(team: @team, user: @user)
     end
 
     context 'without parameters' do
@@ -19,20 +19,20 @@ RSpec.describe TeamMembershipInvitesController do
       end
     end
 
-    context 'with permitted to_user_id parameter' do
+    context 'with permitted user_id parameter' do
       it "renders user's invites" do
         index access_token: @user.session.access_token,
-          to_user_id: @user.id
+          user_id: @user.id
 
         expect(response.status).to eql 200
         expect(response_body['models'].size).to eql 1
       end
     end
 
-    context 'with forbidden to_user_id parameter' do
+    context 'with forbidden user_id parameter' do
       it 'renders forbidden status' do
         index access_token: @team.founder.session.access_token,
-          to_user_id: @user.id
+          user_id: @user.id
 
         expect(response.status).to eql 403
       end
@@ -43,7 +43,7 @@ RSpec.describe TeamMembershipInvitesController do
     context 'with permitted team_id' do
       it 'sends invite to user' do
         create access_token: @team.founder.session.access_token,
-          team_id: @team.id, to_user_id: @user.id
+          team_id: @team.id, user_id: @user.id
 
         expect(@user.received_team_membership_invites.count).to eql 1
       end
@@ -52,7 +52,7 @@ RSpec.describe TeamMembershipInvitesController do
     context 'with forbidden team_id' do
       it 'renders forbidden status' do
         create access_token: @user.session.access_token,
-          team_id: @team.id, to_user_id: @user.id
+          team_id: @team.id, user_id: @user.id
 
         expect(response.status).to eql 403
       end
@@ -60,10 +60,10 @@ RSpec.describe TeamMembershipInvitesController do
 
     context 'with already invited user id' do
       it 'renders unprocessable entity status' do
-        TeamMembershipInvite.create!(team: @team, to_user: @user)
+        TeamMembershipInvite.create!(team: @team, user: @user)
 
         create access_token: @team.founder.session.access_token,
-          team_id: @team.id, to_user_id: @user.id
+          team_id: @team.id, user_id: @user.id
 
         expect(response.status).to eql 422
       end
@@ -71,10 +71,10 @@ RSpec.describe TeamMembershipInvitesController do
 
     context 'with team member id' do
       it 'renders unprocessable entity status' do
-        TeamMembershipInvite.create!(team: @team, to_user: @user).accept!
+        TeamMembershipInvite.create!(team: @team, user: @user).accept!
 
         create access_token: @team.founder.session.access_token,
-          team_id: @team.id, to_user_id: @user.id
+          team_id: @team.id, user_id: @user.id
 
         expect(response.status).to eql 422
       end
@@ -84,7 +84,7 @@ RSpec.describe TeamMembershipInvitesController do
   describe '#destroy' do
     before do
       @team_membership_invite = TeamMembershipInvite.create!(team: @team,
-                                                             to_user: @user)
+                                                             user: @user)
     end
 
     context 'with permitted id parameter' do
@@ -109,7 +109,7 @@ RSpec.describe TeamMembershipInvitesController do
   describe '#accept' do
     before do
       @team_membership_invite = TeamMembershipInvite.create!(team: @team,
-                                                             to_user: @user)
+                                                             user: @user)
     end
 
     context 'with permitted id parameter' do

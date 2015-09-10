@@ -56,9 +56,9 @@ class Ability
 
     ###
 
-    can(:index, TeamMembershipInvite) if params[:to_user_id] == current_user.id
+    can(:index, TeamMembershipInvite) if params[:user_id] == current_user.id
     can(:create, TeamMembershipInvite) { |tmi| tmi.team.founder == current_user }
-    can([:accept, :destroy], TeamMembershipInvite) { |tmi| tmi.to_user == current_user }
+    can([:accept, :destroy], TeamMembershipInvite) { |tmi| tmi.user == current_user }
 
     ###
 

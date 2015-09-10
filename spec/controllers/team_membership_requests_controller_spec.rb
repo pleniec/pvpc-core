@@ -69,7 +69,7 @@ RSpec.describe TeamMembershipRequestsController do
 
     context 'with team member id' do
       it 'renders unprocessable entity status' do
-        TeamMembershipInvite.create!(team: @team, to_user: @user).accept!
+        TeamMembershipInvite.create!(team: @team, user: @user).accept!
 
         create access_token: @user.session.access_token,
           team_id: @team.id, from_user_id: @user.id

@@ -1,22 +1,22 @@
 class TeamMembershipInvite < ActiveRecord::Base
-  belongs_to :to_user, class_name: 'User'
+  belongs_to :user
   belongs_to :team
 
-  validates :to_user, presence: true, uniqueness: {scope: :team}
+  validates :user, presence: true, uniqueness: {scope: :team}
   validates :team, presence: true
   validate :cannot_invite_team_member
 
-  scope :to_user_id, -> (user_id) { where(to_user_id: user_id) }
+  scope :user_id, -> (user_id) { where(user_id: user_id) }
 
   def accept!
-    TeamMembership.create!(user: to_user, team: team)
+    TeamMembership.create!(user: user, team: team)
   end
 
   private
 
   def cannot_invite_team_member
-    if team.users.include?(to_user)
-      errors[:to_user] << 'cannot invite team member'
+    if team.users.include?(user)
+      errors[:user] << 'cannot invite team member'
     end
   end
 end

@@ -1,5 +1,5 @@
 class TeamMembershipInvitesController < ApplicationController
-  has_scope :to_user_id
+  has_scope :user_id
 
   def accept
     @model = TeamMembershipInvite.find(params[:id])
@@ -11,6 +11,6 @@ class TeamMembershipInvitesController < ApplicationController
   protected
 
   def create_params
-    params.permit(:to_user_id, :team_id)
+    params.permit(:user_id, :team_id)
   end
 end
