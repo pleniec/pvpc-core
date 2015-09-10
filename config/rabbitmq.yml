@@ -1,6 +1,6 @@
 local: &local
   username: 'rabbitmq'
-  password: '0gY0Cdj9lVtGO5G5'
+  password: 'rabbitmq'
 
 development:
   <<: *local
