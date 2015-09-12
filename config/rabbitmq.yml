@@ -5,8 +5,6 @@ local: &local
 docker: &docker
   host: <%= ENV['RABBITMQ_PORT_5672_TCP_ADDR'] %>
   port: <%= ENV['RABBITMQ_PORT_5672_TCP_PORT'] %>
-  username: 'rabbitmq'
-  password: 'rabbitmq'
 
 development:
   <<: *local
