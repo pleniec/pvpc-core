@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   has_many :team_memberships
   has_many :teams, through: :team_memberships
   has_many :notifications
+  has_many :comments, as: :commentable
 
   after_create { session.create }
 

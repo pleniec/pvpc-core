@@ -23,5 +23,6 @@ Rails.application.routes.draw do
     resources :notifications, only: [:index] do
       post :check, on: :collection
     end
+    resources :comments, only: [:index, :create, :update, :destroy]
   end
 end

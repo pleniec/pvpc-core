@@ -1,5 +1,6 @@
-FactoryGirl.define do  factory :team_membership_request do
-    
+FactoryGirl.define do
+  factory :comment do
+    sequence(:text) { |n| "comment#{n}" }
   end
 
   factory :user do

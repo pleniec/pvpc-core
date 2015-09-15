@@ -3,6 +3,7 @@ class Team < ActiveRecord::Base
   has_many :team_memberships
   has_many :users, through: :team_memberships
   has_many :team_membership_requests
+  has_many :comments, as: :commentable
 
   after_create { users << founder }
 
