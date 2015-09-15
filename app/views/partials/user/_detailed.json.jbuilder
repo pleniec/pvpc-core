@@ -12,3 +12,4 @@ json.game_ownerships model.game_ownerships do |game_ownership|
     json.name game_ownership.game.name
   end
 end
+json.image_url model.image_url

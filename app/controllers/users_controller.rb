@@ -15,11 +15,11 @@ class UsersController < ApplicationController
   protected
 
   def create_params
-    params.permit(:email, :password, :nickname, :sex, :age, :nationality)
+    params.permit(:email, :password, :nickname, :sex, :age, :nationality, :image_url)
   end
 
   def update_params
-    params.permit(:password, :nickname, :sex, :age, :nationality, flags: User::FLAGS)
+    params.permit(:password, :nickname, :sex, :age, :nationality, :image_url, flags: User::FLAGS)
   end
 
   def create_view

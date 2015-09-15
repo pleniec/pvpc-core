@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
   protected
 
   def create_params
-    params.permit(:name, :description, :tag, :founder_id)
+    params.permit(:name, :description, :tag, :founder_id, :image_url)
   end
 
   def create_view
