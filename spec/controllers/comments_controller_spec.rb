@@ -1,12 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe CommentsController do
+=begin
+  include_examples :index,
+                   create_permitted_model: ->(user) {},
+                   permitted_params: ->(user, model) {},
+                   create_forbidden_model: ->(user) {},
+                   forbidden_params: ->(user, model) {}
   include_examples :destroy,
                    create_permitted_model: ->(user) { FactoryGirl.create(:comment, user: user) },
                    create_forbidden_model: ->(user) { FactoryGirl.create(:comment) }
   include_examples :create,
                    permitted_params: ->(user) { FactoryGirl.build(:comment, user: user).attributes },
                    forbidden_params: ->(user) { FactoryGirl.build(:comment).attributes }
+=end
+
 =begin
   include_examples :authentication, restricted: [:create, :update, :destroy], free: [:index]
 
