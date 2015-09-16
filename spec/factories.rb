@@ -1,5 +1,7 @@
 FactoryGirl.define do
   factory :comment do
+    user { create(:user) }
+    sequence(:commentable) { |n| create(n.even? ? :user : :team) }
     sequence(:text) { |n| "comment#{n}" }
   end
 
