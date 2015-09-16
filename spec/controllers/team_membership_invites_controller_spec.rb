@@ -45,7 +45,7 @@ RSpec.describe TeamMembershipInvitesController do
         create access_token: @team.founder.session.access_token,
           team_id: @team.id, user_id: @user.id
 
-        expect(@user.received_team_membership_invites.count).to eql 1
+        expect(@user.team_membership_invites.count).to eql 1
       end
     end
 
@@ -92,7 +92,7 @@ RSpec.describe TeamMembershipInvitesController do
         destroy access_token: @user.session.access_token,
           id: @team_membership_invite.id
 
-        expect(@user.received_team_membership_invites.count).to eql 0
+        expect(@user.team_membership_invites.count).to eql 0
       end
     end
 
