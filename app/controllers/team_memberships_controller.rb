@@ -1,4 +1,6 @@
 class TeamMembershipsController < ApplicationController
+  skip_before_action :authenticate, only: [:index]
+  
   has_scope :team_id, :user_id
 
   protected

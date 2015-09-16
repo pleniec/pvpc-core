@@ -7,7 +7,7 @@ RSpec.describe TeamMembershipsController do
     @users = FactoryGirl.create_list(:user, 3)
   end
 
-  describe 'POST #create' do
+  describe '#create' do
     it 'adds user to team' do
       create access_token: @founder.session.access_token,
         user_id: @users[0].id, team_id: @team.id
@@ -23,11 +23,21 @@ RSpec.describe TeamMembershipsController do
     end
   end
 
-  describe 'GET #index' do
-    it 'renders team members' do
-      index access_token: @users[0].session.access_token, team_id: @team.id
-      expect(response.status).to eql(200)
-      expect(response_body['models'].size).to eql(1)
+  describe '#index' do
+    context 'with access_token parameter' do
+      it 'renders team members' do
+        index access_token: @users[0].session.access_token, team_id: @team.id
+
+        expect(response_body['models'].size).to eql(1)
+      end
+    end
+
+    context 'without access_token parameter' do
+      it 'renders team members' do
+        index team_id: @team.id
+
+        expect(response_body['models'].size).to eql(1)
+      end
     end
   end
 end
