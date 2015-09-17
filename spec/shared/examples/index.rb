@@ -6,7 +6,7 @@ RSpec.shared_examples :index do |options|
       it 'renders models' do
         model = options[:create_permitted_model].(@user)
 
-        index options[:permitted_params].merge(access_token: @user.session.access_token)
+        index options[:permitted_params].(model).merge(access_token: @user.session.access_token)
 
         expect(response.status).to eql 200
         expect(response_body['total']).to eql 1
@@ -14,13 +14,15 @@ RSpec.shared_examples :index do |options|
       end
     end
 
-    context 'when unauthorized user attempts to list models' do
-      it 'renders forbidden status' do
-        model = options[:create_forbidden_model].(@user)
+    if options[:create_forbidden_model] && options[:forbidden_params]
+      context 'when unauthorized user attempts to list models' do
+        it 'renders forbidden status' do
+          model = options[:create_forbidden_model].(@user)
 
-        index options[:forbidden_params].merge(access_token: @user.session.access_token)
+          index options[:forbidden_params].(model).merge(access_token: @user.session.access_token)
 
-        expect(response.status).to eql 403
+          expect(response.status).to eql 403
+        end
       end
     end
   end

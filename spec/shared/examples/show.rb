@@ -12,13 +12,15 @@ RSpec.shared_examples :show do |options|
       end
     end
 
-    context 'when unauthorized user attempts to show model' do
-      it 'renders forbidden status' do
-        @model = options[:create_forbidden_model].(@user)
+    if options[:create_forbidden_model]
+      context 'when unauthorized user attempts to show model' do
+        it 'renders forbidden status' do
+          @model = options[:create_forbidden_model].(@user)
 
-        show access_token: @user.session.access_token, id: @mode.id
+          show access_token: @user.session.access_token, id: @mode.id
 
-        expect(response.status).to eql 403
+          expect(response.status).to eql 403
+        end
       end
     end
   end

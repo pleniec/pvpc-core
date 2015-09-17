@@ -1,23 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe GamesController do
-  before { @games = FactoryGirl.create_list(:game, 3) }
+  include_examples :authentication, free: [:index, :show]
 
-  describe '#index' do
-    it 'renders games' do
-      index
+  include_examples :index,
+                   create_permitted_model: ->(user) { FactoryGirl.create(:game) },
+                   permitted_params: ->(model) { {} }
 
-      expect(response.status).to eql(200)
-      expect(response_body['models'].size).to eql(3)
-    end
-  end
-
-  describe '#show' do
-    it 'renders single game' do
-      show id: @games[0].id
-
-      expect(response.status).to eql(200)
-      expect(response_body['id']).to eql(@games[0].id)
-    end
-  end
+  include_examples :show,
+                   create_permitted_model: ->(user) { FactoryGirl.create(:game) }
 end
