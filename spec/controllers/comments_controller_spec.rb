@@ -4,8 +4,8 @@ RSpec.describe CommentsController do
   include_examples :authentication, restricted: [:create, :update, :destroy], free: [:index]
 
   include_examples :create,
-                   permitted_params: ->(user) { FactoryGirl.create(:comment, user: user).attributes },
-                   forbidden_params: ->(user) { FactoryGirl.create(:comment).attributes }
+                   permitted_params: ->(user) { FactoryGirl.build(:comment, user: user).attributes },
+                   forbidden_params: ->(user) { FactoryGirl.build(:comment).attributes }
 
   include_examples :index,
                    create_permitted_model: ->(user) { FactoryGirl.create(:comment, user: user) },
