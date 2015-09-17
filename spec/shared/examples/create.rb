@@ -11,12 +11,14 @@ RSpec.shared_examples :create do |options|
       end
     end
 
-    context 'with forbidden parameters' do
-      it 'renders forbidden status' do
-        create options[:forbidden_params].(@user).merge(access_token: @user.session.access_token)
+    if options[:forbidden_params]
+      context 'with forbidden parameters' do
+        it 'renders forbidden status' do
+          create options[:forbidden_params].(@user).merge(access_token: @user.session.access_token)
 
-        expect(response.status).to eql 403
-        expect(subject.model_class.exists?(response_body['id'])).to be false
+          expect(response.status).to eql 403
+          expect(subject.model_class.exists?(response_body['id'])).to be false
+        end
       end
     end
   end
