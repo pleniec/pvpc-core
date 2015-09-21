@@ -5,5 +5,7 @@ class AdminController < ActionController::Base
   include Actions::Update
   include Actions::Destroy
 
-  
+  def model_class
+    Object.const_get(params[:model].singularize.capitalize)
+  end
 end
