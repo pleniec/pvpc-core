@@ -3,9 +3,11 @@ module Actions
     extend ActiveSupport::Concern
     include Actions::Base
 
+    included do
+      before_action(only: :update) { @model = update_query.find(params[:id]) }
+    end
+
     def update
-      @model = update_query.find(params[:id])
-      authorize! :update, @model
       @model.update!(update_params)
       render update_view
     end

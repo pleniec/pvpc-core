@@ -3,9 +3,11 @@ module Actions
     extend ActiveSupport::Concern
     include Actions::Base
 
+    included do
+      before_action(only: :show) { @model = show_query.find(params[:id]) }
+    end
+
     def show
-      @model = show_query.find(params[:id])
-      authorize! :show, @model
       render show_view
     end
 

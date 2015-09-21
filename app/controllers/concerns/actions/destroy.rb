@@ -3,9 +3,11 @@ module Actions
     extend ActiveSupport::Concern
     include Actions::Base
 
+    included do
+      before_action(only: :destroy) { @model = destroy_query.find(params[:id]) }
+    end
+
     def destroy
-      @model = destroy_query.find(params[:id])
-      authorize! :destroy, @model
       @model.destroy!
       render nothing: true, status: :no_content
     end

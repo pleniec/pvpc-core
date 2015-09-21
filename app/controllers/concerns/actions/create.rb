@@ -3,9 +3,11 @@ module Actions
     extend ActiveSupport::Concern
     include Actions::Base
 
+    included do
+      before_action(only: :create) { @model = model_class.new(create_params) }
+    end
+
     def create
-      @model = model_class.new(create_params)
-      authorize! :create, @model
       @model.save!
       render create_view, status: :created
     end

@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include Actions::Destroy
 
   include Authentication
+  include Authorization
 
   http_basic_authenticate_with name: 'pvpc', password: 'pefalpe987'
   protect_from_forgery with: :null_session

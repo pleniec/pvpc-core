@@ -15,7 +15,7 @@ RSpec.describe CommentsController do
   include_examples :update, params: {'text' => 'nice one!'},
                    create_permitted_model: ->(user) { FactoryGirl.create(:comment, user: user) },
                    create_forbidden_model: ->(user) { FactoryGirl.create(:comment) }
-                   
+
   include_examples :destroy,
                    create_permitted_model: ->(user) { FactoryGirl.create(:comment, user: user) },
                    create_forbidden_model: ->(user) { FactoryGirl.create(:comment) }

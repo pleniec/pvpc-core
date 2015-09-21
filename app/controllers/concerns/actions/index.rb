@@ -4,7 +4,6 @@ module Actions
     include Actions::Base
 
     def index
-      authorize! :index, model_class
       @total = index_query.offset(nil).limit(nil).count
       @models = index_query.to_a
     end
