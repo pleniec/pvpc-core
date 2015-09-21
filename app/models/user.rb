@@ -25,8 +25,7 @@ class User < ActiveRecord::Base
   has_many :game_ownerships
   has_many :received_friendship_invites, class_name: 'FriendshipInvite', foreign_key: :to_user_id
   has_many :sent_friendship_invites, class_name: 'FriendshipInvite', foreign_key: :from_user_id
-  has_many :team_membership_invites
-  has_many :team_membership_requests
+  has_many :team_membership_propositions
   has_many :friendships
   has_many :friends, through: :friendships
   has_many :team_memberships
@@ -72,9 +71,9 @@ class User < ActiveRecord::Base
       'CAPTAIN'
     elsif team.users.include?(self)
       'MEMBER'
-    elsif team_membership_invites.map(&:team).include?(team)
+    elsif  team_membership_propositions.invites.map(&:team).include?(team)
       'RECEIVED_TEAM_MEMBERSHIP_INVITE'
-    elsif team_membership_requests.map(&:team).include?(team)
+    elsif team_membership_propositions.requests.map(&:team).include?(team)
       'REQUESTED_TEAM_MEMBERSHIP'
     else
       'STRANGER'

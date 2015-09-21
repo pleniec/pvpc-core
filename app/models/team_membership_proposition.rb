@@ -12,6 +12,8 @@ class TeamMembershipProposition < ActiveRecord::Base
   scope :user_id, -> (user_id) { where(user_id: user_id) }
   scope :team_id, ->(team_id) { where(team_id: team_id) }
   scope :type, ->(type) { where(type: type) }
+  scope :requests, -> { where(type: 'REQUEST') }
+  scope :invites, -> { where(type: 'INVITE') }
 
   def accept!
     transaction do
