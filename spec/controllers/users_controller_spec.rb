@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController do
-  include_examples :authentication, restricted: [:update], free: [:create, :show, :index]
+  include_examples :authentication, restricted: {update: :patch}, free: {create: :post, show: :get, index: :get}
 
   include_examples :create,
                    permitted_params: ->(user) { FactoryGirl.attributes_for(:user) }

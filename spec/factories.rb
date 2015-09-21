@@ -1,4 +1,10 @@
 FactoryGirl.define do
+  factory :team_membership_proposition do
+    user { create(:user) }
+    team { create(:team) }
+    sequence(:type) { |n| n.even? ? 'REQUEST' : 'INVITE' }
+  end
+
   factory :comment do
     user { create(:user) }
     sequence(:commentable) { |n| create(n.even? ? :user : :team) }
