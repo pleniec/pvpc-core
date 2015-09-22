@@ -7,6 +7,9 @@ class AdminController < ActionController::Base
 
   include Rescues
 
+  http_basic_authenticate_with name: 'admin', password: 'admin'
+  protect_from_forgery with: :null_session
+
   def model_class
     Object.const_get(params[:model].singularize.capitalize)
   end
