@@ -24,5 +24,11 @@ module Authorization
   def update
     authorize! :update, @model
     super
-  end   
+  end
+
+  protected
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user, params)
+  end
 end

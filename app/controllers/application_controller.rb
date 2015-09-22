@@ -14,8 +14,4 @@ class ApplicationController < ActionController::Base
   rescue_from(ActiveRecord::RecordNotFound) { |e| render json: {message: e.message}, status: :not_found }
   rescue_from(ActiveRecord::RecordInvalid) { |e| render json: e.record.errors, status: :unprocessable_entity }
   rescue_from(CanCan::AccessDenied) { |e| render json: {message: e.message}, status: :forbidden }
-
-  def current_ability
-    @current_ability ||= Ability.new(current_user, params)
-  end
 end
