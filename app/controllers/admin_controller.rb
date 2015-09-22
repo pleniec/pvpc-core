@@ -13,4 +13,14 @@ class AdminController < ActionController::Base
   def model_class
     Object.const_get(params[:model].singularize.capitalize)
   end
+
+  protected
+
+  def create_params
+    params.except(:format, :controller, :action, :model).permit!
+  end
+
+  def update_params
+    params.except(:format, :controller, :action, :model).permit!
+  end
 end
