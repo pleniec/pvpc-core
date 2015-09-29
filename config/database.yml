@@ -2,7 +2,9 @@ local: &local
   adapter: postgresql
   host: localhost
   port: 5432
-  username: postgres
+  database: core
+  username: core
+  password: core
 
 docker: &docker
   adapter: postgresql
