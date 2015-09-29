@@ -21,6 +21,5 @@ Rails.application.routes.draw do
     resources :team_membership_propositions, only: [:index, :create, :destroy] do
       post :accept, on: :member
     end
-    resources :admin, path: '/admin/:model', only: [:index, :show, :create, :update, :destroy]
   end
 end
