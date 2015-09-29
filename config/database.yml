@@ -10,7 +10,9 @@ docker: &docker
   adapter: postgresql
   host: <%= ENV['POSTGRES_PORT_5432_TCP_ADDR'] %>
   port: <%= ENV['POSTGRES_PORT_5432_TCP_PORT'] %>
-  username: postgres
+  database: core
+  username: core
+  password: core
 
 development:
   <<: *local
