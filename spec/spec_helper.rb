@@ -9,10 +9,6 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.before type: :controller do
-    request.env['HTTP_AUTHORIZATION'] = 'Basic ' + Base64::encode64('pvpc:pefalpe987')
-  end
-
   config.after do
     Cache.session.flushall
   end
