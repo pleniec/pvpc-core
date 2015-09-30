@@ -8,6 +8,4 @@ class ApplicationController < ActionController::Base
   include Authentication
   include Authorization
   include Rescues
-
-  protect_from_forgery with: :null_session
 end
