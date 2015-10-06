@@ -8,7 +8,8 @@ class UsersController < ApplicationController
     if @model.nil?
       render json: {credentials: ['invalid']}, status: :unprocessable_entity
     else
-      render :private
+      render json: @model, serializer: DetailedUserSerializer,
+             scope: current_user
     end
   end
 

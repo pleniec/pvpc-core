@@ -5,6 +5,7 @@ class FriendshipInvitesController < ApplicationController
     @model = FriendshipInvite.find(params[:id])
     authorize! :accept, @model
     @model.accept!
+    render nothing: true, status: :no_content
   end
 
   protected
