@@ -15,6 +15,7 @@ gem 'kaminari'
 gem 'therubyracer'
 gem 'countries'
 gem 'bunny'
+gem 'active_model_serializers'
 
 group :production do
   gem 'rails_12factor'
