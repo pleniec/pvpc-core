@@ -9,8 +9,7 @@ RSpec.shared_examples :update do |options = {}|
 
         update params.merge(access_token: @user.session.access_token, id: model.id)
 
-        expect(response.status).to eql 200
-        expect(response_body.slice(*params.keys)).to eql params
+        expect(response.status).to eql 204
       end
     end
 

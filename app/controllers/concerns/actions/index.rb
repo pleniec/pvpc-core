@@ -5,7 +5,8 @@ module Actions
 
     def index
       render json: index_query, total: index_query.offset(nil).limit(nil).count,
-             serializer: ArraySerializer, each_serializer: serializer_class
+             serializer: ArraySerializer, each_serializer: serializer_class,
+             scope: current_user
     end
 
     protected

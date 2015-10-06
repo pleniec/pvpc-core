@@ -8,7 +8,8 @@ module Actions
     end
 
     def show
-      render json: @model, serializer: detailed_serializer_class
+      render json: @model, serializer: detailed_serializer_class,
+             scope: current_user
     end
 
     protected
