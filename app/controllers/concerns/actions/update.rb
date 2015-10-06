@@ -9,7 +9,7 @@ module Actions
 
     def update
       @model.update!(update_params)
-      render update_view
+      render nothing: true, status: :no_content
     end
 
     protected

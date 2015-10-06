@@ -9,7 +9,7 @@ module Actions
 
     def create
       @model.save!
-      render create_view, status: :created
+      render json: @model, serializer: detailed_serializer_class, status: :created
     end
 
     protected

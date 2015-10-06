@@ -4,8 +4,8 @@ module Actions
     include Actions::Base
 
     def index
-      @total = index_query.offset(nil).limit(nil).count
-      @models = index_query.to_a
+      render json: index_query, total: index_query.offset(nil).limit(nil).count,
+             serializer: ArraySerializer, each_serializer: serializer_class
     end
 
     protected

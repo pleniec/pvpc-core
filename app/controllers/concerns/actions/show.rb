@@ -8,7 +8,7 @@ module Actions
     end
 
     def show
-      render show_view
+      render json: @model, serializer: detailed_serializer_class
     end
 
     protected
