@@ -1,4 +1,4 @@
 class DetailedTeamSerializer < TeamSerializer
-  attributes :tag, :description
+  attributes :description
   has_one :founder, serializer: UserSerializer
 end
