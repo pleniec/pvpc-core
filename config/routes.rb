@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       post :accept, on: :member
     end
     resources :teams, only: [:index, :show, :create, :update]
-    resources :team_memberships, only: [:index, :create, :update, :destroy]
+    resources :team_memberships, only: [:index, :update, :destroy]
     resources :conversation_participants, only: [:index]
     resources :conversations, only: [:create, :show]
     resources :messages, only: [:index]

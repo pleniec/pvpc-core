@@ -1,42 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe TeamMembershipsController do
-  before do
-    @founder = FactoryGirl.create(:user)
-    @team = FactoryGirl.create(:team, founder: @founder)
-    @users = FactoryGirl.create_list(:user, 3)
-  end
+  include_examples :authentication, restricted: {update: :patch, destroy: :delete}, free: {index: :get}
 
-  describe '#create' do
-    it 'adds user to team' do
-      create access_token: @founder.session.access_token,
-        user_id: @users[0].id, team_id: @team.id
-      expect(response.status).to eql(201)
-      expect(@team.team_memberships.count).to eql(2)
-    end
+  include_examples :index,
+                   create_permitted_model: ->(user) { FactoryGirl.create(:team_membership) },
+                   permitted_params: ->(model) { {user_id: model.user_id, team_id: model.team_id} }
 
-    it 'allows only founder to add to team' do
-      create access_token: @users[0].session.access_token,
-        user_id: @users[0].id, team_id: @team.id
-      expect(response.status).to eql(403)
-      expect(@team.team_memberships.count).to eql(1)
-    end
-  end
+  include_examples :update, params: {captain: true},
+                   create_permitted_model: ->(user) { FactoryGirl.create(:team_membership, team: FactoryGirl.create(:team, founder: user)) },
+                   create_forbidden_model: ->(user) { FactoryGirl.create(:team_membership) }
 
-  describe '#index' do
-    context 'with access_token parameter' do
-      it 'renders team members' do
-        index access_token: @users[0].session.access_token, team_id: @team.id
+  include_examples :destroy,
+                   create_permitted_model: ->(user) { FactoryGirl.create(:team_membership, team: FactoryGirl.create(:team, founder: user)) },
+                   create_forbidden_model: ->(user) { FactoryGirl.create(:team_membership) }
 
-        expect(response_body['models'].size).to eql(1)
-      end
-    end
+  describe '#destroy' do
+    context 'when founder wants to remove himself from team' do
+      it 'renders errors' do
+        user = FactoryGirl.create(:user)
+        team_membership = FactoryGirl.create(:team_membership, user: user, team: FactoryGirl.create(:team, founder: user))
 
-    context 'without access_token parameter' do
-      it 'renders team members' do
-        index team_id: @team.id
+        destroy id: team_membership.id, access_token: user.session.access_token
 
-        expect(response_body['models'].size).to eql(1)
+        expect(response.status).to eql 422
       end
     end
   end

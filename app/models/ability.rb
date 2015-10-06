@@ -49,8 +49,8 @@ class Ability
     ###
 
     can :index, TeamMembership
-    can [:create, :update, :destroy], TeamMembership do |team_membership|
-      team_membership.team.founder == current_user
+    can [:update, :destroy], TeamMembership do |team_membership|
+      team_membership.try(:team).try(:founder) == current_user
     end
 
     ###

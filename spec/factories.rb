@@ -1,4 +1,10 @@
 FactoryGirl.define do
+  factory :team_membership do
+    user { create(:user) }
+    team { create(:team) }
+    sequence(:captain) { |n| n.even? }
+  end
+
   factory :team_membership_proposition do
     user { create(:user) }
     team { create(:team) }
