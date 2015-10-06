@@ -9,7 +9,7 @@ module Actions
     end
 
     def detailed_serializer_class
-      Object.const_get("Detailed#{controller_path.classify}Serializer")
+      Object.const_get("Detailed#{controller_path.classify}Serializer") rescue serializer_class
     end
   end
 end

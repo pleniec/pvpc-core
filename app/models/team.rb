@@ -14,4 +14,8 @@ class Team < ActiveRecord::Base
   def captains
     team_memberships.where(captain: true).map(&:user)
   end
+
+  def member_count
+    users.count
+  end
 end

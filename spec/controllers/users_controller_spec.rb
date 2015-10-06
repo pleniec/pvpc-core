@@ -1,14 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe UsersController do
-  it 'lols' do
-    user = FactoryGirl.create(:user_with_game_ownerships)
-
-    show id: user.id, format: :json
-
-    raise Exception, response_body
-  end
-=begin
   include_examples :authentication, restricted: {update: :patch}, free: {create: :post, show: :get, index: :get}
 
   include_examples :create,
@@ -45,5 +37,4 @@ RSpec.describe UsersController do
       end
     end
   end
-=end
 end

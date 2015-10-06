@@ -53,7 +53,7 @@ RSpec.describe GameOwnershipsController do
     it "updates user's nickname" do
       update user_id: @users[0].id, id: @users[0].game_ownerships[0].id,
         access_token: @users[0].session.access_token, nickname: 'nyk'
-      expect(response.status).to eql(200)
+      expect(response.status).to eql(204)
       expect(@users[0].game_ownerships[0].reload.nickname).to eql('nyk')
     end
 
