@@ -13,4 +13,9 @@ RSpec.describe TeamsController do
 
   include_examples :show,
                    create_permitted_model: ->(user) { FactoryGirl.create(:team) }
+
+  include_examples :update, params: {name: 'koqsy', description: 'we da best', tag: 'HeHe', image_url: 'nope'},
+                   create_permitted_model: ->(user) { FactoryGirl.create(:team, founder: user) },
+                   create_forbidden_model: ->(user) { FactoryGirl.create(:team) }
+
 end

@@ -42,7 +42,7 @@ class Ability
     ###
 
     can [:index, :show], Team
-    can :create, Team do |team|
+    can [:create, :update], Team do |team|
       team.founder == current_user
     end
 

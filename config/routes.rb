@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :friendship_invites, only: [:index, :create, :destroy] do
       post :accept, on: :member
     end
-    resources :teams, only: [:index, :show, :create]
+    resources :teams, only: [:index, :show, :create, :update]
     resources :team_memberships, only: [:index, :create, :update, :destroy]
     resources :conversation_participants, only: [:index]
     resources :conversations, only: [:create, :show]
