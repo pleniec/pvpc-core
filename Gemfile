@@ -4,7 +4,6 @@ ruby '2.2.2'
 #ruby-gemset=pvpc-core
 
 gem 'rails', '4.2.1'
-gem 'jbuilder', '~> 2.0'
 gem 'pg'
 gem 'devise'
 gem 'uglifier'
