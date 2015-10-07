@@ -6,6 +6,7 @@ class Notification < ActiveRecord::Base
   validates :user, presence: true
   validates :type, presence: true, inclusion: {in: %w[NEW_FRIENDSHIP_INVITE
                                                       NEW_FRIENDSHIP]}
+  validate :cannot_uncheck_notification
 
   after_create do
     if MessageQueue.session.queue_exists?("notifications:#{user.id}")
@@ -38,6 +39,14 @@ class Notification < ActiveRecord::Base
           json.nickname friend.try(:nickname)
         end
       end
+    end
+  end
+
+  private
+
+  def cannot_uncheck_notification
+    if checked_changed? && !checked
+      errors[:checked] << 'cannot uncheck notification'
     end
   end
 end

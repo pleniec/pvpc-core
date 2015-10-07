@@ -14,9 +14,7 @@ Rails.application.routes.draw do
     resources :conversation_participants, only: [:index]
     resources :conversations, only: [:create, :show]
     resources :messages, only: [:index]
-    resources :notifications, only: [:index] do
-      post :check, on: :collection
-    end
+    resources :notifications, only: [:index, :update]
     resources :comments, only: [:index, :create, :update, :destroy]
     resources :team_membership_propositions, only: [:index, :create, :destroy] do
       post :accept, on: :member
