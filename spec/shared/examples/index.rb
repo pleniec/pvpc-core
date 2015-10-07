@@ -9,7 +9,7 @@ RSpec.shared_examples :index do |options|
         index options[:permitted_params].(model).merge(access_token: @user.session.access_token)
 
         expect(response.status).to eql 200
-        expect(response_body['total']).to eql 1
+        expect(response_body['meta']['total']).to eql 1
         expect(response_body['models'][0]['id']).to eql model.id
       end
     end

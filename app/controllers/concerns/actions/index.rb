@@ -4,7 +4,7 @@ module Actions
     include Actions::Base
 
     def index
-      render json: index_query, total: index_query.offset(nil).limit(nil).count,
+      render json: index_query, meta: {total: index_query.offset(nil).limit(nil).count},
              serializer: ArraySerializer, each_serializer: serializer_class,
              scope: current_user
     end
