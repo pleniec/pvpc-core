@@ -17,9 +17,5 @@ module Actions
     def show_query
       model_class
     end
-
-    def show_view
-      :show
-    end
   end
 end

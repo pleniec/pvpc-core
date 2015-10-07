@@ -4,22 +4,12 @@ module Actions
     include Actions::Base
 
     included do
-      before_action(only: :update) { @model = update_query.find(params[:id]) }
+      before_action(only: :update) { @model = model_class.find(params[:id]) }
     end
 
     def update
       @model.update!(update_params)
       render nothing: true, status: :no_content
-    end
-
-    protected
-
-    def update_query
-      model_class
-    end
-
-    def update_view
-      :update
     end
   end
 end

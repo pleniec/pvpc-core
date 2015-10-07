@@ -12,11 +12,5 @@ module Actions
       render json: @model, serializer: detailed_serializer_class, status: :created,
              scope: current_user
     end
-
-    protected
-
-    def create_view
-      :create
-    end
   end
 end
