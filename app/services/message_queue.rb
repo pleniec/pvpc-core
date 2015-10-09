@@ -4,6 +4,10 @@ module MessageQueue
       @session ||= _session
     end
 
+    def notifications
+      session.create_channel.queue("notifications", arguments: {'x-message-ttl' => 5000})
+    end
+
     private
 
     def _session

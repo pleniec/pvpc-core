@@ -11,6 +11,7 @@ RSpec.configure do |config|
 
   config.after do
     Cache.session.flushall
+    MessageQueue.notifications.delete
   end
 
   config.include Helper

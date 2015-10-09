@@ -5,7 +5,7 @@ class Friendship < ActiveRecord::Base
   after_create do
     Notification.create!(user: user,
                          type: 'NEW_FRIENDSHIP',
-                         properties: {friend: UserSerializer.new(friend).attributes})
+                         data: {friend: UserSerializer.new(friend).attributes})
   end
 
   validates :user, presence: true

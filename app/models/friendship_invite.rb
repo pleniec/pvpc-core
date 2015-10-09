@@ -5,7 +5,7 @@ class FriendshipInvite < ActiveRecord::Base
   after_create do
     Notification.create!(user: to_user,
                          type: 'NEW_FRIENDSHIP_INVITE',
-                         properties: {from_user: UserSerializer.new(from_user).attributes})
+                         data: {from_user: UserSerializer.new(from_user).attributes})
   end
 
   validates :from_user, presence: true
